@@ -15,7 +15,19 @@
   <body>
 
     <div class="sh-logopanel">
-      <a href="" class="sh-logo-text">Shamcey</a>
+      <a href="{{ route('dashboard') }}" class="sh-logo-text">
+      @php
+          $settings = DB::table('settings')->get();
+      @endphp
+
+      @foreach($settings as $setting)
+          @if(!empty($setting->logotext))
+          <h2>{{$setting->logotext}}</h2>
+          @else
+              <h2>Logo</h2>
+          @endif
+      @endforeach
+      </a>
       <a id="navicon" href="" class="sh-navicon d-none d-xl-block"><i class="icon ion-navicon"></i></a>
       <a id="naviconMobile" href="" class="sh-navicon d-xl-none"><i class="icon ion-navicon"></i></a>
     </div><!-- sh-logopanel -->
@@ -24,7 +36,7 @@
       <label class="sh-sidebar-label">Navigation</label>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/') }}" class="nav-link active">
+          <a href="{{ url('/') }}" class="nav-link">
             <i class="icon ion-ios-home-outline"></i>
             <span>Dashboard</span>
           </a>
@@ -71,7 +83,7 @@
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
-          <a href="{{ url('/') }}" class="nav-link">
+          <a href="{{ route('settings') }}" class="nav-link">
             <i class="icon ion-gear-b"></i>
             <span>Settings</span>
           </a>
@@ -83,19 +95,19 @@
       <div class="sh-headpanel-left">
 
         <!-- START: HIDDEN IN MOBILE -->
-        <a href="" class="sh-icon-link">
+        <a href="{{ route('products.index') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-folder-outline"></i>
-            <span>Directory</span>
+            <span>Products</span>
           </div>
         </a>
-        <a href="" class="sh-icon-link">
+        <a href="{{ route('customers.index') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-calendar-outline"></i>
-            <span>Events</span>
+            <span>Customers</span>
           </div>
         </a>
-        <a href="" class="sh-icon-link">
+        <a href="{{ route('settings') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-gear-outline"></i>
             <span>Settings</span>
@@ -221,7 +233,12 @@
               <li><a href=""><i class="icon ion-ios-gear"></i> Settings</a></li>
               <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
               <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>
-              <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+              <li>
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button class="btn-link" type="submit"><i class="icon ion-power"></i> Sign Out</button>
+                </form>
+              </li>
             </ul>
           </div><!-- dropdown-menu -->
         </div>

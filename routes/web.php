@@ -13,18 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+
 
 Auth::routes([
 	'register'		=> false
 ]);
 
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('/admin/settings', [App\Http\Controllers\HomeController::class, 'settings'])->middleware(['auth'])->name('settings');
+Route::post('/admin/settings', [App\Http\Controllers\HomeController::class, 'setting_change'])->middleware(['auth'])->name('settings.update');
+
 Route::group(
 	[
-		'prefix'		=> 'admin'
+		'prefix'		=> 'admin',
+		'middleware'	=> ['auth']
 	], 
 	function(){
 		Route::resource('users', 'App\Http\Controllers\UserController');

@@ -1,73 +1,85 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <title>Shamcey Responsive Bootstrap 4 Admin Template</title>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <!-- Vendor css -->
+    <link href="{{ asset('public/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <!-- Shamcey CSS -->
+    <link rel="stylesheet" href="{{ asset('public/css/shamcey.css') }}">
+  </head>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+  <body class="bg-gray-900">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+    <div class="signpanel-wrapper">
+      <div class="signbox">
+        <div class="signbox-header">
+            @php
+                $settings = DB::table('settings')->get();
+            @endphp
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+            @foreach($settings as $setting)
+                @if(!empty($setting->logotext))
+                <h2>{{$setting->logotext}}</h2>
+                @else
+                    <h2>Logo</h2>
+                @endif
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                @if(!empty($setting->address))
+                    <p class="mg-b-0">{{$setting->address}}</p>
+                @else
+                    <p class="mg-b-0">Customer Relation Software</p>
+                @endif
+            @endforeach
+          
+        </div><!-- signbox-header -->
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <div class="signbox-body">
+                <div class="form-group">
+                    <label for="email" class="form-control-label">{{ __('E-Mail Address') }}</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+                <div class="form-group">
+                    <label for="password" class="form-control-label">{{ __('Password') }}</label>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+              <div class="form-group">
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+              </div><!-- form-group -->
+              <button class="btn btn-primary btn-block">Login</button>
+            </div><!-- signbox-body -->
+        </form>
+      </div><!-- signbox -->
+    </div><!-- signpanel-wrapper -->
+
+    <script src="{{ asset('public/lib/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('public/lib/popper.js/popper.js') }}"></script>
+    <script src="{{ asset('public/lib/bootstrap/bootstrap.js') }}"></script>
+
+    <script src="{{ asset('public/js/shamcey.js') }}"></script>
+  </body>
+</html>
+

@@ -11810,14 +11810,18 @@ body {
 .sh-headpanel-right .dropdown-profile .dropdown-profile-nav li {
   display: block;
 }
-.sh-headpanel-right .dropdown-profile .dropdown-profile-nav a {
+.sh-headpanel-right .dropdown-profile .dropdown-profile-nav a, .sh-headpanel-right .dropdown-profile .dropdown-profile-nav button {
   display: flex;
   align-items: center;
   color: #0866C6;
   height: 38px;
   padding: 0 5px;
 }
-.sh-headpanel-right .dropdown-profile .dropdown-profile-nav a:hover, .sh-headpanel-right .dropdown-profile .dropdown-profile-nav a:focus {
+.sh-headpanel-right .dropdown-profile .dropdown-profile-nav button {
+  width: 100%;
+  cursor: pointer;
+}
+.sh-headpanel-right .dropdown-profile .dropdown-profile-nav a:hover, .sh-headpanel-right .dropdown-profile .dropdown-profile-nav a:focus, .sh-headpanel-right .dropdown-profile .dropdown-profile-nav button:hover {
   background-color: #e9ecef;
   color: #0866C6;
 }
