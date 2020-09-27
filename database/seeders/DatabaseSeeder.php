@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'shopname' 	=> 'Demo Shop',
             'phone' 	=> '123456789',
             'email' 	=> 'admin@gmail.com',
-            'logotext' 	=> 'Demo Shop',
+            'logotext' 	=> 'Demo',
             'copyright' => 'Copyright © 2020. All Rights Reserved.',
             'address' 	=> 'Swedish Area, Kaptai, Rangamati.',
         ]);

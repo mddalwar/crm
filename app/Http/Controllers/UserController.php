@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +17,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $current_user = Auth::user()->designation;
+
+        if($current_user == 'Super Admin' || $current_user == 'Manager' || $current_user == 'Admin'){
+            $users = DB::table('users')->get();
+            return view('users.index', compact('users'));
+        }else{
+            abort(404);
+        }   
+        
     }
 
     /**
@@ -25,7 +35,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $current_user = Auth::user()->designation;
+
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            return view('users.create');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -36,26 +52,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $all_data = $request->all();
-        $user_data = [
-            'firstname'     => $all_data['firstname'],
-            'lastname'      => $all_data['lastname'],
-            'email'         => $all_data['email'],
-            'designation'   => $all_data['designation'],
-            'password'      => bcrypt($all_data['password'])
-        ];
+        $current_user = Auth::user()->designation;
 
-        $validate = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|email|unique:users',
-            'designation'   => 'required',
-            'password'      => 'required|confirmed|min:6'
-        ];
-        $request->validate($validate, $user_data);
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $all_data = $request->all();
+            $user_data = [
+                'firstname'     => $all_data['firstname'],
+                'lastname'      => $all_data['lastname'],
+                'email'         => $all_data['email'],
+                'designation'   => $all_data['designation'],
+                'password'      => bcrypt($all_data['password'])
+            ];
 
-        User::create($user_data);
-        return redirect()->back()->with('user_created', 'User has been created !');
+            $validate = [
+                'firstname'     => 'required',
+                'lastname'      => 'required',
+                'email'         => 'required|email|unique:users',
+                'designation'   => 'required',
+                'password'      => 'required|confirmed|min:6'
+            ];
+            $request->validate($validate, $user_data);
+
+            User::create($user_data);
+            return redirect()->back()->with('user_created', 'User has been created !');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -77,8 +99,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('users.edit', compact('user'));
+        $current_user = Auth::user()->designation;
+
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $user = User::find($id);
+            return view('users.edit', compact('user'));
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -90,25 +118,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $all_data = $request->all();
-        $user_data = [
-            'firstname'     => $all_data['firstname'],
-            'lastname'      => $all_data['lastname'],
-            'email'         => $all_data['email'],
-            'designation'   => $all_data['designation']
-        ];
+        $current_user = Auth::user()->designation;
 
-        $validate = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|unique:users,email,'. $id,
-            'designation'   => 'required'
-        ];
-        $request->validate($validate, $user_data);
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $all_data = $request->all();
+            $user_data = [
+                'firstname'     => $all_data['firstname'],
+                'lastname'      => $all_data['lastname'],
+                'email'         => $all_data['email'],
+                'designation'   => $all_data['designation']
+            ];
 
-        $user = User::find($id);
-        $user->update($user_data);
-        return redirect()->back()->with('user_updated', 'User has been updated !');
+            $validate = [
+                'firstname'     => 'required',
+                'lastname'      => 'required',
+                'email'         => 'required|unique:users,email,'. $id,
+                'designation'   => 'required'
+            ];
+            $request->validate($validate, $user_data);
+
+            $user = User::find($id);
+            $user->update($user_data);
+            return redirect()->back()->with('user_updated', 'User has been updated !');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -119,7 +153,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id', $id)->delete();
-        return redirect()->back()->with('deleted', 'User has been deleted !');
+        $current_user = Auth::user()->designation;
+
+        if($current_user == 'Super Admin'){
+            User::where('id', $id)->delete();
+            return redirect()->back()->with('deleted', 'User has been deleted !');
+        }else{
+            abort(404);
+        }
     }
 }

@@ -49,7 +49,7 @@ class CustomerController extends Controller
             'firstname'     => 'required',
             'lastname'      => 'required',
             'email'         => 'nullable|email:filter|unique:customers',
-            'phone'         => 'required|unique:customers|min:10|regex:/(01)[0-9]{9}/',
+            'phone'         => 'required|unique:customers|min:10|regex:/(01)[0-9]/',
             'address'       => 'required'
         ];
         

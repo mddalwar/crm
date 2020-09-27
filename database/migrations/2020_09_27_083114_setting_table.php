@@ -16,7 +16,7 @@ class SettingTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('shopname');
-            $table->integer('phone');
+            $table->bigInteger('phone');
             $table->string('email')->nullable();
             $table->string('logotext');
             $table->string('copyright');

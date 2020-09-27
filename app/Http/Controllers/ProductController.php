@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,7 +26,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $current_user = Auth::user()->designation;
+
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            return view('products.create');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -36,42 +43,48 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $all_data = $request->all();
-        $product_data = [
-            'productname'     => $all_data['productname'],
-            'stock'           => $all_data['stock'],
-            'unit'            => $all_data['unit'],
-            'purchaseprice'   => $all_data['purchaseprice'],
-            'sellprice'       => $all_data['sellprice'],
-            'currency'        => $all_data['currency'],
-            'description'     => $all_data['description']
-        ];
+        $current_user = Auth::user()->designation;
 
-        $validate = [
-            'productname'     => 'required|unique:products',
-            'stock'           => 'required',
-            'unit'            => 'required',
-            'purchaseprice'   => 'required',
-            'sellprice'       => 'required',
-            'currency'        => 'required',
-            'description'     => 'nullable'
-        ];
-        
-        $request->validate($validate, $product_data);
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $all_data = $request->all();
+            $product_data = [
+                'productname'     => $all_data['productname'],
+                'stock'           => $all_data['stock'],
+                'unit'            => $all_data['unit'],
+                'purchaseprice'   => $all_data['purchaseprice'],
+                'sellprice'       => $all_data['sellprice'],
+                'currency'        => $all_data['currency'],
+                'description'     => $all_data['description']
+            ];
 
-        $product                = new Product();
-        $product->productname   = $all_data['productname'];
-        $product->stock         = $all_data['stock'];
-        $product->unit          = $all_data['unit'];
-        $product->purchaseprice = $all_data['purchaseprice'];
-        $product->sellprice     = $all_data['sellprice'];
-        $product->currency      = $all_data['currency'];
+            $validate = [
+                'productname'     => 'required|unique:products',
+                'stock'           => 'required',
+                'unit'            => 'required',
+                'purchaseprice'   => 'required',
+                'sellprice'       => 'required',
+                'currency'        => 'required',
+                'description'     => 'nullable'
+            ];
+            
+            $request->validate($validate, $product_data);
 
-        if(!empty($all_data['description'])){
-            $product->description = $all_data['description'];
+            $product                = new Product();
+            $product->productname   = $all_data['productname'];
+            $product->stock         = $all_data['stock'];
+            $product->unit          = $all_data['unit'];
+            $product->purchaseprice = $all_data['purchaseprice'];
+            $product->sellprice     = $all_data['sellprice'];
+            $product->currency      = $all_data['currency'];
+
+            if(!empty($all_data['description'])){
+                $product->description = $all_data['description'];
+            }
+            $product->save();
+            return redirect()->back()->with('product_added', 'Product has been added !');
+        }else{
+            abort(404);
         }
-        $product->save();
-        return redirect()->back()->with('product_added', 'Product has been added !');
     }
 
     /**
@@ -93,8 +106,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('products.edit', compact('product'));
+        $current_user = Auth::user()->designation;
+        
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $product = Product::find($id);
+            return view('products.edit', compact('product'));
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -106,30 +125,36 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $all_data = $request->all();
-        $product_data = [
-            'productname'     => $all_data['productname'],
-            'stock'           => $all_data['stock'],
-            'unit'            => $all_data['unit'],
-            'purchaseprice'   => $all_data['purchaseprice'],
-            'sellprice'       => $all_data['sellprice'],
-            'currency'        => $all_data['currency'],
-            'description'     => $all_data['description']
-        ];
-
-        $validate = [
-            'productname'     => 'required|unique:products, productname,' . $id,
-            'stock'           => 'required',
-            'unit'            => 'required',
-            'purchaseprice'   => 'required',
-            'sellprice'       => 'required',
-            'currency'        => 'required',
-            'description'     => 'nullable'
-        ];
+        $current_user = Auth::user()->designation;
         
-        $product = Product::find($id);
-        $product->update($product_data);
-        return redirect()->back()->with('product_updated', 'Product has been updated !');
+        if($current_user == 'Super Admin' || $current_user == 'Admin'){
+            $all_data = $request->all();
+            $product_data = [
+                'productname'     => $all_data['productname'],
+                'stock'           => $all_data['stock'],
+                'unit'            => $all_data['unit'],
+                'purchaseprice'   => $all_data['purchaseprice'],
+                'sellprice'       => $all_data['sellprice'],
+                'currency'        => $all_data['currency'],
+                'description'     => $all_data['description']
+            ];
+
+            $validate = [
+                'productname'     => 'required|unique:products, productname,' . $id,
+                'stock'           => 'required',
+                'unit'            => 'required',
+                'purchaseprice'   => 'required',
+                'sellprice'       => 'required',
+                'currency'        => 'required',
+                'description'     => 'nullable'
+            ];
+            
+            $product = Product::find($id);
+            $product->update($product_data);
+            return redirect()->back()->with('product_updated', 'Product has been updated !');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -140,7 +165,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::where('id', $id)->delete();
-        return redirect()->back()->with('deleted', 'Product has been deleted !');
+        $current_user = Auth::user()->designation;
+        
+        if($current_user == 'Super Admin'){
+            Product::where('id', $id)->delete();
+            return redirect()->back()->with('deleted', 'Product has been deleted !');
+        }else{
+            abort(404);
+        }
     }
 }

@@ -17,7 +17,8 @@
     <div class="sh-logopanel">
       <a href="{{ route('dashboard') }}" class="sh-logo-text">
       @php
-          $settings = DB::table('settings')->get();
+        $settings = DB::table('settings')->get();
+        $user = auth()->user();
       @endphp
 
       @foreach($settings as $setting)
@@ -36,7 +37,7 @@
       <label class="sh-sidebar-label">Navigation</label>
       <ul class="nav">
         <li class="nav-item">
-          <a href="{{ url('/') }}" class="nav-link">
+          <a href="{{ route('dashboard') }}" class="nav-link">
             <i class="icon ion-ios-home-outline"></i>
             <span>Dashboard</span>
           </a>
@@ -49,7 +50,9 @@
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">Products</a></li>
+            @if($user->designation == 'Super Admin' || $user->designation == 'Admin')
             <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
+            @endif
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
@@ -72,6 +75,7 @@
             <li class="nav-item"><a href="{{ route('customers.create') }}" class="nav-link">Add Customer</a></li>
           </ul>
         </li><!-- nav-item -->
+        @if($user->designation == 'Super Admin' || $user->designation == 'Admin' || $user->designation == 'Manager')
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-person"></i>
@@ -79,15 +83,20 @@
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link">Users</a></li>
+            @if($user->designation == 'Super Admin')
             <li class="nav-item"><a href="{{ route('users.create') }}" class="nav-link">Add User</a></li>
+            @endif
           </ul>
         </li><!-- nav-item -->
+        @endif
+        @if($user->designation == 'Super Admin')
         <li class="nav-item">
           <a href="{{ route('settings') }}" class="nav-link">
             <i class="icon ion-gear-b"></i>
             <span>Settings</span>
           </a>
         </li><!-- nav-item -->
+        @endif
       </ul>
     </div><!-- sh-sideleft-menu -->
 
@@ -223,8 +232,8 @@
             <div class="media align-items-center">
               <img src="{{ asset('public/img/img1.jpg') }}" class="wd-60 ht-60 rounded-circle bd pd-5" alt="">
               <div class="media-body">
-                <h6 class="tx-inverse tx-15 mg-b-5">Kevin Douglas</h6>
-                <p class="mg-b-0 tx-12">kdouglas@domain.com</p>
+                <h6 class="tx-inverse tx-15 mg-b-5">{{ $user->firstname }}</h6>
+                <p class="mg-b-0 tx-12">{{ $user->email }}</p>
               </div><!-- media-body -->
             </div><!-- media -->
             <hr>
@@ -247,8 +256,15 @@
     <div class="sh-mainpanel">
         @yield('content')
         <div class="sh-footer">
-            <div>Copyright © 2017. All Rights Reserved. Shamcey Dashboard Admin Template</div>
-            <div class="mg-t-10 mg-md-t-0">Designed by: <a href="http://themepixels.me">ThemePixels</a></div>
+          @foreach($settings as $setting)
+            @if(!empty($setting->copyright))
+              <div>{{ $setting->copyright }}</div>
+            @else
+              <div>Copyright © 2020. All Rights Reserved.</div>
+            @endif
+          @endforeach
+            
+            <div class="mg-t-10 mg-md-t-0">Developed by: <a href="http://wpcoderpro.com">Md Dalwar</a></div>
         </div><!-- sh-footer -->
     </div>
     
