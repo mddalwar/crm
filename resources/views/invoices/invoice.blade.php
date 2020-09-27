@@ -18,26 +18,11 @@
 
 <div class="sh-breadcrumb">
    	<nav class="breadcrumb">
-      <a class="breadcrumb-item" href="index.html">Shamcey</a>
-      <a class="breadcrumb-item" href="index.html">Pages</a>
+      <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
+      <a class="breadcrumb-item" href="{{ route('invoices.index') }}">Invoices</a>
       <span class="breadcrumb-item active">Invoice</span>
     </nav>
 </div><!-- sh-breadcrumb -->
-<div class="sh-pagetitle">
-    <div class="input-group">
-      <input type="search" class="form-control" placeholder="Search">
-      <span class="input-group-btn">
-        <button class="btn"><i class="fa fa-search"></i></button>
-      </span><!-- input-group-btn -->
-    </div><!-- input-group -->
-    <div class="sh-pagetitle-left">
-      <div class="sh-pagetitle-icon"><i class="icon ion-ios-cart mg-t-3"></i></div>
-      <div class="sh-pagetitle-title">
-        <span>Billing Information</span>
-        <h2>Invoice Page</h2>
-      </div><!-- sh-pagetitle-left-title -->
-    </div><!-- sh-pagetitle-left -->
-</div><!-- sh-pagetitle -->
 
 <div class="sh-pagebody">
 
@@ -46,10 +31,17 @@
         <div class="d-md-flex justify-content-between flex-row-reverse">
           <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Invoice</h1>
           <div class="mg-t-25 mg-md-t-0">
-            <h6 class="tx-primary">ThemePixels, Inc.</h6>
-            <p class="lh-7">201 Something St., Something Town, YT 242, Country 6546<br>
-            Tel No: 324 445-4544<br>
-            Email: youremail@companyname.com</p>
+            @php
+              $settings = $users = DB::table('settings')->get();
+            @endphp
+            @foreach($settings as $setting)
+            <h6 class="tx-primary">{{ $setting->shopname }}</h6>
+            <p class="lh-7">{{ $setting->address }}<br>
+            Mobile: 0{{ $setting->phone }}<br>
+            @if(!empty($setting->email))
+            Email: {{ $setting->email }}</p>
+            @endif
+            @endforeach
           </div>
         </div><!-- d-flex -->
 
@@ -63,7 +55,7 @@
             	@endif
             	<br>
             	@if(!empty($customer->phone))
-            		Mobile: {{ $customer->phone }}
+            		Mobile: 0{{ $customer->phone }}s
             	@endif
         	</p>
           </div><!-- col -->
@@ -123,7 +115,7 @@
               </tr>
               <tr>
                 <td class="tx-right">Total Paid</td>
-                <td colspan="2" class="tx-right">{{ $invoice->paid }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . $product->currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>

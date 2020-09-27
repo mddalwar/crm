@@ -83,7 +83,7 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Paid: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="paid" placeholder="Paid" min="1" value="{{ old('paid') }}">
+							<input class="form-control" type="number" name="paid" placeholder="Paid" min="0" value="{{ old('paid') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">

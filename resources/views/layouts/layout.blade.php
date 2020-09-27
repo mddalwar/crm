@@ -47,7 +47,7 @@
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('invoices.index') }}" class="nav-link">Invoices</a></li>
-            <li class="nav-item"><a href="{{ route('invoices.create') }}" class="nav-link">Add Invoice</a></li>
+            <li class="nav-item"><a href="{{ route('invoices.create') }}" class="nav-link">Create Invoice</a></li>
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
