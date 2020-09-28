@@ -46,7 +46,7 @@
 							<select class="form-control select2" data-placeholder="Select product from list" name="productid">
 								<option label="Choose one"></option>
 								@foreach($products as $product)
-									<option value="{{ $product->id }}" price="{{ $product->sellprice }}">{{ $product->productname }}</option>
+									<option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -126,12 +126,16 @@
     $('.select2').select2({
       minimumResultsForSearch: ''
     });
+    var productstock = $( "select[name='productid'] option:selected" ).attr('stock');
+    $('input[name="sellquantity"]').attr('max', productstock);
 
     $('input[name="sellquantity"], select[name="productid"]').on('change', function(){
     	var sellprice 	= $( "select[name='productid'] option:selected" ).attr('price'),
+    		stock 	= $( "select[name='productid'] option:selected" ).attr('stock'),
     		sellqnty 	= $( "input[name='sellquantity']" ).val(),
     		totalprice 	= sellprice * sellqnty;
 
+    	$('input[name="sellquantity"]').attr('max', stock);
     	$('input[name="totalamount"]').val(totalprice);
     	$('input[name="paid"]').attr('max', totalprice);
     	$('input[name="discount"]').attr('max', totalprice);

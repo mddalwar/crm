@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -78,6 +79,14 @@ class InvoiceController extends Controller
         ];
 
         $final_data = array_merge($invoice_data, $due);
+
+        $product = DB::table('products')->where('id', $all_data['productid'])->first();
+
+        $update_stock = [
+            'stock'     => $product->stock - $all_data['sellquantity']
+        ];
+        $product_ctrl = Product::find($all_data['productid']);
+        $product_ctrl->update($update_stock);
 
         $invoice = Invoice::create($final_data);
 
