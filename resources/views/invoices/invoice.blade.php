@@ -74,8 +74,8 @@
               <span>{{ $invoice->created_at }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Due Date:</span>
-              <span>November 30, 2017</span>
+              <span>Updated Date:</span>
+              <span>{{ $invoice->updated_at }}</span>
             </p>
           </div><!-- col -->
         </div><!-- row -->
@@ -119,7 +119,19 @@
               </tr>
               <tr>
                 <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
-                <td colspan="2" class="tx-right"><h4 class="tx-primary tx-bold tx-lato">{{ $invoice->totalamount - $invoice->discount - $invoice->paid . ' ' . $product->currency }}</h4></td>
+                <td colspan="2" class="tx-right">
+                  @php
+
+                    $dueamount = $invoice->totalamount - $invoice->discount - $invoice->paid
+                  @endphp
+                  <h4 class="tx-primary tx-bold tx-lato">
+                    @if($dueamount > 0)
+                      {{ $dueamount . ' ' . $product->currency}}
+                    @else
+                      {{ 'Full Paid' }}
+                    @endif
+                  </h4>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -127,7 +139,7 @@
 
         <hr class="mg-b-60">
 
-        <a href="" class="btn btn-primary btn-block">Pay Now</a>
+        <a href="" class="btn btn-primary btn-block">Download</a>
 
       </div><!-- card-body -->
     </div><!-- card -->
