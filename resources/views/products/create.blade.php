@@ -71,7 +71,7 @@
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="sellprice" placeholder="Unit Price" value="{{ old('sellprice') }}">
+							<input class="form-control" type="number" name="sellprice" placeholder="Sell Price" value="{{ old('sellprice') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
@@ -117,5 +117,17 @@
 <script src="{{ asset('public/lib/flot-spline/jquery.flot.spline.js') }}"></script>
 
 <script src="{{ asset('public/js/shamcey.js') }}"></script>
-<script src="{{ asset('public/js/dashboard.js') }}"></script>
+<script>
+  $(function(){
+
+    'use strict';
+
+    $("input[name='purchaseprice']").on('change', function(){
+    	var purchaseprice = $( "input[name='purchaseprice']" ).val()
+
+    	$("input[name='sellprice']").attr('min', purchaseprice);
+    });
+
+  });
+</script>
 @endsection

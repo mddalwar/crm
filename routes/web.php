@@ -34,5 +34,6 @@ Route::group(
 		Route::resource('customers', 'App\Http\Controllers\CustomerController');
 		Route::resource('products', 'App\Http\Controllers\ProductController');
 		Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
+		Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 	}
 );

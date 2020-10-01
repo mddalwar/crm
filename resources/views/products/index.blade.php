@@ -50,7 +50,7 @@
 	            <td>{{ $product->sellprice . ' ' . $product->currency }}</td>
 	            <td>
 	            	<a href="{{ route('products.edit', $product->id) }}" class="btn btn-secondary p-1">Edit</a>
-	            	<form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline-block">
+	            	<form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 	            		@csrf
 	            		@method('DELETE')
 	            		<button class="btn btn-danger p-1" type="submit">Delete</button>

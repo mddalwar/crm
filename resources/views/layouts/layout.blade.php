@@ -67,6 +67,16 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
+            <i class="icon ion-document-text"></i>
+            <span>Expenses</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('expenses.index') }}" class="nav-link">Expenses</a></li>
+            <li class="nav-item"><a href="{{ route('expenses.create') }}" class="nav-link">Create Expense</a></li>
+          </ul>
+        </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
             <i class="icon ion-person-stalker"></i>
             <span>Customers</span>
           </a>

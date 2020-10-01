@@ -18,14 +18,14 @@
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
 	  <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Customers</span>
+	  <span class="breadcrumb-item active">Invoices</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
 <div class="sh-pagebody">
 
 	<div class="card bd-primary mg-t-20">
-	  <div class="card-header bg-primary tx-white">All Users</div>
+	  <div class="card-header bg-primary tx-white">Invoices</div>
 	  <div class="card-body pd-sm-30">
 	  	@if(Session::has('deleted'))
       		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
@@ -60,7 +60,7 @@
 						<td>
 							<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
 							<a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-secondary p-1">Edit</a>
-							<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block">
+							<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 								@csrf
 								@method('DELETE')
 								<button class="btn btn-danger p-1" type="submit">Delete</button>

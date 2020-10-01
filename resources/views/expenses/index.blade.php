@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-<title>All Customers - Customer Relation Managment System</title>
+<title>All Users - Customer Relation Managment System</title>
 @endsection
 
 @section('styles')
@@ -18,7 +18,7 @@
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
 	  <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Customers</span>
+	  <span class="breadcrumb-item active">Users</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
@@ -36,29 +36,23 @@
 	          <tr>
 	            <th class="wd-15p">First name</th>
 	            <th class="wd-15p">Last name</th>
-	            <th class="wd-15p">Mobile</th>
+	            <th class="wd-15p">Designation</th>
 	            <th class="wd-15p">Add date</th>
 	            <th class="wd-25p">E-mail</th>
 	            <th class="wd-15p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @foreach($customers as $customer)
+	        @foreach($users as $user)
 	          <tr>
-	            <td>{{ $customer->firstname }}</td>
-	            <td>{{ $customer->lastname }}</td>
-	            <td>{{ $customer->phone }}</td>
-	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
+	            <td>{{ $user->firstname }}</td>
+	            <td>{{ $user->lastname }}</td>
+	            <td>{{ $user->designation }}</td>
+	            <td>{{ $user->created_at }}</td>
+	            <td>{{ $user->email }}</td>
 	            <td>
-	            	@if(!empty($customer->email))
-	            	{{ $customer->email }}
-	            	@else
-	            		{{'No Email'}}
-	            	@endif
-	            </td>
-	            <td>
-	            	<a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-secondary p-1">Edit</a>
-	            	<form action="{{ route('customers.destroy', $customer->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
+	            	<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary p-1">Edit</a>
+	            	<form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline-block">
 	            		@csrf
 	            		@method('DELETE')
 	            		<button class="btn btn-danger p-1" type="submit">Delete</button>

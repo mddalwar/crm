@@ -74,23 +74,35 @@ class InvoiceController extends Controller
         ];
         Validator::make($invoice_data, $validate_rule, $error_message)->validate();
 
+        $invoice_due = $all_data['totalamount'] - $all_data['discount'] - $all_data['paid'];
         $due = [
-            'due' => $all_data['totalamount'] - $all_data['discount'] - $all_data['paid']
+            'due' => $invoice_due
         ];
 
         $final_data = array_merge($invoice_data, $due);
 
+        // Update Product Stock
         $product = DB::table('products')->where('id', $all_data['productid'])->first();
+        $customer = DB::table('customers')->where('id', $all_data['customerid'])->first();
 
         $update_stock = [
             'stock'     => $product->stock - $all_data['sellquantity']
         ];
-        $product_ctrl = Product::find($all_data['productid']);
-        $product_ctrl->update($update_stock);
+        $customer_due = [
+            'due'     => $customer->due + $invoice_due
+        ];
+        
+        // Customer and Product Update
+        $product_stock_update = DB::table('products')->where('id', $all_data['productid'])->update($update_stock);
+        $customer_due_update = DB::table('customers')->where('id', $all_data['customerid'])->update($customer_due);
 
-        $invoice = Invoice::create($final_data);
+        if(isset($product_stock_update) && isset($customer_due_update)){
+            // Create Invoice
+            $invoice = Invoice::create($final_data);
 
-        return redirect()->route('invoices.show', $invoice->id);        
+            return redirect()->route('invoices.show', $invoice->id);
+        }
+                
 
     }
 

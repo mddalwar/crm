@@ -63,6 +63,7 @@ class CustomerController extends Controller
         }        
         $customer->phone = $all_data['phone'];
         $customer->address = $all_data['address'];
+        $customer->due = 0;
         $customer->save();
         return redirect()->back()->with('customer_created', 'Customer has been added !');
     }
