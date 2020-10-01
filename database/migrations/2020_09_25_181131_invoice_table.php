@@ -22,6 +22,7 @@ class InvoiceTable extends Migration
             $table->integer('discount');
             $table->integer('paid');
             $table->integer('due');
+            $table->string('payment')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });

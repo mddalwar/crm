@@ -17,6 +17,7 @@ class Invoice extends Model
         'discount',
         'paid',
         'due',
-        'note'
+        'note',
+        'payment'
     ];
 }

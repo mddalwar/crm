@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-<title>All Users - Customer Relation Managment System</title>
+<title>Expenses - Customer Relation Managment System</title>
 @endsection
 
 @section('styles')
@@ -17,15 +17,15 @@
 
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
-	  <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Users</span>
+	  <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
+	  <span class="breadcrumb-item active">Expenses</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
 <div class="sh-pagebody">
 
 	<div class="card bd-primary mg-t-20">
-	  <div class="card-header bg-primary tx-white">All Users</div>
+	  <div class="card-header bg-primary tx-white">Expenses</div>
 	  <div class="card-body pd-sm-30">
 	  	@if(Session::has('deleted'))
       		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
@@ -34,25 +34,31 @@
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-15p">First name</th>
-	            <th class="wd-15p">Last name</th>
-	            <th class="wd-15p">Designation</th>
-	            <th class="wd-15p">Add date</th>
-	            <th class="wd-25p">E-mail</th>
-	            <th class="wd-15p">Action</th>
+	            <th class="wd-10p">ID</th>
+	            <th class="wd-20p">Expense For</th>
+	            <th class="wd-15p">Expense Amount</th>
+	            <th class="wd-15p">Reference</th>
+	            <th class="wd-20p">Expense Date</th>
+	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @foreach($users as $user)
+	        @foreach($expenses as $expense)
 	          <tr>
-	            <td>{{ $user->firstname }}</td>
-	            <td>{{ $user->lastname }}</td>
-	            <td>{{ $user->designation }}</td>
-	            <td>{{ $user->created_at }}</td>
-	            <td>{{ $user->email }}</td>
+	            <td>{{ $expense->id }}</td>
+	            <td>{{ $expense->expensefor }}</td>
+	            <td>{{ $expense->amount }}</td>
 	            <td>
-	            	<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary p-1">Edit</a>
-	            	<form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline-block">
+	            	@if($expense->reference != NULL)
+	            		{{ $expense->reference }}
+	            	@else
+	            		{{ 'No Reference' }}
+	            	@endif
+	            </td>
+	            <td>{{ $expense->created_at->format('d-m-Y') }}</td>
+	            <td>
+	            	<a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-secondary p-1">Edit</a>
+	            	<form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 	            		@csrf
 	            		@method('DELETE')
 	            		<button class="btn btn-danger p-1" type="submit">Delete</button>

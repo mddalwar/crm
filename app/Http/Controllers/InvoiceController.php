@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -52,7 +53,8 @@ class InvoiceController extends Controller
             'totalamount'       => $all_data['totalamount'],
             'discount'          => isset($all_data['discount']) ? $all_data['discount'] : 0,
             'paid'              => isset($all_data['paid']) ? $all_data['paid'] : 0,
-            'note'              => $all_data['note']
+            'note'              => $all_data['note'],
+            'payment'           => $all_data['payment'],
         ];
 
         $validate_rule = [
@@ -62,7 +64,8 @@ class InvoiceController extends Controller
             'totalamount'       => 'required',
             'discount'          => 'required',
             'paid'              => 'required',
-            'note'              => 'nullable'
+            'note'              => 'nullable',
+            'payment'           => 'nullable',
         ];
         $error_message = [
             'productid.required'         => 'You have to select a product !',
@@ -115,9 +118,14 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::find($id);
-        $product = Product::find($invoice->productid);
-        $customer = Customer::find($invoice->customerid);
-        return view('invoices.invoice', compact('invoice', 'product', 'customer'));
+        if(isset($invoice)){            
+            $product = Product::find($invoice->productid);
+            $customer = Customer::find($invoice->customerid);
+            return view('invoices.invoice', compact('invoice', 'product', 'customer'));
+        }else{
+            abort(404);
+        }
+        
     }
 
     /**

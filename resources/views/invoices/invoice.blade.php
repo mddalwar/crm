@@ -65,10 +65,12 @@
               <span>Invoice No</span>
               <span>INV-3546-{{ $invoice->id }}</span>
             </p>
+            @if(!empty($invoice->payment))
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Project ID</span>
-              <span>32334300</span>
+              <span>Payment Type</span>
+              <span>{{ $invoice->payment }}</span>
             </p>
+            @endif
             <p class="d-flex justify-content-between mg-b-5">
               <span>Create Date:</span>
               <span>{{ $invoice->created_at }}</span>

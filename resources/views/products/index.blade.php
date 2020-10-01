@@ -17,7 +17,7 @@
 
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
-	  <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
+	  <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
 	  <span class="breadcrumb-item active">Products</span>
 	</nav>
 </div><!-- sh-breadcrumb -->

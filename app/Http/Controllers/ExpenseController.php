@@ -105,6 +105,7 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Expense::where('id', $id)->delete();
+        return redirect()->back()->with('deleted', 'Expense has been deleted !');
     }
 }

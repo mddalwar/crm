@@ -75,18 +75,30 @@
 							<input class="form-control" type="number" name="totalamount" placeholder="Total Amount" value="{{ $invoice->totalamount }}" readonly="readonly">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Discount: </label>
 							<input class="form-control" type="number" name="discount" placeholder="Discount" min="0" value="{{ $invoice->discount }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="form-control-label">Paid: <span class="tx-danger">*</span></label>
+							<label class="form-control-label">Paid:</label>
 							<input class="form-control" type="number" name="paid" placeholder="Paid" min="0" value="{{ $invoice->paid }}">
 						</div>
 					</div><!-- col-4 -->
+					<div class="col-lg-4">
+						<div class="form-group mg-b-10-force">
+							<label class="form-control-label">Payment Type:</label>
+							<select class="form-control custom-select" name="payment">
+								<option label="Payment Type"></option>
+								<option value="Bkash">Bkash</option>
+								<option value="Rocket">Rocket</option>
+								<option value="Cash">Cash</option>
+								<option value="Bank Check">Bank Check</option>
+							</select>
+						</div>
+					</div>
 					<div class="col-lg-12">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Invoice Note:</label>
