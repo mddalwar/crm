@@ -636,6 +636,60 @@
         ]
     },
     {
+        "name": "elibyy/tcpdf-laravel",
+        "version": "8.0.0",
+        "version_normalized": "8.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/elibyy/tcpdf-laravel.git",
+            "reference": "2ec283c7b157cd31c91abe42fa1c9d801d9df6cf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/elibyy/tcpdf-laravel/zipball/2ec283c7b157cd31c91abe42fa1c9d801d9df6cf",
+            "reference": "2ec283c7b157cd31c91abe42fa1c9d801d9df6cf",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "^6.0|^7.0|^8.0",
+            "tecnickcom/tcpdf": "6.2.*|6.3.*"
+        },
+        "time": "2020-09-09T17:03:16+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Elibyy\\TCPDF\\ServiceProvider"
+                ],
+                "aliases": {
+                    "PDF": "Elibyy\\TCPDF\\Facades\\TCPDF"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Elibyy\\TCPDF\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "eli y",
+                "email": "elibyy@gmail.com"
+            }
+        ],
+        "description": "tcpdf support for Laravel 6, 7, 8",
+        "keywords": [
+            "TCPDF",
+            "laravel",
+            "pdf"
+        ]
+    },
+    {
         "name": "facade/flare-client-php",
         "version": "1.3.6",
         "version_normalized": "1.3.6.0",
@@ -7267,6 +7321,70 @@
                 "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                 "type": "tidelift"
             }
+        ]
+    },
+    {
+        "name": "tecnickcom/tcpdf",
+        "version": "6.3.5",
+        "version_normalized": "6.3.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tecnickcom/TCPDF.git",
+            "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/19a535eaa7fb1c1cac499109deeb1a7a201b4549",
+            "reference": "19a535eaa7fb1c1cac499109deeb1a7a201b4549",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2020-02-14T14:20:12+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "config",
+                "include",
+                "tcpdf.php",
+                "tcpdf_parser.php",
+                "tcpdf_import.php",
+                "tcpdf_barcodes_1d.php",
+                "tcpdf_barcodes_2d.php",
+                "include/tcpdf_colors.php",
+                "include/tcpdf_filters.php",
+                "include/tcpdf_font_data.php",
+                "include/tcpdf_fonts.php",
+                "include/tcpdf_images.php",
+                "include/tcpdf_static.php",
+                "include/barcodes/datamatrix.php",
+                "include/barcodes/pdf417.php",
+                "include/barcodes/qrcode.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "Nicola Asuni",
+                "email": "info@tecnick.com",
+                "role": "lead"
+            }
+        ],
+        "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
+        "homepage": "http://www.tcpdf.org/",
+        "keywords": [
+            "PDFD32000-2008",
+            "TCPDF",
+            "barcodes",
+            "datamatrix",
+            "pdf",
+            "pdf417",
+            "qrcode"
         ]
     },
     {

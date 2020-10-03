@@ -10,11 +10,7 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shopname',
-        'phone',
-        'email',
-        'logotext',
-        'copyright',
-        'address'
+        'setting_key',
+        'setting_value',
     ];
 }

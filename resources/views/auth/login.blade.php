@@ -21,22 +21,25 @@
       <div class="signbox">
         <div class="signbox-header">
             @php
-                $settings = DB::table('settings')->get();
+                $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
+                $logotext = $logotext_query[0]->setting_value;
+
+                $address_query = DB::table('settings')->where('setting_key', 'address')->get();
+                $address = $address_query[0]->setting_value;
             @endphp
 
-            @foreach($settings as $setting)
-                @if(!empty($setting->logotext))
-                <h2>{{$setting->logotext}}</h2>
-                @else
-                    <h2>Logo</h2>
-                @endif
+            
+            @if(!empty($logotext))
+            <h2>{{ $logotext }}</h2>
+            @else
+                <h2>Logo</h2>
+            @endif
 
-                @if(!empty($setting->address))
-                    <p class="mg-b-0">{{$setting->address}}</p>
-                @else
-                    <p class="mg-b-0">Customer Relation Software</p>
-                @endif
-            @endforeach
+            @if(!empty($address))
+                <p class="mg-b-0">{{ $address }}</p>
+            @else
+                <p class="mg-b-0">Customer Relation Software</p>
+            @endif
           
         </div><!-- signbox-header -->
         <form action="{{ route('login') }}" method="POST">
@@ -44,7 +47,7 @@
             <div class="signbox-body">
                 <div class="form-group">
                     <label for="email" class="form-control-label">{{ __('E-Mail Address') }}</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Your Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -54,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password" class="form-control-label">{{ __('Password') }}</label>
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" type="password" placeholder="Your Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                     @error('password')
                         <span class="invalid-feedback" role="alert">

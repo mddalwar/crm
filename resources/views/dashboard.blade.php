@@ -23,10 +23,10 @@
       <div class="col-lg-8">
         <div class="row row-xs">
           <div class="col-6 col-sm-4 col-md">
-            <a href="#" class="shortcut-icon">
+            <a href="{{ route('dues') }}" class="shortcut-icon">
               <div>
                 <i class="icon ion-ios-albums-outline"></i>
-                <span>Albums</span>
+                <span>All Dues</span>
               </div>
             </a>
           </div><!-- col -->

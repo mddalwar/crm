@@ -18,7 +18,7 @@
 
 <div class="sh-breadcrumb">
    	<nav class="breadcrumb">
-      <a class="breadcrumb-item" href="{{ url('/') }}">Dashboard</a>
+      <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
       <a class="breadcrumb-item" href="{{ route('invoices.index') }}">Invoices</a>
       <span class="breadcrumb-item active">Invoice</span>
     </nav>
@@ -32,16 +32,34 @@
           <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Invoice</h1>
           <div class="mg-t-25 mg-md-t-0">
             @php
-              $settings = $users = DB::table('settings')->get();
+              $shopname_query = DB::table('settings')->where('setting_key', 'shopname')->get();
+              $shopname = $shopname_query[0]->setting_value;
+
+              $phone_query = DB::table('settings')->where('setting_key', 'phone')->get();
+              $phone = $phone_query[0]->setting_value;
+
+              $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
+              $logotext = $logotext_query[0]->setting_value;
+
+              $email_query = DB::table('settings')->where('setting_key', 'email')->get();
+              $email = $email_query[0]->setting_value;
+
+              $copyright_query = DB::table('settings')->where('setting_key', 'copyright')->get();
+              $copyright = $copyright_query[0]->setting_value;
+
+              $address_query = DB::table('settings')->where('setting_key', 'address')->get();
+              $address = $address_query[0]->setting_value;
+
+              $currency_query = DB::table('settings')->where('setting_key', 'currency')->get();
+              $currency = $currency_query[0]->setting_value;
             @endphp
-            @foreach($settings as $setting)
-            <h6 class="tx-primary">{{ $setting->shopname }}</h6>
-            <p class="lh-7">{{ $setting->address }}<br>
-            Mobile: 0{{ $setting->phone }}<br>
-            @if(!empty($setting->email))
-            Email: {{ $setting->email }}</p>
+
+            <h6 class="tx-primary">{{ $shopname }}</h6>
+            <p class="lh-7">{{ $address }}<br>
+            Mobile: 0{{ $phone }}<br>
+            @if(!empty($email))
+            Email: {{ $email }}</p>
             @endif
-            @endforeach
           </div>
         </div><!-- d-flex -->
 
@@ -55,7 +73,7 @@
             	@endif
             	<br>
             	@if(!empty($customer->phone))
-            		Mobile: 0{{ $customer->phone }}s
+            		Mobile: 0{{ $customer->phone }}
             	@endif
         	</p>
           </div><!-- col -->
@@ -96,8 +114,8 @@
               <tr>
                 <td>{{ $product->productname }}</td>
                 <td class="tx-center">{{ $invoice->sellquantity . ' ' . $product->unit}}</td>
-                <td class="tx-right">{{ $product->sellprice . ' ' . $product->currency }}</td>
-                <td class="tx-right">{{ $invoice->totalamount . ' ' . $product->currency }}</td>
+                <td class="tx-right">{{ $product->sellprice . ' ' . $currency }}</td>
+                <td class="tx-right">{{ $invoice->totalamount . ' ' . $currency }}</td>
               </tr>
               <tr>
                 <td colspan="2" rowspan="4" class="valign-middle">
@@ -109,15 +127,15 @@
                 @endif
                 </td>
                 <td class="tx-right">Discount</td>
-                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . $product->currency }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . $currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Payable</td>
-                <td colspan="2"  class="tx-right">{{ $invoice->totalamount - $invoice->discount . ' ' . $product->currency }}</td>
+                <td colspan="2"  class="tx-right">{{ $invoice->totalamount - $invoice->discount . ' ' . $currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Paid</td>
-                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . $product->currency }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . $currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
@@ -128,7 +146,7 @@
                   @endphp
                   <h4 class="tx-primary tx-bold tx-lato">
                     @if($dueamount > 0)
-                      {{ $dueamount . ' ' . $product->currency}}
+                      {{ $dueamount . ' ' . $currency}}
                     @else
                       {{ 'Full Paid' }}
                     @endif
@@ -141,7 +159,7 @@
 
         <hr class="mg-b-60">
 
-        <a href="" class="btn btn-primary btn-block">Download</a>
+        <a href="" class="btn btn-primary btn-block" onclick="window.print();">Print Now</a>
 
       </div><!-- card-body -->
     </div><!-- card -->

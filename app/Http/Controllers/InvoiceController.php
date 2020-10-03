@@ -8,7 +8,6 @@ use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use PDF;
 
 class InvoiceController extends Controller
 {

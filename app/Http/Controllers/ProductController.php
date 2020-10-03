@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,9 +15,12 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $currency_query = DB::table('settings')->where('setting_key', 'currency')->get();
+        $currency = $currency_query[0]->setting_value;
+
         $products = Product::all();
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'currency'));
     }
 
     /**
@@ -53,7 +57,6 @@ class ProductController extends Controller
                 'unit'            => $all_data['unit'],
                 'purchaseprice'   => $all_data['purchaseprice'],
                 'sellprice'       => $all_data['sellprice'],
-                'currency'        => $all_data['currency'],
                 'description'     => $all_data['description']
             ];
 
@@ -63,7 +66,6 @@ class ProductController extends Controller
                 'unit'            => 'required',
                 'purchaseprice'   => 'required',
                 'sellprice'       => 'required',
-                'currency'        => 'required',
                 'description'     => 'nullable'
             ];
             
@@ -75,7 +77,6 @@ class ProductController extends Controller
             $product->unit          = $all_data['unit'];
             $product->purchaseprice = $all_data['purchaseprice'];
             $product->sellprice     = $all_data['sellprice'];
-            $product->currency      = $all_data['currency'];
 
             if(!empty($all_data['description'])){
                 $product->description = $all_data['description'];
@@ -135,7 +136,6 @@ class ProductController extends Controller
                 'unit'            => $all_data['unit'],
                 'purchaseprice'   => $all_data['purchaseprice'],
                 'sellprice'       => $all_data['sellprice'],
-                'currency'        => $all_data['currency'],
                 'description'     => $all_data['description']
             ];
 
@@ -145,7 +145,6 @@ class ProductController extends Controller
                 'unit'            => 'required',
                 'purchaseprice'   => 'required',
                 'sellprice'       => 'required',
-                'currency'        => 'required',
                 'description'     => 'nullable'
             ];
             

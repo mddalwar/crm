@@ -20,7 +20,6 @@
   </div><!-- sh-breadcrumb -->
 
   <div class="sh-pagebody">
-
     <div class="card bd-primary mg-t-20">
       <div class="card-header bg-primary tx-white">Add New Product</div>
       <div class="card-body pd-sm-30">
@@ -37,7 +36,7 @@
 	        <form action="{{ route('products.store') }}" method="POST">
 	        	@csrf
 				<div class="row mg-b-25">
-					<div class="col-lg-4">
+					<div class="col-lg-8">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ old('productname') }}">
@@ -72,18 +71,6 @@
 						<div class="form-group">
 							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="number" name="sellprice" placeholder="Sell Price" value="{{ old('sellprice') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Currency: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="currency">
-								<option label="Price Currency"></option>
-								<option value="Taka">Taka</option>
-								<option value="Doller">Doller</option>
-								<option value="Rial">Rial</option>
-								<option value="Rupee">Rupee</option>
-							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">

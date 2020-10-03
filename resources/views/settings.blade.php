@@ -34,54 +34,52 @@
       		<div class="alert alert-success">{{ Session::get('settings_changed') }}</div>
       	@endif
         <div class="form-layout">
-	        @foreach($settings as $setting)  
-	        <form action="{{ route('settings.update', $setting->id) }}" method="POST">
+	        <form action="" method="POST">
 	        	@csrf 	
 				<div class="row mg-b-25">
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Shop Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="shopname" placeholder="Shop Name" value="{{ $setting->shopname }}">
+							<input class="form-control" type="text" name="shopname" placeholder="Shop Name" value="{{ $shopname }}">
 
-							<input class="form-control" type="hidden" name="settingid" value="{{ $setting->id }}">
+							<input class="form-control" type="hidden" name="settingid" value="">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Mobile Number: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="phone" placeholder="Mobile Number" value="{{ $setting->phone }}">
+							<input class="form-control" type="text" name="phone" placeholder="Mobile Number" value="{{ $phone }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Email:</label>
-							<input class="form-control" type="text" name="email" placeholder="Enter email" value="{{ $setting->email }}">
+							<input class="form-control" type="text" name="email" placeholder="Enter email" value="{{ $email }}">
 						</div>
 					</div><!-- col-4 -->					
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Logo Text: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="logotext"  placeholder="Logo Text" value="{{ $setting->logotext }}">
+							<input class="form-control" type="text" name="logotext"  placeholder="Logo Text" value="{{ $logotext }}">
 						</div>
 					</div><!-- col-8 -->
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Copyright Text: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="copyright"  placeholder="Copyright Text" value="{{ $setting->copyright }}">
+							<input class="form-control" type="text" name="copyright"  placeholder="Copyright Text" value="{{ $copyright }}">
 						</div>
 					</div><!-- col-8 -->
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Address: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="address"  placeholder="Address" value="{{ $setting->address }}">
+							<input class="form-control" type="text" name="address"  placeholder="Address" value="{{ $address }}">
 						</div>
 					</div><!-- col-8 -->
-				</div><!-- row -->      
+				</div><!-- row -->
 				<div class="form-layout-footer">
 					<button class="btn btn-primary mg-r-5" type="submit">Save Settings</button>
 				</div><!-- form-layout-footer -->
 	        </form>
-	        @endforeach  
         </div><!-- form-layout -->
       </div><!-- card-body -->
     </div><!-- card -->

@@ -15,7 +15,6 @@ class Product extends Model
         'unit',
         'purchaseprice',
         'sellprice',
-        'currency',
         'description'
     ];
 }

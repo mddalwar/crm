@@ -38,7 +38,7 @@
 	        	@csrf
 	        	@method('PUT')
 				<div class="row mg-b-25">
-					<div class="col-lg-4">
+					<div class="col-lg-8">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ $product->productname }}">
@@ -73,18 +73,6 @@
 						<div class="form-group">
 							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="number" name="sellprice" placeholder="Unit Price" value="{{ $product->sellprice }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Currency: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="currency">
-								<option label="Price Currency"></option>
-								<option value="Taka" @if($product->currency == 'Taka') selected='selected' @endif>Taka</option>
-								<option value="Doller" @if($product->currency == 'Doller') selected='selected' @endif>Doller</option>
-								<option value="Rial" @if($product->currency == 'Rial') selected='selected' @endif>Rial</option>
-								<option value="Rupee" @if($product->currency == 'Rupee') selected='selected' @endif>Rupee</option>
-							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">

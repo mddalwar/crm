@@ -14,13 +14,8 @@ class SettingTable extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('shopname');
-            $table->bigInteger('phone');
-            $table->string('email')->nullable();
-            $table->string('logotext');
-            $table->string('copyright');
-            $table->string('address');
+            $table->string('setting_key')->unique()->primary();
+            $table->string('setting_value')->nullable();
             $table->timestamps();
         });
     }

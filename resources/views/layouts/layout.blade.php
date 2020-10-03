@@ -17,17 +17,17 @@
     <div class="sh-logopanel">
       <a href="{{ route('dashboard') }}" class="sh-logo-text">
       @php
-        $settings = DB::table('settings')->get();
+        $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
+        $logotext = $logotext_query[0]->setting_value;
+
         $user = auth()->user();
       @endphp
-
-      @foreach($settings as $setting)
-          @if(!empty($setting->logotext))
-          <h2>{{$setting->logotext}}</h2>
-          @else
-              <h2>Logo</h2>
-          @endif
-      @endforeach
+      
+      @if(!empty( $logotext ))
+      <h2>{{ $logotext }}</h2>
+      @else
+          <h2>Logo</h2>
+      @endif
       </a>
       <a id="navicon" href="" class="sh-navicon d-none d-xl-block"><i class="icon ion-navicon"></i></a>
       <a id="naviconMobile" href="" class="sh-navicon d-xl-none"><i class="icon ion-navicon"></i></a>
@@ -114,22 +114,22 @@
       <div class="sh-headpanel-left">
 
         <!-- START: HIDDEN IN MOBILE -->
-        <a href="{{ route('products.index') }}" class="sh-icon-link">
+        <a href="{{ route('addstock') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-folder-outline"></i>
-            <span>Products</span>
+            <span>Add Stock</span>
           </div>
         </a>
-        <a href="{{ route('customers.index') }}" class="sh-icon-link">
+        <a href="{{ route('products.create') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-calendar-outline"></i>
-            <span>Customers</span>
+            <span>Add Product</span>
           </div>
         </a>
-        <a href="{{ route('settings') }}" class="sh-icon-link">
+        <a href="{{ route('invoices.create') }}" class="sh-icon-link">
           <div>
-            <i class="icon ion-ios-gear-outline"></i>
-            <span>Settings</span>
+            <i class="icon ion-document-text"></i>
+            <span>Create Invoice</span>
           </div>
         </a>
         <!-- END: HIDDEN IN MOBILE -->
@@ -266,15 +266,18 @@
     <div class="sh-mainpanel">
         @yield('content')
         <div class="sh-footer">
-          @foreach($settings as $setting)
-            @if(!empty($setting->copyright))
-              <div>{{ $setting->copyright }}</div>
-            @else
-              <div>Copyright © 2020. All Rights Reserved.</div>
-            @endif
-          @endforeach
+          @php
+            $copyright_query = DB::table('settings')->where('setting_key', 'copyright')->get();
+            $copyright = $copyright_query[0]->setting_value;
+          @endphp
+          
+          @if(!empty($copyright))
+            <div>{{ $copyright }}</div>
+          @else
+            <div>Copyright © 2020. All Rights Reserved.</div>
+          @endif
             
-            <div class="mg-t-10 mg-md-t-0">Developed by: <a href="http://wpcoderpro.com">Md Dalwar</a></div>
+          <div class="mg-t-10 mg-md-t-0">Developed by: <a href="http://wpcoderpro.com">Md Dalwar</a></div>
         </div><!-- sh-footer -->
     </div>
     

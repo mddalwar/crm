@@ -20,7 +20,6 @@ class ProductTable extends Migration
             $table->string('unit');
             $table->integer('purchaseprice');
             $table->integer('sellprice');
-            $table->string('currency');
             $table->string('description')->nullable();
             $table->timestamps();
         });
