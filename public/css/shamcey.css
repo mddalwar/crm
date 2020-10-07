@@ -12067,7 +12067,7 @@ body {
   line-height: 0;
   font-size: 64px;
 }
-.shortcut-icon:hover, .shortcut-icon:focus {
+a.shortcut-icon:hover, a.shortcut-icon:focus {
   background-color: #0866C6;
   color: #fff;
 }

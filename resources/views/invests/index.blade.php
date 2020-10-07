@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('title')
-<title>Expenses - Customer Relation Managment System</title>
+<title>Investments - Customer Relation Managment System</title>
 @endsection
 
 @section('styles')
@@ -18,14 +18,14 @@
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
 	  <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Expenses</span>
+	  <span class="breadcrumb-item active">Investments</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
 <div class="sh-pagebody">
 
 	<div class="card bd-primary mg-t-20">
-	  <div class="card-header bg-primary tx-white">Expenses</div>
+	  <div class="card-header bg-primary tx-white">All Investments</div>
 	  <div class="card-body pd-sm-30">
 	  	@if(Session::has('deleted'))
       		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
@@ -35,10 +35,9 @@
 	        <thead>
 	          <tr>
 	            <th class="wd-10p">ID</th>
-	            <th class="wd-20p">Expense For</th>
-	            <th class="wd-15p">Expense Amount</th>
-	            <th class="wd-15p">Reference</th>
-	            <th class="wd-20p">Expense Date</th>
+	            <th class="wd-30p">Invest By</th>
+	            <th class="wd-20p">Invest Amount</th>
+	            <th class="wd-20p">Invest Date</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -50,23 +49,15 @@
 	        	$currency = $currency_query[0]->setting_value;
 
 	        @endphp
-
-	        @foreach($expenses as $expense)
+	        @foreach($invests as $invest)
 	          <tr>
-	            <td>{{ $expense->id }}</td>
-	            <td>{{ $expense->expensefor }}</td>
-	            <td>{{ $expense->amount . ' ' . $currency }}</td>
+	            <td>{{ $invest->id }}</td>
+	            <td>{{ $invest->investby }}</td>
+	            <td>{{ $invest->amount . ' ' . $currency }}</td>
+	            <td>{{ $invest->created_at->format('d-m-Y') }}</td>
 	            <td>
-	            	@if($expense->reference != NULL)
-	            		{{ $expense->reference }}
-	            	@else
-	            		{{ 'No Reference' }}
-	            	@endif
-	            </td>
-	            <td>{{ $expense->created_at->format('d-m-Y') }}</td>
-	            <td>
-	            	<a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-secondary p-1">Edit</a>
-	            	<form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
+	            	<a href="{{ route('invests.edit', $invest->id) }}" class="btn btn-secondary p-1">Edit</a>
+	            	<form action="{{ route('invests.destroy', $invest->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 	            		@csrf
 	            		@method('DELETE')
 	            		<button class="btn btn-danger p-1" type="submit">Delete</button>

@@ -85,6 +85,16 @@
             <li class="nav-item"><a href="{{ route('customers.create') }}" class="nav-link">Add Customer</a></li>
           </ul>
         </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-person-stalker"></i>
+            <span>Investments</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('invests.index') }}" class="nav-link">Investments</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">New Invest</a></li>
+          </ul>
+        </li><!-- nav-item -->
         @if($user->designation == 'Super Admin' || $user->designation == 'Admin' || $user->designation == 'Manager')
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
