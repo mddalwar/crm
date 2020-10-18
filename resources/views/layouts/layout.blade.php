@@ -183,67 +183,6 @@
       </div><!-- sh-headpanel-left -->
 
       <div class="sh-headpanel-right">
-        <div class="dropdown mg-r-10">
-          <a href="" class="dropdown-link dropdown-link-notification">
-            <i class="icon ion-ios-filing-outline tx-24"></i>
-          </a>
-        </div>
-        <div class="dropdown dropdown-notification">
-          <a href="" data-toggle="dropdown" class="dropdown-link dropdown-link-notification">
-            <i class="icon ion-ios-bell-outline tx-24"></i>
-            <span class="square-8"></span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <div class="dropdown-menu-header">
-              <label>Notifications</label>
-              <a href="">Mark All as Read</a>
-            </div><!-- d-flex -->
-
-            <div class="media-list">
-              <!-- loop starts here -->
-              <a href="" class="media-list-link read">
-                <div class="media pd-x-20 pd-y-15">
-                  <img src="{{ asset('public/img/img8.jpg') }}" class="wd-40 rounded-circle" alt="">
-                  <div class="media-body">
-                    <p class="tx-13 mg-b-0"><strong class="tx-medium">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
-                    <span class="tx-12">October 03, 2017 8:45am</span>
-                  </div>
-                </div><!-- media -->
-              </a>
-              <!-- loop ends here -->
-              <a href="" class="media-list-link read">
-                <div class="media pd-x-20 pd-y-15">
-                  <img src="{{ asset('public/img/img9.jpg') }}" class="wd-40 rounded-circle" alt="">
-                  <div class="media-body">
-                    <p class="tx-13 mg-b-0"><strong class="tx-medium">Mellisa Brown</strong> appreciated your work <strong class="tx-medium">The Social Network</strong></p>
-                    <span class="tx-12">October 02, 2017 12:44am</span>
-                  </div>
-                </div><!-- media -->
-              </a>
-              <a href="" class="media-list-link read">
-                <div class="media pd-x-20 pd-y-15">
-                  <img src="{{ asset('public/img/img10.jp') }}g" class="wd-40 rounded-circle" alt="">
-                  <div class="media-body">
-                    <p class="tx-13 mg-b-0">20+ new items added are for sale in your <strong class="tx-medium">Sale Group</strong></p>
-                    <span class="tx-12">October 01, 2017 10:20pm</span>
-                  </div>
-                </div><!-- media -->
-              </a>
-              <a href="" class="media-list-link read">
-                <div class="media pd-x-20 pd-y-15">
-                  <img src="{{ asset('public/img/img5.jpg') }}" class="wd-40 rounded-circle" alt="">
-                  <div class="media-body">
-                    <p class="tx-13 mg-b-0"><strong class="tx-medium">Julius Erving</strong> wants to connect with you on your conversation with <strong class="tx-medium">Ronnie Mara</strong></p>
-                    <span class="tx-12">October 01, 2017 6:08pm</span>
-                  </div>
-                </div><!-- media -->
-              </a>
-              <div class="media-list-footer">
-                <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
-              </div>
-            </div><!-- media-list -->
-          </div><!-- dropdown-menu -->
-        </div>
         <div class="dropdown dropdown-profile">
           <a href="" data-toggle="dropdown" class="dropdown-link">
             <img src="{{ asset('public/img/img1.jpg') }}" class="wd-60 rounded-circle" alt="">

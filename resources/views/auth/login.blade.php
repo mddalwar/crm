@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Shamcey Responsive Bootstrap 4 Admin Template</title>
+    <title>Login | CRM by Md Dalwar</title>
 
     <!-- Vendor css -->
     <link href="{{ asset('public/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">

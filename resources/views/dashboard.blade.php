@@ -19,42 +19,42 @@
     <div class="col-lg-8">
       <div class="row row-xs">
         <div class="col-6 col-sm-4 col-md">
-          <a href="{{ route('dues') }}" class="shortcut-icon">
+          <a href="{{ route('invoices.create') }}" class="shortcut-icon">
             <div>
               <i class="icon ion-ios-albums-outline"></i>
-              <span>All Dues</span>
+              <span>Create Invoice</span>
             </div>
           </a>
         </div><!-- col -->
         <div class="col-6 col-sm-4 col-md">
-          <a href="#" class="shortcut-icon">
+          <a href="{{ route('products.create') }}" class="shortcut-icon">
             <div>
               <i class="icon ion-ios-analytics-outline"></i>
-              <span>Reports</span>
+              <span>Add Product</span>
             </div>
           </a>
         </div><!-- col -->
         <div class="col-6 col-sm-4 col-md mg-t-10 mg-sm-t-0">
-          <a href="#" class="shortcut-icon">
+          <a href="{{ route('expenses.create') }}" class="shortcut-icon">
             <div>
               <i class="icon ion-ios-bookmarks-outline"></i>
-              <span>Bookmarks</span>
+              <span>Add Expense</span>
             </div>
           </a>
         </div><!-- col -->
         <div class="col-6 col-sm-4 col-md mg-t-10 mg-md-t-0">
-          <a href="#" class="shortcut-icon">
+          <a href="{{ route('invests.create') }}" class="shortcut-icon">
             <div>
               <i class="icon ion-ios-chatboxes-outline"></i>
-              <span>Conversations</span>
+              <span>Add Invest</span>
             </div>
           </a>
         </div><!-- col -->
         <div class="col-6 col-sm-4 col-md mg-t-10 mg-md-t-0">
-          <a href="#" class="shortcut-icon">
+          <a href="{{ route('products.index') }}" class="shortcut-icon">
             <div>
               <i class="icon ion-ios-download-outline"></i>
-              <span>Downloads</span>
+              <span>All Products</span>
             </div>
           </a>
         </div><!-- col -->

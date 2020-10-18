@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class ProductController extends Controller
 {
@@ -82,6 +83,20 @@ class ProductController extends Controller
                 $product->description = $all_data['description'];
             }
             $product->save();
+
+            $email_info = [
+                'productname'       => $all_data['productname'],
+                'stock'             => $all_data['stock'],
+                'unit'              => $all_data['unit'],
+                'added'             => $current_user
+            ];
+
+            Mail::send('emails.product', $email_info, function($email) use ($email_info){
+                $email->from('dalwar@gmail.com', 'Md Dalwar')
+                        ->to('dalwar9195@gmail.com', 'Dalwar')
+                        ->subject('Product Added');
+            });
+
             return redirect()->back()->with('product_added', 'Product has been added !');
         }else{
             abort(404);
