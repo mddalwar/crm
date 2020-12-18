@@ -15,6 +15,9 @@ class Product extends Model
         'unit',
         'purchaseprice',
         'sellprice',
+        'category',
+        'added_by',
+        'updated_by',
         'description'
     ];
 }

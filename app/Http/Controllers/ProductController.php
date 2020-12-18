@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Mail;
 
@@ -48,59 +49,51 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $current_user = Auth::user()->designation;
+        $cu = Auth::user();
+        $all_data = $request->all();
 
-        if($current_user == 'Super Admin' || $current_user == 'Admin'){
-            $all_data = $request->all();
-            $product_data = [
-                'productname'     => $all_data['productname'],
-                'stock'           => $all_data['stock'],
-                'unit'            => $all_data['unit'],
-                'purchaseprice'   => $all_data['purchaseprice'],
-                'sellprice'       => $all_data['sellprice'],
-                'description'     => $all_data['description']
-            ];
+        $validate_data = [
+            'productname'     => $all_data['productname'],
+            'stock'           => $all_data['stock'],
+            'unit'            => $all_data['unit'],
+            'purchaseprice'   => $all_data['purchaseprice'],
+            'sellprice'       => $all_data['sellprice'],
+            'category'        => $all_data['category'],
+            'added_by'        => $cu->id,
+            'description'     => $all_data['description']
+        ];
 
-            $validate = [
-                'productname'     => 'required|unique:products',
-                'stock'           => 'required',
-                'unit'            => 'required',
-                'purchaseprice'   => 'required',
-                'sellprice'       => 'required',
-                'description'     => 'nullable'
-            ];
-            
-            $request->validate($validate, $product_data);
+        $validate_role = [
+            'productname'     => 'required|unique:products',
+            'stock'           => 'required|numeric',
+            'unit'            => 'required',
+            'purchaseprice'   => 'required|numeric',
+            'sellprice'       => 'required|numeric',
+            'category'        => 'required',
+            'description'     => 'nullable'
+        ];
+        $validate_msg =[
+            'productname.required'      => 'Product name is required',
+            'productname.unique'        => 'Product already added',
+            'stock.required'            => 'Primary stock amount is required',
+            'stock.numeric'             => 'Primary stock must be an numeric value',
+            'unit.required'             => 'Unit selection is required',
+            'category.required'         => 'Category selection is required',
+            'purchaseprice.required'    => 'Purchase price is required',
+            'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
+            'sellprice.required'        => 'Sell price is required',
+            'sellprice.numeric'         => 'Sell price must be an numeric value',
+        ];
 
-            $product                = new Product();
-            $product->productname   = $all_data['productname'];
-            $product->stock         = $all_data['stock'];
-            $product->unit          = $all_data['unit'];
-            $product->purchaseprice = $all_data['purchaseprice'];
-            $product->sellprice     = $all_data['sellprice'];
+        Validator::make($validate_data, $validate_role, $validate_msg)->validate();
 
-            if(!empty($all_data['description'])){
-                $product->description = $all_data['description'];
-            }
-            $product->save();
-
-            $email_info = [
-                'productname'       => $all_data['productname'],
-                'stock'             => $all_data['stock'],
-                'unit'              => $all_data['unit'],
-                'added'             => $current_user
-            ];
-
-            Mail::send('emails.product', $email_info, function($email) use ($email_info){
-                $email->from('dalwar@gmail.com', 'Md Dalwar')
-                        ->to('dalwar9195@gmail.com', 'Dalwar')
-                        ->subject('Product Added');
-            });
-
-            return redirect()->back()->with('product_added', 'Product has been added !');
-        }else{
-            abort(404);
+        if($validate_data['purchaseprice'] > $validate_data['sellprice']){
+            return redirect()->back()->with('faild', 'Sell price should be greater than purchase price');
         }
+
+        Product::create($validate_data);
+
+        return redirect()->back()->with('success', 'Product has been added successfully');
     }
 
     /**
@@ -121,15 +114,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $current_user = Auth::user()->designation;
-        
-        if($current_user == 'Super Admin' || $current_user == 'Admin'){
-            $product = Product::find($id);
-            return view('products.edit', compact('product'));
-        }else{
-            abort(404);
-        }
+    {        
+        $product = Product::find($id);
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -141,34 +128,51 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $current_user = Auth::user()->designation;
-        
-        if($current_user == 'Super Admin' || $current_user == 'Admin'){
-            $all_data = $request->all();
-            $product_data = [
-                'productname'     => $all_data['productname'],
-                'stock'           => $all_data['stock'],
-                'unit'            => $all_data['unit'],
-                'purchaseprice'   => $all_data['purchaseprice'],
-                'sellprice'       => $all_data['sellprice'],
-                'description'     => $all_data['description']
-            ];
+        $cu = Auth::user();
+        $all_data = $request->all();
 
-            $validate = [
-                'productname'     => 'required|unique:products, productname,' . $id,
-                'stock'           => 'required',
-                'unit'            => 'required',
-                'purchaseprice'   => 'required',
-                'sellprice'       => 'required',
-                'description'     => 'nullable'
-            ];
-            
-            $product = Product::find($id);
-            $product->update($product_data);
-            return redirect()->back()->with('product_updated', 'Product has been updated !');
-        }else{
-            abort(404);
+        $validate_data = [
+            'productname'     => $all_data['productname'],
+            'stock'           => $all_data['stock'],
+            'unit'            => $all_data['unit'],
+            'purchaseprice'   => $all_data['purchaseprice'],
+            'sellprice'       => $all_data['sellprice'],
+            'category'        => $all_data['category'],
+            'updated_by'        => $cu->id,
+            'description'     => $all_data['description']
+        ];
+
+        $validate_role = [
+            'productname'     => 'required|unique:products,productname,'. $id,
+            'stock'           => 'required|numeric',
+            'unit'            => 'required',
+            'purchaseprice'   => 'required|numeric',
+            'sellprice'       => 'required|numeric',
+            'category'        => 'required',
+            'description'     => 'nullable'
+        ];
+        $validate_msg =[
+            'productname.required'      => 'Product name is required',
+            'productname.unique'        => 'Product already added',
+            'stock.required'            => 'Primary stock amount is required',
+            'stock.numeric'             => 'Primary stock must be an numeric value',
+            'unit.required'             => 'Unit selection is required',
+            'category.required'         => 'Category selection is required',
+            'purchaseprice.required'    => 'Purchase price is required',
+            'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
+            'sellprice.required'        => 'Sell price is required',
+            'sellprice.numeric'         => 'Sell price must be an numeric value',
+        ];
+
+        Validator::make($validate_data, $validate_role, $validate_msg)->validate();
+
+        if($validate_data['purchaseprice'] > $validate_data['sellprice']){
+            return redirect()->back()->with('faild', 'Sell price should be greater than purchase price');
         }
+
+        Product::where('id', $id)->update($validate_data);
+
+        return redirect()->back()->with('success', 'Product has been updated successfully');
     }
 
     /**
@@ -179,14 +183,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $current_user = Auth::user()->designation;
-        
-        if($current_user == 'Super Admin'){
-            Product::where('id', $id)->delete();
-            return redirect()->back()->with('deleted', 'Product has been deleted !');
-        }else{
-            abort(404);
-        }
+        Product::where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Product has been deleted !');
     }
 
     public function addstock(){

@@ -27,48 +27,61 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('product_added'))
-      		<div class="alert alert-success">{{ Session::get('product_added') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
+      	@endif
+
+      	@if(Session::has('faild'))
+      		<div class="alert alert-danger">{{ Session::get('faild') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('products.store') }}" method="POST">
 	        	@csrf
 				<div class="row mg-b-25">
-					<div class="col-lg-8">
+					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ old('productname') }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<div class="form-group">
 							<label class="form-control-label">Primary Stock: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="stock" placeholder="Primary Stock" value="{{ old('stock') }}">
+							<input class="form-control" type="text" name="stock" placeholder="Primary Stock" value="{{ old('stock') }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Unit: <span class="tx-danger">*</span></label>
 							<select class="form-control custom-select" name="unit">
 								<option label="Product Unit"></option>
-								<option value="Packet">Packet</option>
-								<option value="Pcs">Pcs</option>
-								<option value="Dozon">Dozon</option>
-								<option value="Kg">Kg</option>
-								<option value="Litter">Litter</option>
+								@foreach(units() as $unit)
+								<option value="{{ $unit }}">{{ $unit }}</option>
+								@endforeach
 							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Purchase Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="purchaseprice" placeholder="Purchase Price" value="{{ old('purchaseprice') }}">
+							<input class="form-control" type="text" name="purchaseprice" placeholder="Purchase Price" value="{{ old('purchaseprice') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="sellprice" placeholder="Sell Price" value="{{ old('sellprice') }}">
+							<input class="form-control" type="text" name="sellprice" placeholder="Sell Price" value="{{ old('sellprice') }}">
+						</div>
+					</div><!-- col-4 -->					
+					<div class="col-lg-4">
+						<div class="form-group mg-b-10-force">
+							<label class="form-control-label">Category: <span class="tx-danger">*</span></label>
+							<select class="form-control custom-select" name="category">
+								<option label="Product Category"></option>
+								@foreach(categories() as $category)
+								<option value="{{ $category->id }}">{{ $category->categoryname }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">

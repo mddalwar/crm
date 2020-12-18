@@ -28,49 +28,62 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('product_updated'))
-      		<div class="alert alert-success">{{ Session::get('product_updated') }}</div>
+      	@if(Session::has('faild'))
+      		<div class="alert alert-danger">{{ Session::get('faild') }}</div>
+      	@endif
+
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('products.update', $product->id ) }}" method="POST">
 	        	@csrf
 	        	@method('PUT')
 				<div class="row mg-b-25">
-					<div class="col-lg-8">
+					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ $product->productname }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<div class="form-group">
 							<label class="form-control-label">Primary Stock: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="stock" placeholder="Primary Stock" value="{{ $product->stock }}">
+							<input class="form-control" type="text" name="stock" placeholder="Primary Stock" value="{{ $product->stock }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Unit: <span class="tx-danger">*</span></label>
 							<select class="form-control custom-select" name="unit">
 								<option label="Product Unit"></option>
-								<option value="Packet" @if($product->unit == 'Packet') selected='selected' @endif>Packet</option>
-								<option value="Pcs" @if($product->unit == 'Pcs') selected='selected' @endif>Pcs</option>
-								<option value="Dozon" @if($product->unit == 'Dozon') selected='selected' @endif>Dozon</option>
-								<option value="Kg" @if($product->unit == 'Kg') selected='selected' @endif>Kg</option>
-								<option value="Litter" @if($product->unit == 'Litter') selected='selected' @endif>Litter</option>
+								@foreach(units() as $unit)
+								<option value="{{ $unit }}">{{ $unit }}</option>
+								@endforeach
 							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Purchase Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="purchaseprice" placeholder="Purchase Price" value="{{ $product->purchaseprice }}">
+							<input class="form-control" type="text" name="purchaseprice" placeholder="Purchase Price" value="{{ $product->purchaseprice }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="sellprice" placeholder="Unit Price" value="{{ $product->sellprice }}">
+							<input class="form-control" type="text" name="sellprice" placeholder="Unit Price" value="{{ $product->sellprice }}">
+						</div>
+					</div><!-- col-4 -->				
+					<div class="col-lg-4">
+						<div class="form-group mg-b-10-force">
+							<label class="form-control-label">Category: <span class="tx-danger">*</span></label>
+							<select class="form-control custom-select" name="category">
+								<option label="Product Category"></option>
+								@foreach(categories() as $category)
+								<option value="{{ $category->id }}">{{ $category->categoryname }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">

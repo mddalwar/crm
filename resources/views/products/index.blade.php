@@ -25,8 +25,8 @@
 	<div class="card bd-primary mg-t-20">
 	  <div class="card-header bg-primary tx-white">All Products</div>
 	  <div class="card-body pd-sm-30">
-	  	@if(Session::has('deleted'))
-      		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
+	  	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
 	    <div class="table-wrapper">
 	      <table id="datatable1" class="table display responsive nowrap">
