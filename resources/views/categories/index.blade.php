@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'All Products')
+@section('title', 'All Category')
 
 @section('styles')
 <!-- Vendor css -->
@@ -16,39 +16,42 @@
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
 	  <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Products</span>
+	  <span class="breadcrumb-item active">Categories</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
 <div class="sh-pagebody">
 
 	<div class="card bd-primary mg-t-20">
-	  <div class="card-header bg-primary tx-white">All Products</div>
+	  <div class="card-header bg-primary tx-white">Categories</div>
 	  <div class="card-body pd-sm-30">
-	  	@if(Session::has('deleted'))
-      		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
+	  	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
 	    <div class="table-wrapper">
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-25p">Product name</th>
-	            <th class="wd-15p">Total Stock</th>
-	            <th class="wd-20p">Purchase Price</th>
-	            <th class="wd-20p">Sell Price</th>
+	            <th class="wd-10p">ID</th>
+	            <th class="wd-15p">Category Name</th>
+	            <th class="wd-15p">Total Product</th>
+	            <th class="wd-20p">Created By</th>
+	            <th class="wd-20p">Create Date</th>
 	            <th class="wd-15p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @foreach($products as $product)
+	        @foreach($categories as $category)
 	          <tr>
-	            <td>{{ $product->productname }}</td>
-	            <td>{{ $product->stock . ' ' . $product->unit }}</td>
-	            <td>{{ $product->purchaseprice . ' ' . $currency }}</td>
-	            <td>{{ $product->sellprice . ' ' . $currency }}</td>
+	            <td>{{ $category->id }}</td>
+	            <td>{{ $category->categoryname }}</td>
+	            <td>{{ $category->id . ' Nos' }}</td>
+	            <td>{{ $category->id . ' Nos' }}</td>
+	            <td>{{ $category->created_at->format('F j, Y')}}</td>
 	            <td>
-	            	<a href="{{ route('products.edit', $product->id) }}" class="btn btn-secondary p-1">Edit</a>
-	            	<form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
+	            	<a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary p-1">View</a>
+	            	<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-secondary p-1">Edit</a>
+	            	<form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 	            		@csrf
 	            		@method('DELETE')
 	            		<button class="btn btn-danger p-1" type="submit">Delete</button>

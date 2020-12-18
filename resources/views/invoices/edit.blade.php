@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-<title>Edit Customer - Customer Relation Managment System</title>
-@endsection
+@section('title', 'Update Invoice')
 
 @section('styles')
 <!-- Vendor css -->

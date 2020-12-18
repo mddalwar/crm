@@ -188,4 +188,13 @@ class ProductController extends Controller
             abort(404);
         }
     }
+
+    public function addstock(){
+        $products = Product::all();
+        return view('products.addstock', compact('products'));
+    }
+
+    public function stockstore(Request $request){
+        dd($request->all());
+    }
 }

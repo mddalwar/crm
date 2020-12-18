@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-<title>Edit Customer - Customer Relation Managment System</title>
-@endsection
+@section('title', 'Update Customer')
 
 @section('styles')
 <!-- Vendor css -->
@@ -15,14 +13,14 @@
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
       <a class="breadcrumb-item" href="{{ route('customers.index') }}">Customers</a>
-      <span class="breadcrumb-item active">Edit Customer</span>
+      <span class="breadcrumb-item active">Update Customer</span>
     </nav>
   </div><!-- sh-breadcrumb -->
 
   <div class="sh-pagebody">
 
     <div class="card bd-primary mg-t-20">
-      <div class="card-header bg-primary tx-white">Edit New Customer</div>
+      <div class="card-header bg-primary tx-white">Update Customer</div>
       <div class="card-body pd-sm-30">
       	@if(isset($errors))
       		@foreach($errors->all() as $error)

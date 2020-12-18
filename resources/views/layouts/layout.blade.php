@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @yield('title')    
+    <title>@yield('title') - Customer Relation Managment System</title>  
 
     @yield('styles')
 
@@ -53,6 +53,16 @@
             @if($user->designation == 'Super Admin' || $user->designation == 'Admin')
             <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
             @endif
+          </ul>
+        </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-paperclip"></i>
+            <span>Categories</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">Categories</a></li>
+            <li class="nav-item"><a href="{{ route('categories.create') }}" class="nav-link">Add Category</a></li>
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
@@ -109,6 +119,7 @@
           </ul>
         </li><!-- nav-item -->
         @endif
+        
         @if($user->designation == 'Super Admin')
         <li class="nav-item">
           <a href="{{ route('settings') }}" class="nav-link">

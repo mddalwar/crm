@@ -95,13 +95,6 @@ class HomeController extends Controller
         return view('dues', compact('dues'));
     }
 
-    public function addstock(){
-        $products = Product::all();
-        return view('addstock', compact('products'));
-    }
 
-    public function stockstore(Request $request){
-        dd($request->all());
-    }
     
 }

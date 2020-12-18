@@ -38,8 +38,8 @@ Route::group(
 		Route::post('/settings', [App\Http\Controllers\HomeController::class, 'setting_change'])->name('settings.update');
 
 		// Stock Add Route
-		Route::get('/addstock', [App\Http\Controllers\HomeController::class, 'addstock'])->name('addstock');
-		Route::post('/addstock', [App\Http\Controllers\HomeController::class, 'stockstore'])->name('addstock.store');
+		Route::get('/addstock', [App\Http\Controllers\ProductController::class, 'addstock'])->name('addstock');
+		Route::post('/addstock', [App\Http\Controllers\ProductController::class, 'stockstore'])->name('addstock.store');
 
 		// Due Route
 		Route::get('/dues', [App\Http\Controllers\HomeController::class, 'dues'])->name('dues');
@@ -51,6 +51,7 @@ Route::group(
 		Route::resource('users', 'App\Http\Controllers\UserController');
 		Route::resource('customers', 'App\Http\Controllers\CustomerController');
 		Route::resource('products', 'App\Http\Controllers\ProductController');
+		Route::resource('categories', 'App\Http\Controllers\CategoryController');
 		Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
 		Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 		Route::resource('invests', 'App\Http\Controllers\InvestController');

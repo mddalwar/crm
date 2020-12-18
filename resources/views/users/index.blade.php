@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-<title>All Users - Customer Relation Managment System</title>
-@endsection
+@section('title', 'All Users')
 
 @section('styles')
 <!-- Vendor css -->

@@ -1,8 +1,6 @@
 @extends('layouts.layout')
 
-@section('title')
-<title>Dashboard - Customer Relation Managment System</title>
-@endsection
+@section('title', 'Dashboard')
 
 @section('styles')
 <!-- Vendor css -->
