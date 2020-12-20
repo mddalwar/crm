@@ -56582,3 +56582,9 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 .btn {
   cursor: pointer;
 }
+.products .select2 {
+  width: 100% !important;
+}
+.productremove, .addproduct {
+  cursor: pointer;
+}

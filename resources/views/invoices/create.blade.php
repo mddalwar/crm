@@ -40,19 +40,8 @@
 				<div class="row mg-b-25">
 					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
-							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
-							<select class="form-control select2" data-placeholder="Select product from list" name="productid">
-								<option label="Choose one"></option>
-								@foreach($products as $product)
-									<option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>
-								@endforeach
-							</select>
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
-						<div class="form-group">
 							<label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-							<select class="form-control select2" data-placeholder="Select customer from list" name="customerid">
+							<select class="form-control select2" data-placeholder="Select existing customer" name="customerid">
 								<option label="Choose one"></option>
 								@foreach($customers as $customer)
 									<option value="{{ $customer->id }}">{{ $customer->firstname . ' ' . $customer->lastname }}</option>
@@ -61,41 +50,71 @@
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
-						<div class="form-group">
-							<label class="form-control-label">Sell Quantity: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="sellquantity" placeholder="Sell Quantity" min="1" value="{{ old('sellquantity') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label class="form-control-label">Total Amount: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="totalamount" placeholder="Total Amount" value="0" readonly="readonly">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group">
-							<label class="form-control-label">Discount: </label>
-							<input class="form-control" type="number" name="discount" placeholder="Discount" min="0" value="{{ old('discount') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group">
-							<label class="form-control-label">Paid:</label>
-							<input class="form-control" type="number" name="paid" placeholder="Paid" min="0" value="{{ old('paid') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Payment Type:</label>
-							<select class="form-control custom-select" name="payment">
-								<option label="Payment Type"></option>
-								<option value="Bkash">Bkash</option>
-								<option value="Rocket">Rocket</option>
-								<option value="Cash">Cash</option>
-								<option value="Bank Check">Bank Check</option>
-							</select>
+						<div class="form-group mg-t-40">
+							<label class="ckbox">
+			                  <input type="checkbox" name="newCustomer"><span>New Customer</span>
+			                </label>
 						</div>
 					</div>
+					<div class="new-customer d-none col-lg-12">					
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Name" value="{{ old('sellquantity') }}">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label">Customer Email: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Email" value="{{ old('sellquantity') }}">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-12">
+								<div class="form-group">
+									<label class="form-control-label">Customer Phone: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Phone" value="{{ old('sellquantity') }}">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-12">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Customer Address:</label>
+									<textarea name="note" class="form-control" placeholder="Customer Address">{{ old('note') }}</textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+					@php
+						$product_count = 1;
+					@endphp
+					<div class="col-lg-12">
+						<table class="products">
+							<tr id="product_{{ $product_count }}">
+						       <td class="w-50">
+						          <select class="form-control custom-select product" name="product">
+					                <option label="Choose one"></option>
+					                @foreach($products as $product)
+					                  <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>
+					                @endforeach
+					              </select>
+						       </td>         
+						       <td>
+						          <input type="text" name="quantity" class="form-control" placeholder="Quantity">
+						       </td>         
+						       <td>
+						          <input type="text" name="unit_price" class="form-control" placeholder="Unit Price">
+						       </td>
+						       <td>
+						          <input type="text" name="total" class="form-control" placeholder="Total">
+						       </td>
+						       <td>
+						          <span class="text-danger productremove" onclick="$('#product_{{ $product_count }}').remove();">Remove</span>
+						       </td>
+						    </tr>
+						</table>
+					</div>
+					<div class="addproduct m-3 text-primary">Add Product</div>
+
 					<div class="col-lg-12">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Invoice Note:</label>
@@ -136,31 +155,52 @@
     $('.select2').select2({
       minimumResultsForSearch: ''
     });
-    var productstock = $( "select[name='productid'] option:selected" ).attr('stock');
-    $('input[name="sellquantity"]').attr('max', productstock);
 
-    $('input[name="sellquantity"], select[name="productid"]').on('change', function(){
-    	var sellprice 	= $( "select[name='productid'] option:selected" ).attr('price'),
-    		stock 	= $( "select[name='productid'] option:selected" ).attr('stock'),
-    		sellqnty 	= $( "input[name='sellquantity']" ).val(),
-    		totalprice 	= sellprice * sellqnty;
+    var newCustomer = $('input[name="newCustomer"]'),
+    	newCustomerChecked = newCustomer.is(':checked');
 
-    	$('input[name="sellquantity"]').attr('max', stock);
-    	$('input[name="totalamount"]').val(totalprice);
-    	$('input[name="paid"]').attr('max', totalprice);
-    	$('input[name="discount"]').attr('max', totalprice);
+    $(newCustomer).on('change', function(){
+    	if(newCustomer.is(':checked')){
+    		$('.new-customer').removeClass('d-none');
+    	}else{
+    		$('.new-customer').addClass('d-none');
+    	}
     });
 
-    $('input[name="paid"], input[name="sellquantity"], input[name="discount"], select[name="productid"]').on('change', function(){
-    	var sellprice = $( "select[name='productid'] option:selected" ).attr('price'),
-    		sellqnty = $( "input[name='sellquantity']" ).val(),
-    		discount = $( "input[name='discount']" ).val(),
-    		paid = $( "input[name='paid']" ).val(),
-    		totalprice = sellprice * sellqnty - discount,
-    		due = totalprice - paid;
+    var sl = {{ $product_count }};
 
-    	$('span.payable').text(totalprice);
-    	$('span.due').text(due);
+	function addproduct(){
+	    sl++;
+	    var product = "";
+	    product += '<tr id="product_'+sl+'">';
+	    product +='<td class="w-50">';
+	    product +='<select class="form-control custom-select product" name="product"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>@endforeach</select>';
+	    product +='</td>';
+	    product +='<td>';
+	    product +='<input type="text" name="quantity" class="form-control" placeholder="Quantity">';
+	    product +='</td>';         
+	    product +='<td>';
+	    product +='<input type="text" name="unit_price" class="form-control" placeholder="Unit Price">';
+	    product +='</td>';
+	    product +='<td>';
+	    product +='<input type="text" name="total" class="form-control" placeholder="Total">';
+	    product +='</td>';
+	    product +='<td>';
+	    product +='<span class="text-danger productremove" onclick="$(\'#product_'+sl+'\').remove();">Remove</span>';
+	    product +='</td>';
+	    product +='</tr>';
+
+	    $('.products').append(product);
+	}
+    
+    $('.addproduct').on('click', function(){
+    	addproduct();
+    });
+
+    $('select[name="product"]').on('click', function(){
+    	var product = $(this),
+    		price = product.val();
+    	product.parent().next('td').next('td').children('input').val(price);
     });
 
   });

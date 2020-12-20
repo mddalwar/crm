@@ -12,15 +12,15 @@
 @section('content')
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
-      <a class="breadcrumb-item" href="{{ route('users.index') }}">Users</a>
-      <span class="breadcrumb-item active">Add User</span>
+      <a class="breadcrumb-item" href="{{ route('expenses.index') }}">Expenses</a>
+      <span class="breadcrumb-item active">Update Expense</span>
     </nav>
   </div><!-- sh-breadcrumb -->
 
   <div class="sh-pagebody">
 
     <div class="card bd-primary mg-t-20">
-      <div class="card-header bg-primary tx-white">Add New User</div>
+      <div class="card-header bg-primary tx-white">Update Expense</div>
       <div class="card-body pd-sm-30">
       	@if(isset($errors))
       		@foreach($errors->all() as $error)
@@ -28,47 +28,41 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('user_updated'))
-      		<div class="alert alert-success">{{ Session::get('user_updated') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
-	        <form action="{{ route( 'users.update', $user->id ) }}" method="POST">
+	        <form action="{{ route('expenses.update', $expense->id) }}" method="POST">
 	        	@csrf
-	        	@method('PUT')  	
+	        	@method('PUT')	
 				<div class="row mg-b-25">
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="firstname" value="{{ $user->firstname }}" placeholder="Enter firstname">
+							<label class="form-control-label">Expense For: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="expensefor" placeholder="Expense For" value="{{ $expense->expensefor }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="lastname" value="{{ $user->lastname }}" placeholder="Enter lastname">
+							<label class="form-control-label">Amount: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="number" name="amount" placeholder="Amount" value="{{ $expense->amount }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					<div class="col-lg-4">
 						<div class="form-group">
-							<label class="form-control-label">Email address: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="email" value="{{ $user->email }}" placeholder="Enter email address">
+							<label class="form-control-label">Reference:</label>
+							<input class="form-control" type="text" name="reference" placeholder="Reference" value="{{ $expense->reference }}">
 						</div>
 					</div><!-- col-4 -->
-
-					<div class="col-lg-6">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Designation: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="designation">
-								<option label="User Designation"></option>
-								<option value="Manager" @if($user->designation == 'Manager') selected='selected' @endif>Manager</option>
-								<option value="Admin" @if($user->designation == 'Admin') selected='selected' @endif>Admin</option>
-								<option value="Cashier" @if($user->designation == 'Cashier') selected='selected' @endif>Cashier</option>
-							</select>
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label for="note">Note</label>
+							<textarea name="note" id="note" class="form-control" placeholder="Write something about expense">{{ $expense->note }}</textarea>
 						</div>
-					</div><!-- col-4 -->
+					</div>
 				</div><!-- row -->	          
 				<div class="form-layout-footer">
-					<button class="btn btn-primary mg-r-5" type="submit">Update User</button>
+					<button class="btn btn-primary mg-r-5" type="submit">Add Expense</button>
 				</div><!-- form-layout-footer -->
 	        </form>
 

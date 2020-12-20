@@ -17,15 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $current_user = Auth::user()->designation;
-
-        if($current_user == 'Super Admin' || $current_user == 'Manager' || $current_user == 'Admin'){
-            $users = DB::table('users')->get();
-            return view('users.index', compact('users'));
-        }else{
-            abort(404);
-        }   
-        
+        $users = DB::table('users')->get();
+        return view('users.index', compact('users'));        
     }
 
     /**
@@ -35,13 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $current_user = Auth::user()->designation;
-
-        if($current_user == 'Super Admin' || $current_user == 'Admin'){
-            return view('users.create');
-        }else{
-            abort(404);
-        }
+        return view('users.create');        
     }
 
     /**

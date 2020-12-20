@@ -12,7 +12,7 @@
 @section('content')
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
-      <a class="breadcrumb-item" href="{{ route('users.index') }}">Users</a>
+      <a class="breadcrumb-item" href="{{ route('expenses.index') }}">Expenses</a>
       <span class="breadcrumb-item active">Add Expense</span>
     </nav>
   </div><!-- sh-breadcrumb -->
@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('expense_added'))
-      		<div class="alert alert-success">{{ Session::get('expense_added') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('expenses.store') }}" method="POST">

@@ -15,16 +15,9 @@
   <body>
 
     <div class="sh-logopanel">
-      <a href="{{ route('dashboard') }}" class="sh-logo-text">
-      @php
-        $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
-        $logotext = $logotext_query[0]->setting_value;
-
-        $user = auth()->user();
-      @endphp
-      
-      @if(!empty( $logotext ))
-      <h2>{{ $logotext }}</h2>
+      <a href="{{ route('dashboard') }}" class="sh-logo-text">      
+      @if(!empty( logotext() ))
+      <h2>{{ logotext() }}</h2>
       @else
           <h2>Logo</h2>
       @endif
@@ -50,9 +43,7 @@
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">Products</a></li>
-            @if($user->designation == 'Super Admin' || $user->designation == 'Admin')
             <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
-            @endif
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
@@ -105,7 +96,7 @@
             <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">New Invest</a></li>
           </ul>
         </li><!-- nav-item -->
-        @if($user->designation == 'Super Admin' || $user->designation == 'Admin' || $user->designation == 'Manager')
+        
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
             <i class="icon ion-person"></i>
@@ -113,21 +104,17 @@
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link">Users</a></li>
-            @if($user->designation == 'Super Admin')
+            
             <li class="nav-item"><a href="{{ route('users.create') }}" class="nav-link">Add User</a></li>
-            @endif
           </ul>
         </li><!-- nav-item -->
-        @endif
         
-        @if($user->designation == 'Super Admin')
         <li class="nav-item">
           <a href="{{ route('settings') }}" class="nav-link">
             <i class="icon ion-gear-b"></i>
             <span>Settings</span>
           </a>
         </li><!-- nav-item -->
-        @endif
       </ul>
     </div><!-- sh-sideleft-menu -->
 
@@ -202,8 +189,8 @@
             <div class="media align-items-center">
               <img src="{{ asset('public/img/img1.jpg') }}" class="wd-60 ht-60 rounded-circle bd pd-5" alt="">
               <div class="media-body">
-                <h6 class="tx-inverse tx-15 mg-b-5">{{ $user->firstname }}</h6>
-                <p class="mg-b-0 tx-12">{{ $user->email }}</p>
+                <h6 class="tx-inverse tx-15 mg-b-5">{{ auth()->user()->firstname }}</h6>
+                <p class="mg-b-0 tx-12">{{ auth()->user()->email }}</p>
               </div><!-- media-body -->
             </div><!-- media -->
             <hr>
@@ -226,13 +213,9 @@
     <div class="sh-mainpanel">
         @yield('content')
         <div class="sh-footer">
-          @php
-            $copyright_query = DB::table('settings')->where('setting_key', 'copyright')->get();
-            $copyright = $copyright_query[0]->setting_value;
-          @endphp
           
-          @if(!empty($copyright))
-            <div>{{ $copyright }}</div>
+          @if(!empty(copyright()))
+            <div>{{ copyright() }}</div>
           @else
             <div>Copyright © 2020. All Rights Reserved.</div>
           @endif
@@ -241,8 +224,6 @@
         </div><!-- sh-footer -->
     </div>
     
-
-
     @yield('scripts')
 
   </body>

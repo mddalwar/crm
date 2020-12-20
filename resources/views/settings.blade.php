@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('settings_changed'))
-      		<div class="alert alert-success">{{ Session::get('settings_changed') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="" method="POST">
@@ -38,7 +38,7 @@
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Shop Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="shopname" placeholder="Shop Name" value="{{ $shopname }}">
+							<input class="form-control" type="text" name="shopname" placeholder="Shop Name" value="{{ shopname() }}">
 
 							<input class="form-control" type="hidden" name="settingid" value="">
 						</div>
@@ -46,31 +46,31 @@
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Mobile Number: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="phone" placeholder="Mobile Number" value="{{ $phone }}">
+							<input class="form-control" type="text" name="phone" placeholder="Mobile Number" value="{{ phone() }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
 						<div class="form-group">
 							<label class="form-control-label">Email:</label>
-							<input class="form-control" type="text" name="email" placeholder="Enter email" value="{{ $email }}">
+							<input class="form-control" type="text" name="email" placeholder="Enter email" value="{{ email() }}">
 						</div>
 					</div><!-- col-4 -->					
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Logo Text: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="logotext"  placeholder="Logo Text" value="{{ $logotext }}">
+							<input class="form-control" type="text" name="logotext"  placeholder="Logo Text" value="{{ logotext() }}">
 						</div>
 					</div><!-- col-8 -->
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Copyright Text: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="copyright"  placeholder="Copyright Text" value="{{ $copyright }}">
+							<input class="form-control" type="text" name="copyright"  placeholder="Copyright Text" value="{{ copyright() }}">
 						</div>
 					</div><!-- col-8 -->
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Address: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="address"  placeholder="Address" value="{{ $address }}">
+							<input class="form-control" type="text" name="address"  placeholder="Address" value="{{ address() }}">
 						</div>
 					</div><!-- col-8 -->
 				</div><!-- row -->

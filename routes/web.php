@@ -23,10 +23,6 @@ Auth::routes([
 Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 
-
-
-
-
 Route::group(
 	[
 		'prefix'		=> 'admin',
@@ -34,15 +30,15 @@ Route::group(
 	], 
 	function(){
 		// Settings Route
-		Route::get('/settings', [App\Http\Controllers\HomeController::class, 'settings'])->name('settings');
-		Route::post('/settings', [App\Http\Controllers\HomeController::class, 'setting_change'])->name('settings.update');
+		Route::get('/settings', [App\Http\Controllers\SettingController::class, 'settings'])->name('settings');
+		Route::post('/settings', [App\Http\Controllers\SettingController::class, 'setting_change'])->name('settings.update');
 
 		// Stock Add Route
 		Route::get('/addstock', [App\Http\Controllers\ProductController::class, 'addstock'])->name('addstock');
 		Route::post('/addstock', [App\Http\Controllers\ProductController::class, 'stockstore'])->name('addstock.store');
 
 		// Due Route
-		Route::get('/dues', [App\Http\Controllers\HomeController::class, 'dues'])->name('dues');
+		Route::get('/dues', [App\Http\Controllers\SettingController::class, 'dues'])->name('dues');
 
 		// Pdf Download Routes
 		Route::get('/invoicedownload', [App\Http\Controllers\PdfController::class, 'invoicedownload']);

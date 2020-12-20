@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Expense;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
@@ -55,10 +57,9 @@ class ExpenseController extends Controller
 
         $request->validate($validation, $data);
 
-        $expenses = new Expense();
-        $expenses->create($data);
+        Expense::create($data);
 
-        return redirect()->back()->with('expense_added', 'Expense has been added !');
+        return redirect()->back()->with('success', 'Expense has been added !');
     }
 
     /**
@@ -82,7 +83,7 @@ class ExpenseController extends Controller
     {
         $expense = Expense::find($id);
 
-        return view('expenses.index', compact('expense'));
+        return view('expenses.edit', compact('expense'));
     }
 
     /**
@@ -94,7 +95,27 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $all_data = $request->all();
+
+        $data = [
+            'expensefor'        => $all_data['expensefor'],
+            'amount'            => $all_data['amount'],
+            'reference'         => $all_data['reference'],
+            'note'              => $all_data['note'],
+        ];
+
+        $validation = [
+            'expensefor'        => 'required',
+            'amount'            => 'required|min:1',
+            'reference'         => 'nullable',
+            'note'              => 'nullable',
+        ];
+
+        $request->validate($validation, $data);
+
+        Expense::where('id', $id)->update($data);
+
+        return redirect()->back()->with('success', 'Expense has been updated !');
     }
 
     /**
@@ -106,6 +127,6 @@ class ExpenseController extends Controller
     public function destroy($id)
     {
         Expense::where('id', $id)->delete();
-        return redirect()->back()->with('deleted', 'Expense has been deleted !');
+        return redirect()->back()->with('success', 'Expense has been deleted !');
     }
 }
