@@ -38,7 +38,7 @@
 	        <form action="{{ route('products.store') }}" method="POST">
 	        	@csrf
 				<div class="row mg-b-25">
-					<div class="col-lg-6">
+					<div class="col-lg-9">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ old('productname') }}">
@@ -50,7 +50,7 @@
 							<input class="form-control" type="text" name="stock" placeholder="Primary Stock" value="{{ old('stock') }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-3">
+					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Unit: <span class="tx-danger">*</span></label>
 							<select class="form-control custom-select" name="unit">
@@ -65,12 +65,6 @@
 						<div class="form-group">
 							<label class="form-control-label">Purchase Price: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="purchaseprice" placeholder="Purchase Price" value="{{ old('purchaseprice') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group">
-							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="sellprice" placeholder="Sell Price" value="{{ old('sellprice') }}">
 						</div>
 					</div><!-- col-4 -->					
 					<div class="col-lg-4">

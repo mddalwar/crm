@@ -43,6 +43,9 @@ Route::group(
 		// Pdf Download Routes
 		Route::get('/invoicedownload', [App\Http\Controllers\PdfController::class, 'invoicedownload']);
 
+		// Pdf Download Routes
+		Route::get('/ajaxproducts', [App\Http\Controllers\ProductController::class, 'ajaxproducts'])->name('ajaxproducts');
+
 		// Resource Routes
 		Route::resource('users', 'App\Http\Controllers\UserController');
 		Route::resource('customers', 'App\Http\Controllers\CustomerController');

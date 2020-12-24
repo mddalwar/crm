@@ -84,36 +84,58 @@
 							</div>
 						</div>
 					</div>
-					@php
-						$product_count = 1;
-					@endphp
 					<div class="col-lg-12">
-						<table class="products">
-							<tr id="product_{{ $product_count }}">
-						       <td class="w-50">
-						          <select class="form-control custom-select product" name="product">
-					                <option label="Choose one"></option>
-					                @foreach($products as $product)
-					                  <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>
-					                @endforeach
-					              </select>
-						       </td>         
-						       <td>
-						          <input type="text" name="quantity" class="form-control" placeholder="Quantity">
-						       </td>         
-						       <td>
-						          <input type="text" name="unit_price" class="form-control" placeholder="Unit Price">
-						       </td>
-						       <td>
-						          <input type="text" name="total" class="form-control" placeholder="Total">
-						       </td>
-						       <td>
-						          <span class="text-danger productremove" onclick="$('#product_{{ $product_count }}').remove();">Remove</span>
-						       </td>
-						    </tr>
+						<table class="table">
+							<thead>
+								<tr class="item-row">
+									<th>Item</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="item-row">
+									<td><select class="form-control custom-select" id="product" name="product[]"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>@endforeach</select></td>
+									<td><input class="form-control price" placeholder="Price" type="text"></td>
+									<td><input class="form-control qty" placeholder="Quantity" type="text"></td>
+									<td><span class="total">0.00</span></td>
+								</tr>																
+								<tr id="hiderow">
+									<td colspan="4">
+										<a id="addRow" href="javascript:;" title="Add a row" class="btn btn-primary">Add Product</a>
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td class="text-right"><strong>Sub Total</strong></td>
+									<td><span id="subtotal">0.00</span></td>
+								</tr>
+								<tr>
+									<td><strong>Total Quantity: </strong><span id="totalQty" style="color: red; font-weight: bold">0</span> Units</td>
+									<td></td>
+									<td class="text-right"><strong>Discount</strong></td>
+									<td><input class="form-control" id="discount" value="0" type="text"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td class="text-right"><strong>Shipping</strong></td>
+									<td><input class="form-control" id="shipping" value="0" type="text"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td class="text-right"><strong>Grand Total</strong></td>
+									<td><span id="grandTotal">0</span></td>
+								</tr>
+							</tbody>
 						</table>
+						<div id="testproduct">
+							
+						</div>
 					</div>
-					<div class="addproduct m-3 text-primary">Add Product</div>
 
 					<div class="col-lg-12">
 						<div class="form-group mg-b-10-force">
@@ -131,8 +153,8 @@
         </div><!-- form-layout -->
       </div><!-- card-body -->
     </div><!-- card -->
-
   </div><!-- sh-pagebody -->
+  <div class="ajaxUrl d-none">{{ route('ajaxproducts') }}</div>
 @endsection
 
 @section('scripts')
@@ -145,16 +167,17 @@
 <script src="{{ asset('public/lib/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('public/lib/spectrum/spectrum.js') }}"></script>
 <script src="{{ asset('public/js/shamcey.js') }}"></script>
+<script src="{{ asset('public/js/invoice.js') }}"></script>
 
 <script>
   $(function(){
 
     'use strict';
-
     //Select2 by showing the search
     $('.select2').select2({
       minimumResultsForSearch: ''
     });
+
 
     var newCustomer = $('input[name="newCustomer"]'),
     	newCustomerChecked = newCustomer.is(':checked');
@@ -167,41 +190,21 @@
     	}
     });
 
-    var sl = {{ $product_count }};
+	jQuery().invoice({
+		addRow : "#addRow",
+		delete : ".delete",
+		parentClass : ".item-row",
 
-	function addproduct(){
-	    sl++;
-	    var product = "";
-	    product += '<tr id="product_'+sl+'">';
-	    product +='<td class="w-50">';
-	    product +='<select class="form-control custom-select product" name="product"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>@endforeach</select>';
-	    product +='</td>';
-	    product +='<td>';
-	    product +='<input type="text" name="quantity" class="form-control" placeholder="Quantity">';
-	    product +='</td>';         
-	    product +='<td>';
-	    product +='<input type="text" name="unit_price" class="form-control" placeholder="Unit Price">';
-	    product +='</td>';
-	    product +='<td>';
-	    product +='<input type="text" name="total" class="form-control" placeholder="Total">';
-	    product +='</td>';
-	    product +='<td>';
-	    product +='<span class="text-danger productremove" onclick="$(\'#product_'+sl+'\').remove();">Remove</span>';
-	    product +='</td>';
-	    product +='</tr>';
+		price : ".price",
+		qty : ".qty",
+		total : ".total",
+		totalQty: "#totalQty",
 
-	    $('.products').append(product);
-	}
-    
-    $('.addproduct').on('click', function(){
-    	addproduct();
-    });
-
-    $('select[name="product"]').on('click', function(){
-    	var product = $(this),
-    		price = product.val();
-    	product.parent().next('td').next('td').children('input').val(price);
-    });
+		subtotal : "#subtotal",
+		discount: "#discount",
+		shipping : "#shipping",
+		grandTotal : "#grandTotal"
+	});
 
   });
 </script>

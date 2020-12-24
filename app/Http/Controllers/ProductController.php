@@ -187,6 +187,12 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Product has been deleted !');
     }
 
+    public function ajaxproducts()
+    {   
+        $products = DB::table('products')->select('id', 'productname')->get();
+        return json_encode($products);
+    }
+
     public function addstock(){
         $products = Product::all();
         return view('products.addstock', compact('products'));

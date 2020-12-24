@@ -43,67 +43,7 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $all_data = $request->all();
-
-        $invoice_data = [
-            'productid'         => $all_data['productid'],
-            'customerid'        => $all_data['customerid'],
-            'sellquantity'      => $all_data['sellquantity'],
-            'totalamount'       => $all_data['totalamount'],
-            'discount'          => isset($all_data['discount']) ? $all_data['discount'] : 0,
-            'paid'              => isset($all_data['paid']) ? $all_data['paid'] : 0,
-            'note'              => $all_data['note'],
-            'payment'           => $all_data['payment'],
-        ];
-
-        $validate_rule = [
-            'productid'         => 'required',
-            'customerid'        => 'required',
-            'sellquantity'      => 'required',
-            'totalamount'       => 'required',
-            'discount'          => 'required',
-            'paid'              => 'required',
-            'note'              => 'nullable',
-            'payment'           => 'nullable',
-        ];
-        $error_message = [
-            'productid.required'         => 'You have to select a product !',
-            'customerid.required'        => 'You have to select a product !',
-            'sellquantity.required'      => 'Sell qunatity is required !',
-            'totalamount.required'       => 'Sell qunatity is required !',
-            'discount.required'          => 'Invalid discount amount !',
-            'paid.required'              => 'Invalid paid amount !'
-        ];
-        Validator::make($invoice_data, $validate_rule, $error_message)->validate();
-
-        $invoice_due = $all_data['totalamount'] - $all_data['discount'] - $all_data['paid'];
-        $due = [
-            'due' => $invoice_due
-        ];
-
-        $final_data = array_merge($invoice_data, $due);
-
-        // Update Product Stock
-        $product = DB::table('products')->where('id', $all_data['productid'])->first();
-        $customer = DB::table('customers')->where('id', $all_data['customerid'])->first();
-
-        $update_stock = [
-            'stock'     => $product->stock - $all_data['sellquantity']
-        ];
-        $customer_due = [
-            'due'     => $customer->due + $invoice_due
-        ];
-        
-        // Customer and Product Update
-        $product_stock_update = DB::table('products')->where('id', $all_data['productid'])->update($update_stock);
-        $customer_due_update = DB::table('customers')->where('id', $all_data['customerid'])->update($customer_due);
-
-        if(isset($product_stock_update) && isset($customer_due_update)){
-            // Create Invoice
-            $invoice = Invoice::create($final_data);
-
-            return redirect()->route('invoices.show', $invoice->id);
-        }
+        dd($request->all());
                 
 
     }
