@@ -30,8 +30,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('invoice_created'))
-      		<div class="alert alert-success">{{ Session::get('invoice_created') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('invoices.store') }}" method="POST">
@@ -40,11 +40,11 @@
 				<div class="row mg-b-25">
 					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
-							<label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-							<select class="form-control select2" data-placeholder="Select existing customer" name="customerid">
+							<label class="form-control-label">Existing Customer: <span class="tx-danger x-customer">*</span></label>
+							<select class="form-control select2" data-placeholder="Select existing customer" name="customer">
 								<option label="Choose one"></option>
 								@foreach($customers as $customer)
-									<option value="{{ $customer->id }}">{{ $customer->firstname . ' ' . $customer->lastname }}</option>
+									<option value="{{ $customer->id }}">{{ $customer->customername . ', ' . $customer->address }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -61,25 +61,25 @@
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Name" value="{{ old('sellquantity') }}">
+									<input class="form-control" type="text" name="customername" placeholder="Customer Name" value="{{ old('customername') }}">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label class="form-control-label">Customer Email: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Email" value="{{ old('sellquantity') }}">
+									<label class="form-control-label">Customer Email: </label>
+									<input class="form-control" type="text" name="email" placeholder="Customer Email" value="{{ old('email') }}">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label class="form-control-label">Customer Phone: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="sellquantity" placeholder="Customer Phone" value="{{ old('sellquantity') }}">
+									<input class="form-control" type="text" name="phone" placeholder="Customer Phone" value="{{ old('phone') }}">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-12">
 								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Customer Address:</label>
-									<textarea name="note" class="form-control" placeholder="Customer Address">{{ old('note') }}</textarea>
+									<label class="form-control-label">Customer Address: <span class="tx-danger">*</span></label>
+									<textarea name="address" class="form-control" placeholder="Customer Address">{{ old('note') }}</textarea>
 								</div>
 							</div>
 						</div>
@@ -97,9 +97,9 @@
 							<tbody>
 								<tr class="item-row">
 									<td><select class="form-control custom-select" id="product" name="product[]"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>@endforeach</select></td>
-									<td><input class="form-control price" placeholder="Price" type="text"></td>
-									<td><input class="form-control qty" placeholder="Quantity" type="text"></td>
-									<td><span class="total">0.00</span></td>
+									<td><input class="form-control price" placeholder="Price" type="text" name="price[]"></td>
+									<td><input class="form-control qty" placeholder="Quantity" type="text" name="quantity[]"></td>
+									<td><input type="text" name="total[]" class="total form-control" readonly="readonly"></td>
 								</tr>																
 								<tr id="hiderow">
 									<td colspan="4">
@@ -110,13 +110,13 @@
 									<td></td>
 									<td></td>
 									<td class="text-right"><strong>Sub Total</strong></td>
-									<td><span id="subtotal">0.00</span></td>
+									<td><input type="text" class="form-control" name="subtotal" id="subtotal" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<td><strong>Total Quantity: </strong><span id="totalQty" style="color: red; font-weight: bold">0</span> Units</td>
 									<td></td>
 									<td class="text-right"><strong>Discount</strong></td>
-									<td><input class="form-control" id="discount" value="0" type="text"></td>
+									<td><input class="form-control" id="discount" value="0" type="text" name="discount"></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -128,13 +128,16 @@
 									<td></td>
 									<td></td>
 									<td class="text-right"><strong>Grand Total</strong></td>
-									<td><span id="grandTotal">0</span></td>
+									<td><input type="text" class="form-control" name="grandTotal" id="grandTotal" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td class="text-right"><strong>Paid</strong></td>
+									<td><input class="form-control" id="paid" name="paid" value="0" type="text"></td>
 								</tr>
 							</tbody>
 						</table>
-						<div id="testproduct">
-							
-						</div>
 					</div>
 
 					<div class="col-lg-12">
@@ -142,7 +145,6 @@
 							<label class="form-control-label">Invoice Note:</label>
 							<textarea name="note" class="form-control" placeholder="Invoice Note">{{ old('note') }}</textarea>
 						</div>
-						<h6 class="card-body-title">Total Payable: Tk.<span class="payable">0</span>/- , <span class="text-danger">Total Due: Tk.<span class="due">0</span>/-</span></h6>
 					</div><!-- col-4 -->
 				</div><!-- row -->				
 				<div class="form-layout-footer">

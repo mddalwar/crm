@@ -40,7 +40,7 @@
 	        	@csrf
 	        	@method('PUT')
 				<div class="row mg-b-25">
-					<div class="col-lg-6">
+					<div class="col-lg-9">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ $product->productname }}">
@@ -52,7 +52,7 @@
 							<input class="form-control" type="text" name="stock" placeholder="Primary Stock" value="{{ $product->stock }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-3">
+					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Unit: <span class="tx-danger">*</span></label>
 							<select class="form-control custom-select" name="unit">
@@ -67,12 +67,6 @@
 						<div class="form-group">
 							<label class="form-control-label">Purchase Price: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="purchaseprice" placeholder="Purchase Price" value="{{ $product->purchaseprice }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group">
-							<label class="form-control-label">Sell Price: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="sellprice" placeholder="Unit Price" value="{{ $product->sellprice }}">
 						</div>
 					</div><!-- col-4 -->				
 					<div class="col-lg-4">
@@ -116,6 +110,21 @@
 <script src="{{ asset('public/lib/Flot/jquery.flot.resize.js') }}"></script>
 <script src="{{ asset('public/lib/flot-spline/jquery.flot.spline.js') }}"></script>
 
+<script>
+  $(function(){
+
+    'use strict';
+
+    var unit = "{{ $product->unit }}";
+    var category = "{{ $product->category }}";
+
+    $('select option[value="'+ unit +'"]').attr('selected', 'selected');
+    $('select option[value="'+ category +'"]').attr('selected', 'selected');
+
+  });
+</script>
+
 <script src="{{ asset('public/js/shamcey.js') }}"></script>
 <script src="{{ asset('public/js/dashboard.js') }}"></script>
+
 @endsection

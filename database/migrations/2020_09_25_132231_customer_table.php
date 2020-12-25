@@ -17,9 +17,9 @@ class CustomerTable extends Migration
             $table->id();
             $table->string('customername');
             $table->string('email')->unique()->nullable();
-            $table->bigInteger('phone')->unique();
+            $table->string('phone')->unique();
             $table->string('address');
-            $table->bigInteger('due');
+            $table->string('due')->nullable();
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Invproduct;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -43,8 +44,82 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-                
+        $data = $request->all();
+
+        // Customer Selection or addition
+        if(isset($data['newCustomer'])){
+            // New Customer Addition
+            $newCustomer = [
+                'customername'      => $data['customername'],
+                'email'             => isset($data['email']) ? $data['email'] : NULL,
+                'phone'             => $data['phone'],
+                'address'           => $data['address'],
+            ];
+            $customerRule = [
+                'customername'      => 'required',
+                'email'             => 'nullable|unique:customers|email',
+                'phone'             => 'required|unique:customers|numeric',
+                'address'           => 'required',
+            ];
+            $customerMsg  = [
+                'customername.required' => 'Customer name is required',
+                'email.unique'          => 'Customer email already exists',
+                'phone.required'        => 'Customer phone is required',
+                'phone.unique'          => 'Customer email already exists',
+                'address'               => 'Customer address is required',
+            ];
+
+            Validator::make($newCustomer, $customerRule, $customerMsg)->validate();
+            $customer = Customer::create($newCustomer)->id;
+
+        }else{
+            // Existing Customer
+            $customer = isset($data['customer']) ? $data['customer'] : NULL;
+        }
+
+        $due = $data['grandTotal'] - $data['paid'];
+
+        $invoiceData = [
+            'customer'      => $customer,
+            'discount'      => isset($data['discount']) ? $data['discount'] : NULL,
+            'paid'          => isset($data['paid']) ? $data['paid'] : NULL,
+            'due'           => isset($due) ? $due : NULL,
+            'subtotal'      => $data['subtotal'],
+            'total'         => $data['grandTotal'],
+            'note'          => $data['note'],
+        ];
+        $invoiceRule = [
+            'customer'      => 'required',
+            'subtotal'      => 'required'
+        ];
+        $invoiceMsg   = [
+            'customer.required' => 'You have choose a customer or create new',
+        ];
+
+        Validator::make($invoiceData, $invoiceRule, $invoiceMsg)->validate();
+        $invoice = Invoice::create($invoiceData);
+
+        $products = $request->product;
+        $quantity = $request->quantity;
+        $price = $request->price;
+        $total = $request->total;
+
+        for ($product = 0; $product < count($products); $product++) {
+            if ($products[$product] != '') {
+                $invProduct = [
+                    'invoice'       => $invoice->id,
+                    'product'       => $products[$product],
+                    'quantity'      => $quantity[$product],
+                    'price'         => $price[$product],
+                    'total'         => $total[$product],
+                    'status'        => 'Active',
+                ];
+
+                Invproduct::create($invProduct);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Invoice has been created');
 
     }
 
@@ -57,7 +132,7 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::find($id);
-        if(isset($invoice)){            
+        if(isset($invoice)){
             $product = Product::find($invoice->productid);
             $customer = Customer::find($invoice->customerid);
             return view('invoices.invoice', compact('invoice', 'product', 'customer'));
@@ -114,8 +189,8 @@ class InvoiceController extends Controller
         $error_message = [
             'productid.required'         => 'You have to select a product !',
             'customerid.required'        => 'You have to select a product !',
-            'sellquantity.required'      => 'Sell qunatity is required !',
-            'totalamount.required'       => 'Sell qunatity is required !',
+            'sellquantity.required'      => 'Sell quantity is required !',
+            'totalamount.required'       => 'Sell quantity is required !',
             'discount.required'          => 'Invalid discount amount !',
             'paid.required'              => 'Invalid paid amount !'
         ];

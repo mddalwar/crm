@@ -18,11 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {   
-        $currency_query = DB::table('settings')->where('setting_key', 'currency')->get();
-        $currency = $currency_query[0]->setting_value;
-
         $products = Product::all();
-        return view('products.index', compact('products', 'currency'));
+        $serial = 1;
+        return view('products.index', compact('products', 'serial'));
     }
 
     /**
@@ -32,13 +30,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $current_user = Auth::user()->designation;
-
-        if($current_user == 'Super Admin' || $current_user == 'Admin'){
-            return view('products.create');
-        }else{
-            abort(404);
-        }
+        return view('products.create');        
+        
     }
 
     /**
@@ -57,7 +50,6 @@ class ProductController extends Controller
             'stock'           => $all_data['stock'],
             'unit'            => $all_data['unit'],
             'purchaseprice'   => $all_data['purchaseprice'],
-            'sellprice'       => $all_data['sellprice'],
             'category'        => $all_data['category'],
             'added_by'        => $cu->id,
             'description'     => $all_data['description']
@@ -68,7 +60,6 @@ class ProductController extends Controller
             'stock'           => 'required|numeric',
             'unit'            => 'required',
             'purchaseprice'   => 'required|numeric',
-            'sellprice'       => 'required|numeric',
             'category'        => 'required',
             'description'     => 'nullable'
         ];
@@ -81,15 +72,9 @@ class ProductController extends Controller
             'category.required'         => 'Category selection is required',
             'purchaseprice.required'    => 'Purchase price is required',
             'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
-            'sellprice.required'        => 'Sell price is required',
-            'sellprice.numeric'         => 'Sell price must be an numeric value',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
-
-        if($validate_data['purchaseprice'] > $validate_data['sellprice']){
-            return redirect()->back()->with('faild', 'Sell price should be greater than purchase price');
-        }
 
         Product::create($validate_data);
 
@@ -136,9 +121,8 @@ class ProductController extends Controller
             'stock'           => $all_data['stock'],
             'unit'            => $all_data['unit'],
             'purchaseprice'   => $all_data['purchaseprice'],
-            'sellprice'       => $all_data['sellprice'],
             'category'        => $all_data['category'],
-            'updated_by'        => $cu->id,
+            'updated_by'      => $cu->id,
             'description'     => $all_data['description']
         ];
 
@@ -147,7 +131,6 @@ class ProductController extends Controller
             'stock'           => 'required|numeric',
             'unit'            => 'required',
             'purchaseprice'   => 'required|numeric',
-            'sellprice'       => 'required|numeric',
             'category'        => 'required',
             'description'     => 'nullable'
         ];
@@ -160,15 +143,9 @@ class ProductController extends Controller
             'category.required'         => 'Category selection is required',
             'purchaseprice.required'    => 'Purchase price is required',
             'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
-            'sellprice.required'        => 'Sell price is required',
-            'sellprice.numeric'         => 'Sell price must be an numeric value',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
-
-        if($validate_data['purchaseprice'] > $validate_data['sellprice']){
-            return redirect()->back()->with('faild', 'Sell price should be greater than purchase price');
-        }
 
         Product::where('id', $id)->update($validate_data);
 

@@ -33,40 +33,31 @@
 	        <thead>
 	          <tr>
 	            <th class="wd-10p">ID</th>
-	            <th class="wd-20p">Product Name</th>
 	            <th class="wd-20p">Customer Name</th>
-	            <th class="wd-15p">Quantity</th>
+	            <th class="wd-15p">Purchased</th>
 	            <th class="wd-15p">Create date</th>
+	            <th class="wd-15p">Total Bill</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
 	        @foreach($invoices as $invoice)
-	        	@php
-	        		$product_infos = $users = DB::table('products')->where('id', [$invoice->productid])->get();
-	        		$customer_infos = $users = DB::table('customers')->where('id', [$invoice->customerid])->get();
-	        	@endphp
-	        
-	        	@foreach($product_infos as $product_info)
-		        	@foreach($customer_infos as $customer_info)
-					<tr>
-						<td>{{ $invoice->id }}</td>
-						<td>{{ $product_info->productname }}</td>
-						<td>{{ $customer_info->firstname . ' ' . $customer_info->lastname }}</td>
-						<td>{{ $invoice->sellquantity . ' ' . $product_info->unit }}</td>
-						<td>{{ $invoice->created_at }}</td>
-						<td>
-							<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
-							<a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-secondary p-1">Edit</a>
-							<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
-								@csrf
-								@method('DELETE')
-								<button class="btn btn-danger p-1" type="submit">Delete</button>
-							</form>
-						</td>
-					</tr>
-		          @endforeach
-	          @endforeach
+				<tr>
+					<td>{{ 'INV' . $invoice->id }}</td>
+					<td>{{ customer_name($invoice->customer) }}</td>
+					<td>{{ invoice_product_count($invoice->id) . ' Products'}}</td>
+					<td>{{ $invoice->created_at->format('F j, Y') }}</td>
+					<td>{{ $invoice->total . ' ' . currency() }}</td>
+					<td>
+						<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
+						<a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-secondary p-1">Edit</a>
+						<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
+							@csrf
+							@method('DELETE')
+							<button class="btn btn-danger p-1" type="submit">Delete</button>
+						</form>
+					</td>
+				</tr>
 	        @endforeach       
 	        </tbody>
 	      </table>

@@ -15,8 +15,8 @@ class InvoiceProducts extends Migration
     {
         Schema::create('invproducts', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoiceno');
-            $table->integer('productid');
+            $table->integer('invoice');
+            $table->integer('product');
             $table->string('quantity');
             $table->string('price');
             $table->string('total');

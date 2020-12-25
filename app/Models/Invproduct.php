@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Invproduct extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'invoice',
+        'product',
+        'quantity',
+        'price',
+        'total',
+        'status',
+    ];
 }

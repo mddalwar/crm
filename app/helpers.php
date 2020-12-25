@@ -54,6 +54,13 @@ if(!function_exists('logotext')){
 	}
 }
 
+if(!function_exists('currency')){
+	function currency(){
+		$currency = DB::table('settings')->where('setting_key', 'currency')->first();
+		return $currency->setting_value;
+	}
+}
+
 if(!function_exists('email')){
 	function email(){
 		$email = DB::table('settings')->where('setting_key', 'email')->first();
@@ -82,6 +89,88 @@ if(!function_exists('products')){
 	}
 }
 
+if(!function_exists('product_name')){
+	function product_name($id){
+		$product = DB::table('products')->where('id', $id)->first();
+		return $product->productname;
+	}
+}
+
+if(!function_exists('product_unit')){
+	function product_unit($id){
+		$product = DB::table('products')->where('id', $id)->first();
+		return $product->unit;
+	}
+}
+
+if(!function_exists('customer_name')){
+	function customer_name($id){
+		$customer = DB::table('customers')->where('id', $id)->first();
+		return $customer->customername;
+	}
+}
+
+if(!function_exists('customer_email')){
+	function customer_email($id){
+		$customer = DB::table('customers')->where('id', $id)->first();
+
+		if(!empty($customer->email)){
+			return $customer->email;
+		}else{
+			return '';
+		}
+	}
+}
+
+if(!function_exists('customer_phone')){
+	function customer_phone($id){
+		$customer = DB::table('customers')->where('id', $id)->first();
+
+		if(!empty($customer->phone)){
+			return $customer->phone;
+		}else{
+			return '';
+		}
+	}
+}
+if(!function_exists('customer_address')){
+	function customer_address($id){
+		$customer = DB::table('customers')->where('id', $id)->first();
+
+		if(!empty($customer->address)){
+			return $customer->address;
+		}else{
+			return '';
+		}
+	}
+}
+
+if(!function_exists('customer_due')){
+	function customer_due($id){
+		$customer = DB::table('customers')->where('id', $id)->first();
+
+		if(!empty($customer->due)){
+			return $customer->due;
+		}else{
+			return 0;
+		}
+	}
+}
+
+if(!function_exists('invoice_product_count')){
+	function invoice_product_count($id){
+		$products = DB::table('invproducts')->where('invoice', $id)->count();
+		return $products;
+	}
+}
+
+if(!function_exists('invoice_products')){
+	function invoice_products($id){
+		$products = DB::table('invproducts')->where('invoice', $id)->get();
+		return $products;
+	}
+}
+
 if(!function_exists('monthly_invest')){
 	function monthly_invest($month){
 		$invest = DB::table("invests")
@@ -95,7 +184,7 @@ if(!function_exists('monthly_sell')){
 	function monthly_sell($month){
 		$sell = DB::table("invoices")
             ->whereRaw('MONTH(created_at) = ?',[$month])
-            ->sum('invoices.totalamount');
+            ->sum('invoices.total');
         return $sell;
 	}
 }
@@ -131,7 +220,7 @@ if(!function_exists('monthly_profit')){
 	function monthly_profit($month){
 		$sell = DB::table("invoices")
             ->whereRaw('MONTH(created_at) = ?',[$month])
-            ->sum('invoices.totalamount');
+            ->sum('invoices.total');
         $discount = DB::table("invoices")
             ->whereRaw('MONTH(created_at) = ?',[$month])
             ->sum('invoices.discount');
@@ -147,7 +236,7 @@ if(!function_exists('monthly_profit')){
 if(!function_exists('total_sell')){
 	function total_sell(){
 		$sell = DB::table("invoices")
-            ->sum('invoices.totalamount');
+            ->sum('invoices.total');
         return $sell;
 	}
 }
@@ -187,7 +276,7 @@ if(!function_exists('total_invests')){
 if(!function_exists('total_profit')){
 	function total_profit(){
 		$sell = DB::table("invoices")
-            ->sum('invoices.totalamount');            
+            ->sum('invoices.total');            
 		$discount = DB::table("invoices")
             ->sum('invoices.discount');
         $expense = DB::table("expenses")

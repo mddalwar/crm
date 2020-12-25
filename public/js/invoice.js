@@ -55,7 +55,7 @@ Invoice.prototype = {
 
              total = self.roundNumber(total, 2);
 
-             row.find($.opt.total).html(total);
+             row.find($.opt.total).val(total);
          });
 
          return 1;
@@ -88,13 +88,13 @@ Invoice.prototype = {
     calcSubtotal: function () {
          var subtotal = 0;
          jQuery($.opt.total).each(function (i) {
-             var total = jQuery(this).html();
+             var total = jQuery(this).val();
              if (!isNaN(total)) subtotal += Number(total);
          });
 
          subtotal = self.roundNumber(subtotal, 2);
 
-         jQuery($.opt.subtotal).html(subtotal);
+         jQuery($.opt.subtotal).val(subtotal);
 
          return 1;
      },
@@ -105,12 +105,12 @@ Invoice.prototype = {
      * @returns {number}
      */
     calcGrandTotal: function () {
-        var grandTotal = Number(jQuery($.opt.subtotal).html())
+        var grandTotal = Number(jQuery($.opt.subtotal).val())
                        + Number(jQuery($.opt.shipping).val())
                        - Number(jQuery($.opt.discount).val());
         grandTotal = self.roundNumber(grandTotal, 2);
 
-        jQuery($.opt.grandTotal).html(grandTotal);
+        jQuery($.opt.grandTotal).val(grandTotal);
 
         return 1;
     },
@@ -124,7 +124,7 @@ Invoice.prototype = {
 
        
 
-        jQuery(".item-row:last").after('<tr class="item-row"><td class="item-name products"><div class="delete-btn"><select class="form-control custom-select" id="product" name="product[]"></select><a class=' + $.opt.delete.substring(1) + ' href="javascript:;" title="Remove row">X</a></div></td><td><input class="form-control price" placeholder="Price" type="text"> </td><td><input class="form-control qty" placeholder="Quantity" type="text"></td><td><span class="total">0.00</span></td></tr>');
+        jQuery(".item-row:last").after('<tr class="item-row"><td class="item-name products"><div class="delete-btn"><select class="form-control custom-select" id="product" name="product[]"></select><a class=' + $.opt.delete.substring(1) + ' href="javascript:;" title="Remove row">X</a></div></td><td><input class="form-control price" placeholder="Price" type="text" name="price[]"> </td><td><input class="form-control qty" placeholder="Quantity" type="text" name="quantity[]"></td><td><input type="text" class="total form-control" name="total[]" readonly="readonly"></td></tr>');
 		
         if (jQuery($.opt.delete).length > 0) {
             jQuery($.opt.delete).show();

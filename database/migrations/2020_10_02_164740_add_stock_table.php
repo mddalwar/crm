@@ -15,12 +15,12 @@ class AddStockTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->integer('productid');
-            $table->integer('stock');
-            $table->integer('prevstock');
-            $table->integer('addedby');
-            $table->integer('price');
-            $table->integer('avarageprice');
+            $table->integer('product');
+            $table->string('stock');
+            $table->string('prevstock');
+            $table->string('price');
+            $table->string('avarageprice');
+            $table->integer('added_by');
             $table->timestamps();
         });
     }

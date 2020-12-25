@@ -19,7 +19,6 @@ class ProductTable extends Migration
             $table->string('stock');
             $table->string('unit');
             $table->string('purchaseprice');
-            $table->string('sellprice');
             $table->integer('category');
             $table->integer('added_by');
             $table->integer('updated_by')->nullable();

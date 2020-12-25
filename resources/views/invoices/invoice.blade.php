@@ -13,7 +13,6 @@
 
 @section('content')
 
-
 <div class="sh-breadcrumb">
    	<nav class="breadcrumb">
       <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
@@ -29,34 +28,12 @@
         <div class="d-md-flex justify-content-between flex-row-reverse">
           <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Invoice</h1>
           <div class="mg-t-25 mg-md-t-0">
-            @php
-              $shopname_query = DB::table('settings')->where('setting_key', 'shopname')->get();
-              $shopname = $shopname_query[0]->setting_value;
 
-              $phone_query = DB::table('settings')->where('setting_key', 'phone')->get();
-              $phone = $phone_query[0]->setting_value;
-
-              $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
-              $logotext = $logotext_query[0]->setting_value;
-
-              $email_query = DB::table('settings')->where('setting_key', 'email')->get();
-              $email = $email_query[0]->setting_value;
-
-              $copyright_query = DB::table('settings')->where('setting_key', 'copyright')->get();
-              $copyright = $copyright_query[0]->setting_value;
-
-              $address_query = DB::table('settings')->where('setting_key', 'address')->get();
-              $address = $address_query[0]->setting_value;
-
-              $currency_query = DB::table('settings')->where('setting_key', 'currency')->get();
-              $currency = $currency_query[0]->setting_value;
-            @endphp
-
-            <h6 class="tx-primary">{{ $shopname }}</h6>
-            <p class="lh-7">{{ $address }}<br>
-            Mobile: 0{{ $phone }}<br>
-            @if(!empty($email))
-            Email: {{ $email }}</p>
+            <h6 class="tx-primary">{{ shopname() }}</h6>
+            <p class="lh-7">{{ address() }}<br>
+            Mobile: 0{{ phone() }}<br>
+            @if(!empty(email()))
+            Email: {{ email() }}</p>
             @endif
           </div>
         </div><!-- d-flex -->
@@ -64,36 +41,32 @@
         <div class="row mg-t-20">
           <div class="col-md">
             <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To</label>
-            <h6 class="tx-inverse">{{ $customer->firstname . ' ' . $customer->lastname }}</h6>
-            <p class="lh-7">{{ $customer->address }}<br>
-            	@if(!empty($customer->email))
-            		Email: {{ $customer->email }}
-            	@endif
-            	<br>
-            	@if(!empty($customer->phone))
-            		Mobile: 0{{ $customer->phone }}
-            	@endif
-        	</p>
+            <h6 class="tx-inverse">{{ customer_name($invoice->customer) }}</h6>
+            <p class="m-0">{{ customer_address($invoice->customer) }}</p>
+            @if(!empty(customer_email($invoice->customer)))
+          	 <p class="m-0"><strong>Email: </strong>{{ customer_email($invoice->customer) }}</p>
+            @endif
+            @if(!empty(customer_phone($invoice->customer))) 
+          	 <p class="m-0"><strong>Phone: </strong>{{ customer_phone($invoice->customer) }}</p>
+            @endif
           </div><!-- col -->
           <div class="col-md">
             <label class="tx-uppercase tx-13 tx-bold mg-b-20">Invoice Information</label>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Invoice No</span>
-              <span>INV-3546-{{ $invoice->id }}</span>
+              <span>INV000{{ $invoice->id }}</span>
             </p>
-            @if(!empty($invoice->payment))
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Payment Type</span>
-              <span>{{ $invoice->payment }}</span>
+              <span>Customer Due</span>
+              <span>{{ customer_due($invoice->customer) }}</span>
             </p>
-            @endif
             <p class="d-flex justify-content-between mg-b-5">
               <span>Create Date:</span>
-              <span>{{ $invoice->created_at }}</span>
+              <span>{{ $invoice->created_at->format('F j, Y h:i:s A') }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Updated Date:</span>
-              <span>{{ $invoice->updated_at }}</span>
+              <span>{{ $invoice->updated_at->format('F j, Y h:i:s A') }}</span>
             </p>
           </div><!-- col -->
         </div><!-- row -->
@@ -105,16 +78,18 @@
                 <th class="wd-40p">Product Name</th>
                 <th class="tx-center wd-20p">Quantity</th>
                 <th class="tx-right wd-20p">Unit Price</th>
-                <th class="tx-right wd-20p">Amount</th>
+                <th class="tx-right wd-20p">Total Price</th>
               </tr>
             </thead>
             <tbody>
+              @foreach(invoice_products($invoice->id) as $product)
               <tr>
-                <td>{{ $product->productname }}</td>
-                <td class="tx-center">{{ $invoice->sellquantity . ' ' . $product->unit}}</td>
-                <td class="tx-right">{{ $product->sellprice . ' ' . $currency }}</td>
-                <td class="tx-right">{{ $invoice->totalamount . ' ' . $currency }}</td>
+                <td>{{ product_name($product->product) }}</td>
+                <td class="tx-center">{{ $product->quantity . ' ' . product_unit($product->product)}}</td>
+                <td class="tx-right">{{ $product->price . ' ' . currency() }}</td>
+                <td class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
               </tr>
+              @endforeach
               <tr>
                 <td colspan="2" rowspan="4" class="valign-middle">
                 @if(!empty($invoice->note))
@@ -125,29 +100,23 @@
                 @endif
                 </td>
                 <td class="tx-right">Discount</td>
-                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . $currency }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . currency() }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Payable</td>
-                <td colspan="2"  class="tx-right">{{ $invoice->totalamount - $invoice->discount . ' ' . $currency }}</td>
+                <td colspan="2"  class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Paid</td>
-                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . $currency }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . currency() }}</td>
               </tr>
               <tr>
                 <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
                 <td colspan="2" class="tx-right">
-                  @php
-
-                    $dueamount = $invoice->totalamount - $invoice->discount - $invoice->paid
-                  @endphp
                   <h4 class="tx-primary tx-bold tx-lato">
-                    @if($dueamount > 0)
-                      {{ $dueamount . ' ' . $currency}}
-                    @else
-                      {{ 'Full Paid' }}
-                    @endif
+                    
+                    {{ $invoice->due . ' ' . currency() }}
+                    
                   </h4>
                 </td>
               </tr>
