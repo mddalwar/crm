@@ -13,5 +13,7 @@ class Invest extends Model
         'investby',
         'amount',
         'note',
+        'added_by',
+        'updated_by',
     ];
 }

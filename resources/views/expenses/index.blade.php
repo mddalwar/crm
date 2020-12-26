@@ -35,25 +35,19 @@
 	            <th class="wd-10p">ID</th>
 	            <th class="wd-20p">Expense For</th>
 	            <th class="wd-15p">Expense Amount</th>
+	            <th class="wd-15p">Expense By</th>
 	            <th class="wd-15p">Reference</th>
 	            <th class="wd-20p">Expense Date</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @php 
-	        	$currency_query = DB::table('settings')
-	        				->where('setting_key', 'currency')
-	        				->get();
-	        	$currency = $currency_query[0]->setting_value;
-
-	        @endphp
-
 	        @foreach($expenses as $expense)
 	          <tr>
 	            <td>{{ $expense->id }}</td>
-	            <td>{{ $expense->expensefor }}</td>
-	            <td>{{ $expense->amount . ' ' . $currency }}</td>
+	            <td>{{ $expense->expensetitle }}</td>
+	            <td>{{ $expense->amount . ' ' . currency() }}</td>
+	            <td>{{ $expense->expenseby }}</td>
 	            <td>
 	            	@if($expense->reference != NULL)
 	            		{{ $expense->reference }}

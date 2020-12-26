@@ -33,25 +33,18 @@
 	        <thead>
 	          <tr>
 	            <th class="wd-10p">ID</th>
-	            <th class="wd-30p">Invest By</th>
+	            <th class="wd-30p">Investor Name</th>
 	            <th class="wd-20p">Invest Amount</th>
 	            <th class="wd-20p">Invest Date</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @php 
-	        	$currency_query = DB::table('settings')
-	        				->where('setting_key', 'currency')
-	        				->get();
-	        	$currency = $currency_query[0]->setting_value;
-
-	        @endphp
 	        @foreach($invests as $invest)
 	          <tr>
 	            <td>{{ $invest->id }}</td>
 	            <td>{{ $invest->investby }}</td>
-	            <td>{{ $invest->amount . ' ' . $currency }}</td>
+	            <td>{{ $invest->amount . ' ' . currency() }}</td>
 	            <td>{{ $invest->created_at->format('d-m-Y') }}</td>
 	            <td>
 	            	<a href="{{ route('invests.edit', $invest->id) }}" class="btn btn-secondary p-1">Edit</a>

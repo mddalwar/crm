@@ -41,31 +41,31 @@ class InvestController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $cu = Auth::user();
 
         $validate_data = [
             'investby'      => $data['investby'],
             'amount'        => $data['amount'],
+            'note'          => isset($data['note']) ? $data['note'] : NULL,
+            'added_by'      => $cu->id,
         ];
 
         $validate_rule = [
             'investby'      => 'required',
-            'amount'        => 'required',
+            'amount'        => 'required|numeric',
+            'note'          => 'nullable',
+            'added_by'      => 'required',
         ];
         $error_message = [
             'investby.required'      => 'Who is invested this amount !',
             'amount.required'        => 'Investment amount is required !',
+            'amount.numeric'         => 'Investment amount should be numeric value !',
         ];
         Validator::make($validate_data, $validate_rule, $error_message)->validate();
 
-        $note = [
-            'note'      => $data['note']
-        ];
+        Invest::create($validate_data);
 
-        $final_data = array_merge($validate_data, $note);
-
-        Invest::create($final_data);
-
-        return redirect()->back()->with('invest_added', 'Invest added with the total Investment !');
+        return redirect()->back()->with('success', 'Invest added with the total Investment !');
     }
 
     /**

@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('invest_added'))
-      		<div class="alert alert-success">{{ Session::get('invest_added') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('invests.store') }}" method="POST">
@@ -37,8 +37,8 @@
 				<div class="row mg-b-25">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">Invest By: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="investby" placeholder="Invest By">
+							<label class="form-control-label">Investor Name: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="investby" placeholder="Investor Name">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">

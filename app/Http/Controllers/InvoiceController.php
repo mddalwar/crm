@@ -231,6 +231,7 @@ class InvoiceController extends Controller
     public function destroy($id)
     {
         Invoice::where('id', $id)->delete();
+        Invproduct::where('invoice', $id)->delete();
         return redirect()->back()->with('deleted', 'Invoice has been deleted !');
     }
 

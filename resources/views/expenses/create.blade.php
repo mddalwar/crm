@@ -35,19 +35,25 @@
 	        <form action="{{ route('expenses.store') }}" method="POST">
 	        	@csrf	        	
 				<div class="row mg-b-25">
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">Expense For: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expensefor" placeholder="Expense For">
+							<label class="form-control-label">Expense Title: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="expensetitle" placeholder="Expense Title">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">Amount: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="amount" placeholder="Amount">
+							<label class="form-control-label">Expense Amount: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="amount" placeholder="Expense Amount">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label class="form-control-label">Expense By: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="expenseby" placeholder="Expense By">
+						</div>
+					</div><!-- col-4 -->
+					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Reference:</label>
 							<input class="form-control" type="text" name="reference" placeholder="Reference">

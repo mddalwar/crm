@@ -48,10 +48,10 @@
 	            <td>{{ $customer->phone }}</td>
 	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
 	            <td>
-	            	@if(!empty($customer->email))
-	            	{{ $customer->email }}
+	            	@if(!empty($customer->due))
+	            	{{ $customer->due . ' ' . currency() }}
 	            	@else
-	            		{{'No Email'}}
+	            		{{'No Due'}}
 	            	@endif
 	            </td>
 	            <td>

@@ -42,15 +42,17 @@ class ExpenseController extends Controller
         $all_data = $request->all();
 
         $data = [
-            'expensefor'        => $all_data['expensefor'],
+            'expensetitle'      => $all_data['expensetitle'],
             'amount'            => $all_data['amount'],
+            'expenseby'         => $all_data['expenseby'],
             'reference'         => $all_data['reference'],
             'note'              => $all_data['note'],
         ];
 
         $validation = [
-            'expensefor'        => 'required',
-            'amount'            => 'required|min:1',
+            'expensetitle'      => 'required',
+            'amount'            => 'required|min:1|numeric',
+            'expenseby'         => 'required',
             'reference'         => 'nullable',
             'note'              => 'nullable',
         ];
@@ -98,15 +100,17 @@ class ExpenseController extends Controller
         $all_data = $request->all();
 
         $data = [
-            'expensefor'        => $all_data['expensefor'],
+            'expensetitle'      => $all_data['expensetitle'],
             'amount'            => $all_data['amount'],
+            'expenseby'         => $all_data['expenseby'],
             'reference'         => $all_data['reference'],
             'note'              => $all_data['note'],
         ];
 
         $validation = [
             'expensefor'        => 'required',
-            'amount'            => 'required|min:1',
+            'amount'            => 'required|min:1|numeric',
+            'expenseby'         => 'required',
             'reference'         => 'nullable',
             'note'              => 'nullable',
         ];

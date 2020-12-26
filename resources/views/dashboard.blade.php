@@ -13,52 +13,9 @@
 
 <div class="sh-pagebody">
   <div class="row row-sm">
-    <div class="col-lg-8">
-      <div class="row row-xs">
-        <div class="col-6 col-sm-4 col-md">
-          <a href="{{ route('invoices.create') }}" class="shortcut-icon">
-            <div>
-              <i class="icon ion-ios-albums-outline"></i>
-              <span>Create Invoice</span>
-            </div>
-          </a>
-        </div><!-- col -->
-        <div class="col-6 col-sm-4 col-md">
-          <a href="{{ route('products.create') }}" class="shortcut-icon">
-            <div>
-              <i class="icon ion-ios-analytics-outline"></i>
-              <span>Add Product</span>
-            </div>
-          </a>
-        </div><!-- col -->
-        <div class="col-6 col-sm-4 col-md mg-t-10 mg-sm-t-0">
-          <a href="{{ route('expenses.create') }}" class="shortcut-icon">
-            <div>
-              <i class="icon ion-ios-bookmarks-outline"></i>
-              <span>Add Expense</span>
-            </div>
-          </a>
-        </div><!-- col -->
-        <div class="col-6 col-sm-4 col-md mg-t-10 mg-md-t-0">
-          <a href="{{ route('invests.create') }}" class="shortcut-icon">
-            <div>
-              <i class="icon ion-ios-chatboxes-outline"></i>
-              <span>Add Invest</span>
-            </div>
-          </a>
-        </div><!-- col -->
-        <div class="col-6 col-sm-4 col-md mg-t-10 mg-md-t-0">
-          <a href="{{ route('products.index') }}" class="shortcut-icon">
-            <div>
-              <i class="icon ion-ios-download-outline"></i>
-              <span>All Products</span>
-            </div>
-          </a>
-        </div><!-- col -->
-      </div><!-- row -->
-     
+    <div class="col-lg-8">     
 
-      <div class="card bd-primary mg-t-20">
+      <div class="card bd-primary">
         <div class="card-header bg-primary tx-white">Current Month Summery</div>
         <div class="card-body">
           <div class="row">

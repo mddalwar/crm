@@ -22,6 +22,8 @@ class UserSeeder extends Seeder
             'email' 		=> 'admin@gmail.com',
             'designation' 	=> 'Super Admin',
             'password' 		=> Hash::make('password'),
+            'created_at'    => date('Y-m-d H:i:s'),
+            'updated_at'    => date('Y-m-d H:i:s'),
         ]);
     }
 }
