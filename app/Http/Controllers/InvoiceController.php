@@ -97,6 +97,20 @@ class InvoiceController extends Controller
         ];
 
         Validator::make($invoiceData, $invoiceRule, $invoiceMsg)->validate();
+
+        if($invoiceData['due'] != NULL){
+            $customer_info = Customer::find($customer);
+
+            if($customer_info->due == NULL){
+                $existing_due = 0;
+            }else{
+                $existing_due = $customer_info->due;
+            }
+
+            $total_due = $existing_due + $invoiceData['due'];
+            Customer::where('id', $customer)->update(['due' => $total_due]);
+        }      
+
         $invoice = Invoice::create($invoiceData);
 
         $products = $request->product;

@@ -32,8 +32,8 @@
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-15p">First name</th>
-	            <th class="wd-15p">Last name</th>
+	            <th class="wd-10p">ID</th>
+	            <th class="wd-20p">Customer Name</th>
 	            <th class="wd-15p">Mobile</th>
 	            <th class="wd-15p">Add date</th>
 	            <th class="wd-25p">E-mail</th>
@@ -43,8 +43,8 @@
 	        <tbody>
 	        @foreach($customers as $customer)
 	          <tr>
-	            <td>{{ $customer->firstname }}</td>
-	            <td>{{ $customer->lastname }}</td>
+	            <td>{{ $customer->id }}</td>
+	            <td>{{ $customer->customername }}</td>
 	            <td>{{ $customer->phone }}</td>
 	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
 	            <td>

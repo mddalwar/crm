@@ -44,16 +44,16 @@ class InvestController extends Controller
 
         $validate_data = [
             'investby'      => $data['investby'],
-            'amount'        => $data['amount']
+            'amount'        => $data['amount'],
         ];
 
         $validate_rule = [
             'investby'      => 'required',
-            'amount'        => 'required'
+            'amount'        => 'required',
         ];
         $error_message = [
             'investby.required'      => 'Who is invested this amount !',
-            'amount.required'        => 'Investment amount is required !'
+            'amount.required'        => 'Investment amount is required !',
         ];
         Validator::make($validate_data, $validate_rule, $error_message)->validate();
 

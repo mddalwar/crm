@@ -7,9 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## About mStore
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+mStore is an customer relation management software which is created by Md Dalwar Hossan. There is complete facilities for store keeper. Anyone can use these software without any coding expertise.:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
