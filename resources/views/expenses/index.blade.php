@@ -33,11 +33,12 @@
 	        <thead>
 	          <tr>
 	            <th class="wd-10p">ID</th>
-	            <th class="wd-20p">Expense For</th>
-	            <th class="wd-15p">Expense Amount</th>
+	            <th class="wd-20p">Expense Title</th>
+	            <th class="wd-10p">Expense Amount</th>
 	            <th class="wd-15p">Expense By</th>
-	            <th class="wd-15p">Reference</th>
-	            <th class="wd-20p">Expense Date</th>
+	            <th class="wd-10p">Reference</th>
+	            <th class="wd-15p">Expense Date</th>
+	            <th class="wd-20p">Expense Note</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -56,6 +57,15 @@
 	            	@endif
 	            </td>
 	            <td>{{ $expense->created_at->format('d-m-Y') }}</td>
+
+	            <td>
+	            	@if($expense->note != NULL)
+	            		{{ $expense->note }}
+	            	@else
+	            		{{ 'No Notes' }}
+	            	@endif
+	            </td>
+
 	            <td>
 	            	<a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-secondary p-1">Edit</a>
 	            	<form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">

@@ -35,8 +35,8 @@
 	            <th class="wd-10p">ID</th>
 	            <th class="wd-20p">Customer Name</th>
 	            <th class="wd-15p">Mobile</th>
+	            <th class="wd-15p">Due</th>
 	            <th class="wd-15p">Add date</th>
-	            <th class="wd-25p">E-mail</th>
 	            <th class="wd-15p">Action</th>
 	          </tr>
 	        </thead>
@@ -46,7 +46,6 @@
 	            <td>{{ $customer->id }}</td>
 	            <td>{{ $customer->customername }}</td>
 	            <td>{{ $customer->phone }}</td>
-	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
 	            <td>
 	            	@if(!empty($customer->due))
 	            	{{ $customer->due . ' ' . currency() }}
@@ -54,6 +53,7 @@
 	            		{{'No Due'}}
 	            	@endif
 	            </td>
+	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
 	            <td>
 	            	<a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-secondary p-1">Edit</a>
 	            	<form action="{{ route('customers.destroy', $customer->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">

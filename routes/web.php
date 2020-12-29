@@ -46,6 +46,9 @@ Route::group(
 		// Pdf Download Routes
 		Route::get('/ajaxproducts', [App\Http\Controllers\ProductController::class, 'ajaxproducts'])->name('ajaxproducts');
 
+		// Pdf Download Routes
+		Route::get('/product/export', [App\Http\Controllers\ProductController::class, 'export'])->name('productExport');
+
 		// Resource Routes
 		Route::resource('users', 'App\Http\Controllers\UserController');
 		Route::resource('customers', 'App\Http\Controllers\CustomerController');
@@ -54,5 +57,6 @@ Route::group(
 		Route::resource('invoices', 'App\Http\Controllers\InvoiceController');
 		Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 		Route::resource('invests', 'App\Http\Controllers\InvestController');
+		Route::resource('stocks', 'App\Http\Controllers\StockController');
 	}
 );

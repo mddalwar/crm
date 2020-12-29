@@ -46,7 +46,7 @@
 	            <td>{{ $user->firstname }}</td>
 	            <td>{{ $user->lastname }}</td>
 	            <td>{{ $user->designation }}</td>
-	            <td>{{ $user->created_at }}</td>
+	            <td>{{ $user->created_at->format('F j, Y') }}</td>
 	            <td>{{ $user->email }}</td>
 	            <td>
 	            	<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary p-1">Edit</a>

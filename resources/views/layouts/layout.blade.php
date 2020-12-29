@@ -16,11 +16,7 @@
 
     <div class="sh-logopanel">
       <a href="{{ route('dashboard') }}" class="sh-logo-text">      
-      @if(!empty( logotext() ))
-      <h2>{{ logotext() }}</h2>
-      @else
-          <h2>Logo</h2>
-      @endif
+        <h2>{{ logotext() }}</h2>
       </a>
       <a id="navicon" href="" class="sh-navicon d-none d-xl-block"><i class="icon ion-navicon"></i></a>
       <a id="naviconMobile" href="" class="sh-navicon d-xl-none"><i class="icon ion-navicon"></i></a>
@@ -44,6 +40,16 @@
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">Products</a></li>
             <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
+          </ul>
+        </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-ios-list-outline"></i>
+            <span>Stocks</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('stocks.index') }}" class="nav-link">Stocks</a></li>
+            <li class="nav-item"><a href="{{ route('stocks.create') }}" class="nav-link">Add Stock</a></li>
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">

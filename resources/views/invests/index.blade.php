@@ -35,6 +35,7 @@
 	            <th class="wd-10p">ID</th>
 	            <th class="wd-30p">Investor Name</th>
 	            <th class="wd-20p">Invest Amount</th>
+	            <th class="wd-20p">Added By</th>
 	            <th class="wd-20p">Invest Date</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
@@ -45,6 +46,7 @@
 	            <td>{{ $invest->id }}</td>
 	            <td>{{ $invest->investby }}</td>
 	            <td>{{ $invest->amount . ' ' . currency() }}</td>
+	            <td>{{ user_name($invest->added_by) }}</td>
 	            <td>{{ $invest->created_at->format('d-m-Y') }}</td>
 	            <td>
 	            	<a href="{{ route('invests.edit', $invest->id) }}" class="btn btn-secondary p-1">Edit</a>

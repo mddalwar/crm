@@ -13,14 +13,14 @@
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
       <a class="breadcrumb-item" href="{{ route('users.index') }}">Users</a>
-      <span class="breadcrumb-item active">Add User</span>
+      <span class="breadcrumb-item active">Update User</span>
     </nav>
   </div><!-- sh-breadcrumb -->
 
   <div class="sh-pagebody">
 
     <div class="card bd-primary mg-t-20">
-      <div class="card-header bg-primary tx-white">Add New User</div>
+      <div class="card-header bg-primary tx-white">Update User</div>
       <div class="card-body pd-sm-30">
       	@if(isset($errors))
       		@foreach($errors->all() as $error)
@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('user_updated'))
-      		<div class="alert alert-success">{{ Session::get('user_updated') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route( 'users.update', $user->id ) }}" method="POST">

@@ -39,7 +39,7 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Expense Title: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expensefor" placeholder="Expense Title" value="{{ $expense->expensetitle }}">
+							<input class="form-control" type="text" name="expensetitle" placeholder="Expense Title" value="{{ $expense->expensetitle }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
@@ -68,7 +68,7 @@
 					</div>
 				</div><!-- row -->	          
 				<div class="form-layout-footer">
-					<button class="btn btn-primary mg-r-5" type="submit">Add Expense</button>
+					<button class="btn btn-primary mg-r-5" type="submit">Update Expense</button>
 				</div><!-- form-layout-footer -->
 	        </form>
 

@@ -20,6 +20,7 @@ class AddStockTable extends Migration
             $table->string('prevstock');
             $table->string('price');
             $table->string('avarageprice');
+            $table->string('note')->nullable();
             $table->integer('added_by');
             $table->timestamps();
         });

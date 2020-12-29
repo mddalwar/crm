@@ -26,6 +26,13 @@ if(!function_exists('categories')){
 	}
 }
 
+if(!function_exists('category')){
+	function category($id){
+		$category = DB::table('categories')->where('id', $id)->first();
+		return $category->categoryname;
+	}
+}
+
 if(!function_exists('user_name')){
 	function user_name($id){
 		$username = DB::table('users')->where('id', $id)->first();
@@ -50,7 +57,12 @@ if(!function_exists('phone')){
 if(!function_exists('logotext')){
 	function logotext(){
 		$logotext = DB::table('settings')->where('setting_key', 'logotext')->first();
-		return $logotext->setting_value;
+		if($logotext){
+			return $logotext->setting_value;
+		}else{
+			return 'CRM Demo';
+		}
+		
 	}
 }
 

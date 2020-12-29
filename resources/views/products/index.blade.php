@@ -47,7 +47,7 @@
 	            <td>{{ $product->productname }}</td>
 	            <td>{{ $product->stock . ' ' . $product->unit }}</td>
 	            <td>{{ $product->purchaseprice . ' ' . currency() }}</td>
-	            <td>{{ $product->category }}</td>
+	            <td>{{ category($product->category) }}</td>
 	            <td>
 	            	<a href="{{ route('products.edit', $product->id) }}" class="btn btn-secondary p-1">Edit</a>
 	            	<form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">

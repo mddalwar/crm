@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Exports\ProductExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Mail;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -57,9 +58,9 @@ class ProductController extends Controller
 
         $validate_role = [
             'productname'     => 'required|unique:products',
-            'stock'           => 'required|numeric',
+            'stock'           => 'required|numeric|min:0',
             'unit'            => 'required',
-            'purchaseprice'   => 'required|numeric',
+            'purchaseprice'   => 'required|numeric|min:0',
             'category'        => 'required',
             'description'     => 'nullable'
         ];
@@ -68,10 +69,12 @@ class ProductController extends Controller
             'productname.unique'        => 'Product already added',
             'stock.required'            => 'Primary stock amount is required',
             'stock.numeric'             => 'Primary stock must be an numeric value',
+            'stock.min'                 => 'Primary stock must be an positive value',
             'unit.required'             => 'Unit selection is required',
             'category.required'         => 'Category selection is required',
             'purchaseprice.required'    => 'Purchase price is required',
             'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
+            'purchaseprice.min'         => 'Purchase price must be an positive value',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
@@ -163,6 +166,13 @@ class ProductController extends Controller
         Product::where('id', $id)->delete();
         return redirect()->back()->with('success', 'Product has been deleted !');
     }
+    public function export() 
+    {
+        $products = Product::all();
+        
+        return Excel::download(new ProductExport, 'products.xls');
+    }
+
 
     public function ajaxproducts()
     {   

@@ -108,7 +108,7 @@ class ExpenseController extends Controller
         ];
 
         $validation = [
-            'expensefor'        => 'required',
+            'expensetitle'      => 'required',
             'amount'            => 'required|min:1|numeric',
             'expenseby'         => 'required',
             'reference'         => 'nullable',
