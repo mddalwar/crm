@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'All Invoices')
+@section('title', 'All Stocks')
 
 @section('styles')
 <!-- Vendor css -->
@@ -16,42 +16,42 @@
 <div class="sh-breadcrumb">
 	<nav class="breadcrumb">
 	  <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
-	  <span class="breadcrumb-item active">Invoices</span>
+	  <span class="breadcrumb-item active">Stocks</span>
 	</nav>
 </div><!-- sh-breadcrumb -->
 
 <div class="sh-pagebody">
 
 	<div class="card bd-primary mg-t-20">
-	  <div class="card-header bg-primary tx-white">Invoices</div>
+	  <div class="card-header bg-primary tx-white">Stocks</div>
 	  <div class="card-body pd-sm-30">
-	  	@if(Session::has('deleted'))
-      		<div class="alert alert-success">{{ Session::get('deleted') }}</div>
+	  	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
 	    <div class="table-wrapper">
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
 	            <th class="wd-10p">ID</th>
-	            <th class="wd-20p">Customer Name</th>
-	            <th class="wd-15p">Purchased</th>
-	            <th class="wd-15p">Create date</th>
-	            <th class="wd-15p">Total Bill</th>
+	            <th class="wd-20p">Product Name</th>
+	            <th class="wd-15p">Added Stock</th>
+	            <th class="wd-15p">Stock Price</th>
+	            <th class="wd-15p">Add Date</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
 	        <tbody>
-	        @foreach($invoices as $invoice)
+	        @foreach($stocks as $stock)
 				<tr>
-					<td>{{ 'INV' . $invoice->id }}</td>
-					<td>{{ customer_name($invoice->customer) }}</td>
-					<td>{{ invoice_product_count($invoice->id) . ' Products'}}</td>
-					<td>{{ $invoice->created_at->format('F j, Y') }}</td>
-					<td>{{ $invoice->total . ' ' . currency() }}</td>
+					<td>{{ $stock->id }}</td>
+					<td>{{ product_name($stock->product) }}</td>
+					<td>{{ $stock->stock . ' ' . product_unit($stock->product) }}</td>
+					<td>{{ $stock->price . ' ' . currency() }}</td>
+					<td>{{ $stock->created_at->format('F j, Y') }}</td>
 					<td>
-						<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
-						<a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-secondary p-1">Edit</a>
-						<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
+						<a href="{{ route('stocks.show', $stock->id) }}" class="btn btn-primary p-1">View</a>
+						<a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-secondary p-1">Edit</a>
+						<form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 							@csrf
 							@method('DELETE')
 							<button class="btn btn-danger p-1" type="submit">Delete</button>

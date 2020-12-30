@@ -128,7 +128,10 @@ class InvoiceController extends Controller
                     'total'         => $total[$product],
                     'status'        => 'Active',
                 ];
-
+                $loopProduct = Product::find($products[$product]);
+                $currentQnty = $loopProduct->stock;
+                $presentStock = $loopProduct->stock  - $quantity[$product];
+                Product::where('id', $products[$product])->update(['stock' => $presentStock]);
                 Invproduct::create($invProduct);
             }
         }
