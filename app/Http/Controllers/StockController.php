@@ -114,8 +114,7 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        $stock = Stock::find($id);
-        return view('stocks.edit', compact('stock'));
+        
     }
 
     /**
@@ -138,7 +137,6 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        Stock::where('id', $id)->delete();
-        return redirect()->back()->with('success', 'Stock has been deleted');
+        
     }
 }

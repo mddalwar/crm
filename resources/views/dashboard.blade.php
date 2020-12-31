@@ -63,17 +63,7 @@
                   <h5 class="tx-inverse ">Expense</h5>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-              <div class="shortcut-icon mb-3">
-                <div>
-                  <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_profit(date('m')) }}</span></h2>
-                  <h5 class="tx-inverse">Profit</h5>
-                </div>
-              </div>
-            </div>
-            
+            </div>            
           </div>
         </div><!-- card-body -->
       </div><!-- card -->
@@ -125,15 +115,6 @@
                   <h5 class="tx-inverse ">Expense</h5>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-              <div class="shortcut-icon mb-3">
-                <div>
-                  <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ total_profit() }}</span></h2>
-                  <h5 class="tx-inverse ">Profit</h5>
-                </div>
-              </div>
             </div>            
           </div>
         </div><!-- card-body -->
@@ -146,19 +127,6 @@
         <div class="card-header bg-primary tx-white">Calendar</div>
         <div class="datepicker"></div>
       </div><!-- card -->
-
-      <div class="card bd-primary">
-        <div class="card-header bg-primary tx-white">Current Balance</div>
-        <div class="card-body">
-          <div class="shortcut-icon mb-3">
-            <div>
-              <i class="icon ion-arrow-down-a"></i>
-              <h2 class="tx-inverse">{{ current_balance() }}</h2>
-              <h5 class="tx-inverse">Current Balance</h5>
-            </div>
-          </div> 
-        </div><!-- card-body -->
-      </div><!-- card --> 
     </div><!-- col-4 -->
   </div><!-- row -->
 </div><!-- sh-pagebody -->

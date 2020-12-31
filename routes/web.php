@@ -58,5 +58,6 @@ Route::group(
 		Route::resource('expenses', 'App\Http\Controllers\ExpenseController');
 		Route::resource('invests', 'App\Http\Controllers\InvestController');
 		Route::resource('stocks', 'App\Http\Controllers\StockController');
+		Route::resource('collections', 'App\Http\Controllers\CollectionController');
 	}
 );

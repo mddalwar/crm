@@ -167,10 +167,7 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        $products = Product::all();
-        $customers = Customer::all();
-        $invoice = Invoice::find($id);
-        return view('invoices.edit', compact('invoice', 'products', 'customers'));
+
     }
 
     /**
@@ -182,47 +179,7 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $all_data = $request->all();
-
-        $invoice_data = [
-            'productid'         => $all_data['productid'],
-            'customerid'        => $all_data['customerid'],
-            'sellquantity'      => $all_data['sellquantity'],
-            'totalamount'       => $all_data['totalamount'],
-            'discount'          => isset($all_data['discount']) ? $all_data['discount'] : 0,
-            'paid'              => isset($all_data['paid']) ? $all_data['paid'] : 0,
-            'note'              => $all_data['note']
-        ];
-
-        $validate_rule = [
-            'productid'         => 'required',
-            'customerid'        => 'required',
-            'sellquantity'      => 'required',
-            'totalamount'       => 'required',
-            'discount'          => 'required',
-            'paid'              => 'required',
-            'note'              => 'nullable'
-        ];
-        $error_message = [
-            'productid.required'         => 'You have to select a product !',
-            'customerid.required'        => 'You have to select a product !',
-            'sellquantity.required'      => 'Sell quantity is required !',
-            'totalamount.required'       => 'Sell quantity is required !',
-            'discount.required'          => 'Invalid discount amount !',
-            'paid.required'              => 'Invalid paid amount !'
-        ];
-        Validator::make($invoice_data, $validate_rule, $error_message)->validate();
-
-        $due = [
-            'due' => $all_data['totalamount'] - $all_data['discount'] - $all_data['paid']
-        ];
-
-        $final_data = array_merge($invoice_data, $due);
-
-        $invoice = Invoice::find($id);
-        $invoice->update($final_data);
-
-        return redirect()->route('invoices.show', $id);
+        
     }
 
     /**
@@ -233,9 +190,7 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        Invoice::where('id', $id)->delete();
-        Invproduct::where('invoice', $id)->delete();
-        return redirect()->back()->with('deleted', 'Invoice has been deleted !');
+        
     }
 
 }

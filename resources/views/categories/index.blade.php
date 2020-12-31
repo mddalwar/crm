@@ -45,11 +45,10 @@
 	          <tr>
 	            <td>{{ $category->id }}</td>
 	            <td>{{ $category->categoryname }}</td>
-	            <td>{{ $category->id . ' Nos' }}</td>
+	            <td>{{ total_product_in_category($category->id) . ' Nos' }}</td>
 	            <td>{{ user_name($category->added_by) }}</td>
 	            <td>{{ $category->created_at->format('F j, Y')}}</td>
 	            <td>
-	            	<a href="{{ route('categories.show', $category->id) }}" class="btn btn-primary p-1">View</a>
 	            	<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-secondary p-1">Edit</a>
 	            	<form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
 	            		@csrf

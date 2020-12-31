@@ -49,13 +49,7 @@
 					<td>{{ $stock->price . ' ' . currency() }}</td>
 					<td>{{ $stock->created_at->format('F j, Y') }}</td>
 					<td>
-						<a href="{{ route('stocks.show', $stock->id) }}" class="btn btn-primary p-1">View</a>
-						<a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-secondary p-1">Edit</a>
-						<form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
-							@csrf
-							@method('DELETE')
-							<button class="btn btn-danger p-1" type="submit">Delete</button>
-						</form>
+						<a href="{{ route('stocks.show', $stock->id) }}" class="btn btn-primary p-1">View</a>						
 					</td>
 				</tr>
 	        @endforeach       

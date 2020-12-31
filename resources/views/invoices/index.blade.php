@@ -50,12 +50,7 @@
 					<td>{{ $invoice->total . ' ' . currency() }}</td>
 					<td>
 						<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
-						<a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-secondary p-1">Edit</a>
-						<form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">
-							@csrf
-							@method('DELETE')
-							<button class="btn btn-danger p-1" type="submit">Delete</button>
-						</form>
+						
 					</td>
 				</tr>
 	        @endforeach       

@@ -33,6 +33,13 @@ if(!function_exists('category')){
 	}
 }
 
+if(!function_exists('total_product_in_category')){
+	function total_product_in_category($id){
+		$total_product = DB::table('products')->where('category', $id)->count();
+		return $total_product;
+	}
+}
+
 if(!function_exists('user_name')){
 	function user_name($id){
 		$username = DB::table('users')->where('id', $id)->first();
@@ -228,23 +235,6 @@ if(!function_exists('monthly_due')){
 	}
 }
 
-if(!function_exists('monthly_profit')){
-	function monthly_profit($month){
-		$sell = DB::table("invoices")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
-            ->sum('invoices.total');
-        $discount = DB::table("invoices")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
-            ->sum('invoices.discount');
-        $expense = DB::table("expenses")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
-            ->sum('expenses.amount');
-        $profit = $sell - $discount - $expense;
-
-        return $profit;
-	}
-}
-
 if(!function_exists('total_sell')){
 	function total_sell(){
 		$sell = DB::table("invoices")
@@ -282,27 +272,5 @@ if(!function_exists('total_invests')){
 		$invests = DB::table("invests")
             ->sum('invests.amount');
         return $invests;
-	}
-}
-
-if(!function_exists('total_profit')){
-	function total_profit(){
-		$sell = DB::table("invoices")
-            ->sum('invoices.total');            
-		$discount = DB::table("invoices")
-            ->sum('invoices.discount');
-        $expense = DB::table("expenses")
-            ->sum('expenses.amount');
-        $profit = $sell - $discount - $expense;
-
-        return $profit;
-	}
-}
-
-if(!function_exists('current_balance')){
-	function current_balance(){
-		$balance = total_invests() - total_profit() - total_dues();
-
-		return $balance;
 	}
 }
