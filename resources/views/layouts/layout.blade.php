@@ -41,6 +41,16 @@
             <li class="nav-item"><a href="{{ route('products.index') }}" class="nav-link">Products</a></li>
             <li class="nav-item"><a href="{{ route('products.create') }}" class="nav-link">Add Product</a></li>
           </ul>
+        </li><!-- nav-item -->        
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-paperclip"></i>
+            <span>Categories</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">Categories</a></li>
+            <li class="nav-item"><a href="{{ route('categories.create') }}" class="nav-link">Add Category</a></li>
+          </ul>
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
@@ -54,22 +64,22 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
-            <i class="icon ion-paperclip"></i>
-            <span>Categories</span>
-          </a>
-          <ul class="nav-sub">
-            <li class="nav-item"><a href="{{ route('categories.index') }}" class="nav-link">Categories</a></li>
-            <li class="nav-item"><a href="{{ route('categories.create') }}" class="nav-link">Add Category</a></li>
-          </ul>
-        </li><!-- nav-item -->
-        <li class="nav-item">
-          <a href="" class="nav-link with-sub">
             <i class="icon ion-document-text"></i>
             <span>Invoices</span>
           </a>
           <ul class="nav-sub">
             <li class="nav-item"><a href="{{ route('invoices.index') }}" class="nav-link">Invoices</a></li>
             <li class="nav-item"><a href="{{ route('invoices.create') }}" class="nav-link">Create Invoice</a></li>
+          </ul>
+        </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-document-text"></i>
+            <span>Collections</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('collections.index') }}" class="nav-link">Collections</a></li>
+            <li class="nav-item"><a href="{{ route('collections.create') }}" class="nav-link">Create Collection</a></li>
           </ul>
         </li><!-- nav-item -->
         <li class="nav-item">

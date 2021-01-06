@@ -13,7 +13,15 @@ class CollectionTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('collections', function (Blueprint $table) {
+            $table->id();
+            $table->integer('customer');
+            $table->string('amount');
+            $table->string('prevdue')->nullable();
+            $table->string('note')->nullable();
+            $table->integer('collect_by');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class CollectionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('collections');
     }
 }

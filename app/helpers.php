@@ -122,6 +122,13 @@ if(!function_exists('product_unit')){
 	}
 }
 
+if(!function_exists('customers')){
+	function customers(){
+		$customers = DB::table('customers')->get();
+		return $customers;
+	}
+}
+
 if(!function_exists('customer_name')){
 	function customer_name($id){
 		$customer = DB::table('customers')->where('id', $id)->first();
