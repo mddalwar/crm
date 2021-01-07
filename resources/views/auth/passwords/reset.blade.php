@@ -1,65 +1,83 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <title>Login | Customer Relation Managment by Md Dalwar</title>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+    <!-- Vendor css -->
+    <link href="{{ asset('public/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+    <!-- Shamcey CSS -->
+    <link rel="stylesheet" href="{{ asset('public/css/shamcey.css') }}">
+  </head>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+  <body class="bg-gray-900">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+    <div class="signpanel-wrapper">
+      <div class="signbox">
+        <div class="signbox-header">
+            <h2>{{ logotext() }}</h2>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+            @if(address())
+                <p class="mg-b-0">{{ address() }}</p>
+            @else
+                <p class="mg-b-0">Customer Relation Software</p>
+            @endif
+          
+        </div><!-- signbox-header -->
+        <form method="POST" action="{{ route('password.update') }}">
+            @csrf
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+            <input type="hidden" name="token" value="{{ $token }}">
+            <div class="signbox-body">
+                <div class="form-group ">
+                    <label for="email" class="form-control-label">{{ __('E-Mail Address') }}</label>
+                    
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label for="password" class="form-control-label">{{ __('Password') }}</label>
+                    
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <label for="password-confirm" class="form-control-label">{{ __('Confirm Password') }}</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="form-group">                                
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Reset Password') }}
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-@endsection
+        </form>
+
+        </div><!-- signbox -->
+    </div><!-- signpanel-wrapper -->
+
+    <script src="{{ asset('public/lib/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('public/lib/popper.js/popper.js') }}"></script>
+    <script src="{{ asset('public/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('public/js/shamcey.js') }}"></script>
+  </body>
+</html>
+

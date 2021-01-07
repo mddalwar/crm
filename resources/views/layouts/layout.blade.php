@@ -54,7 +54,7 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
-            <i class="icon ion-ios-list-outline"></i>
+            <i class="icon ion-female"></i>
             <span>Stocks</span>
           </a>
           <ul class="nav-sub">
@@ -74,7 +74,7 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
-            <i class="icon ion-document-text"></i>
+            <i class="icon ion-filing"></i>
             <span>Collections</span>
           </a>
           <ul class="nav-sub">
@@ -84,7 +84,7 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
-            <i class="icon ion-document-text"></i>
+            <i class="icon ion-flash"></i>
             <span>Expenses</span>
           </a>
           <ul class="nav-sub">
@@ -94,7 +94,7 @@
         </li><!-- nav-item -->
         <li class="nav-item">
           <a href="" class="nav-link with-sub">
-            <i class="icon ion-person-stalker"></i>
+            <i class="icon ion-man"></i>
             <span>Customers</span>
           </a>
           <ul class="nav-sub">
@@ -211,7 +211,7 @@
             </div><!-- media -->
             <hr>
             <ul class="dropdown-profile-nav">
-              <li><a href=""><i class="icon ion-ios-person"></i> Edit Profile</a></li>
+              <li><a href="{{ route('users.edit', auth()->user()->id) }}"><i class="icon ion-ios-person"></i> Edit Profile</a></li>
               <li><a href=""><i class="icon ion-ios-gear"></i> Settings</a></li>
               <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
               <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>

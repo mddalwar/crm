@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -40,25 +42,41 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $all_data = $request->all();
-        $user_data = [
+
+        $validate_data = [
             'firstname'     => $all_data['firstname'],
             'lastname'      => $all_data['lastname'],
             'email'         => $all_data['email'],
-            'designation'   => $all_data['designation'],
-            'password'      => bcrypt($all_data['password'])
+            'designation'   => 'Super Admin', //$all_data['designation'],
+            'password'      => $all_data['password'],
+            'password_confirmation' => $all_data['password_confirmation'],
         ];
 
-        $validate = [
+        $validate_role = [
             'firstname'     => 'required',
             'lastname'      => 'required',
             'email'         => 'required|email|unique:users',
             'designation'   => 'required',
-            'password'      => 'required|confirmed|min:6'
+            'password'      => 'required|confirmed|min:6',
+            'password_confirmation'      => 'required',
         ];
-        $request->validate($validate, $user_data);
 
-        User::create($user_data);
-        return redirect()->back()->with('user_created', 'User has been created !');
+        $validate_msg = [
+            'firstname.required'        => 'First Name is required',
+            'lastname.required'         => 'Last Name is required',
+            'email.required'            => 'Email is required',
+            'email.unique'              => 'User already exists',
+            'designation.required'      => 'Designation is required',
+            'password.required'         => 'Password is required',
+            'password.confirmed'        => 'Both password are not matched',
+        ];
+
+        Validator::make($validate_data, $validate_role, $validate_msg)->validate();
+
+        $validate_data['password'] = Hash::make($all_data['password']);
+
+        User::create($validate_data);
+        return redirect()->back()->with('success', 'User has been created !');
         
     }
 
@@ -100,14 +118,13 @@ class UserController extends Controller
             'firstname'     => $all_data['firstname'],
             'lastname'      => $all_data['lastname'],
             'email'         => $all_data['email'],
-            'designation'   => $all_data['designation']
+            'designation'   => 'Super Admin', //$all_data['designation']
         ];
 
         $validate = [
             'firstname'     => 'required',
             'lastname'      => 'required',
             'email'         => 'required|unique:users,email,'. $id,
-            'designation'   => 'required'
         ];
         $request->validate($validate, $user_data);
 

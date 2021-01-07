@@ -41,31 +41,19 @@
 							<label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="firstname" value="{{ $user->firstname }}" placeholder="Enter firstname">
 						</div>
-					</div><!-- col-4 -->
+					</div><!-- col-6 -->
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="lastname" value="{{ $user->lastname }}" placeholder="Enter lastname">
 						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					</div><!-- col-6 -->
+					<div class="col-lg-12">
 						<div class="form-group">
 							<label class="form-control-label">Email address: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="email" value="{{ $user->email }}" placeholder="Enter email address">
 						</div>
-					</div><!-- col-4 -->
-
-					<div class="col-lg-6">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Designation: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="designation">
-								<option label="User Designation"></option>
-								<option value="Manager" @if($user->designation == 'Manager') selected='selected' @endif>Manager</option>
-								<option value="Admin" @if($user->designation == 'Admin') selected='selected' @endif>Admin</option>
-								<option value="Cashier" @if($user->designation == 'Cashier') selected='selected' @endif>Cashier</option>
-							</select>
-						</div>
-					</div><!-- col-4 -->
+					</div><!-- col-12 -->
 				</div><!-- row -->	          
 				<div class="form-layout-footer">
 					<button class="btn btn-primary mg-r-5" type="submit">Update User</button>

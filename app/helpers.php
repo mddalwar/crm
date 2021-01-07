@@ -198,47 +198,111 @@ if(!function_exists('invoice_products')){
 }
 
 if(!function_exists('monthly_invest')){
-	function monthly_invest($month){
+	function monthly_invest($month = NULL, $year = NULL){
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
 		$invest = DB::table("invests")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->sum('invests.amount');
         return $invest;
 	}
 }
 
 if(!function_exists('monthly_sell')){
-	function monthly_sell($month){
+	function monthly_sell($month = NULL, $year = NULL){
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
 		$sell = DB::table("invoices")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->sum('invoices.total');
         return $sell;
 	}
 }
 
 if(!function_exists('monthly_expense')){
-	function monthly_expense($month){
+	function monthly_expense($month = NULL, $year = NULL){
+
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
 		$expense = DB::table("expenses")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->sum('expenses.amount');
         return $expense;
 	}
 }
 
 if(!function_exists('monthly_discount')){
-	function monthly_discount($month){
+	function monthly_discount($month = NULL, $year = NULL){
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
 		$discount = DB::table("invoices")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->sum('invoices.discount');
         return $discount;
 	}
 }
 
 if(!function_exists('monthly_due')){
-	function monthly_due($month){
+	function monthly_due($month = NULL, $year = NULL){
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
 		$dues = DB::table("customers")
-            ->whereRaw('MONTH(created_at) = ?',[$month])
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
             ->sum('customers.due');
         return $dues;
+	}
+}
+
+if(!function_exists('monthly_collection')){
+	function monthly_collection($month = NULL, $year = NULL){
+
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
+		$collections = DB::table("collections")
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->sum('collections.amount');
+        return $collections;
 	}
 }
 
@@ -263,6 +327,14 @@ if(!function_exists('total_expense')){
 		$expense = DB::table("expenses")
             ->sum('expenses.amount');
         return $expense;
+	}
+}
+
+if(!function_exists('total_collection')){
+	function total_collection(){
+		$collection = DB::table("collections")
+            ->sum('collections.amount');
+        return $collection;
 	}
 }
 

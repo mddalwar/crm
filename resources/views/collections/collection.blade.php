@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Single Invoice')
+@section('title', 'Single Collection')
 
 @section('styles')
 <!-- Vendor css -->
@@ -16,8 +16,8 @@
 <div class="sh-breadcrumb">
    	<nav class="breadcrumb">
       <a class="breadcrumb-item" href="{{ route('dashboard') }}">Dashboard</a>
-      <a class="breadcrumb-item" href="{{ route('invoices.index') }}">Invoices</a>
-      <span class="breadcrumb-item active">Invoice</span>
+      <a class="breadcrumb-item" href="{{ route('collections.index') }}">Collections</a>
+      <span class="breadcrumb-item active">Collection</span>
     </nav>
 </div><!-- sh-breadcrumb -->
 
@@ -26,7 +26,7 @@
     <div class="card bd-primary">
       <div class="card-body pd-30 pd-md-60">
         <div class="d-md-flex justify-content-between flex-row-reverse">
-          <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Invoice</h1>
+          <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Collection</h1>
           <div class="mg-t-25 mg-md-t-0">
 
             <h6 class="tx-primary">{{ shopname() }}</h6>
@@ -41,32 +41,32 @@
         <div class="row mg-t-20">
           <div class="col-md">
             <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To</label>
-            <h6 class="tx-inverse">{{ customer_name($invoice->customer) }}</h6>
-            <p class="m-0">{{ customer_address($invoice->customer) }}</p>
-            @if(!empty(customer_email($invoice->customer)))
-          	 <p class="m-0"><strong>Email: </strong>{{ customer_email($invoice->customer) }}</p>
+            <h6 class="tx-inverse">{{ customer_name($collection->customer) }}</h6>
+            <p class="m-0">{{ customer_address($collection->customer) }}</p>
+            @if(!empty(customer_email($collection->customer)))
+          	 <p class="m-0"><strong>Email: </strong>{{ customer_email($collection->customer) }}</p>
             @endif
-            @if(!empty(customer_phone($invoice->customer))) 
-          	 <p class="m-0"><strong>Phone: </strong>{{ customer_phone($invoice->customer) }}</p>
+            @if(!empty(customer_phone($collection->customer))) 
+          	 <p class="m-0"><strong>Phone: </strong>{{ customer_phone($collection->customer) }}</p>
             @endif
           </div><!-- col -->
           <div class="col-md">
             <label class="tx-uppercase tx-13 tx-bold mg-b-20">Invoice Information</label>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Invoice No</span>
-              <span>INV000{{ $invoice->id }}</span>
+              <span>INV000{{ $collection->id }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Customer Due</span>
-              <span>{{ customer_due($invoice->customer) }}</span>
+              <span>{{ customer_due($collection->customer) }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Create Date:</span>
-              <span>{{ $invoice->created_at->format('F j, Y h:i:s A') }}</span>
+              <span>{{ $collection->created_at->format('F j, Y h:i:s A') }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Updated Date:</span>
-              <span>{{ $invoice->updated_at->format('F j, Y h:i:s A') }}</span>
+              <span>{{ $collection->updated_at->format('F j, Y h:i:s A') }}</span>
             </p>
           </div><!-- col -->
         </div><!-- row -->
@@ -82,14 +82,12 @@
               </tr>
             </thead>
             <tbody>
-              @foreach(invoice_products($invoice->id) as $product)
               <tr>
-                <td>{{ product_name($product->product) }}</td>
-                <td class="tx-center">{{ $product->quantity . ' ' . product_unit($product->product)}}</td>
-                <td class="tx-right">{{ $product->price . ' ' . currency() }}</td>
-                <td class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
+                <td>{{ 'Due Amount Collection' }}</td>
+                <td class="tx-center">{{ '1 Unit'}}</td>
+                <td class="tx-right">{{ $collection->amount . ' ' . currency() }}</td>
+                <td class="tx-right">{{ $collection->amount . ' ' . currency() }}</td>
               </tr>
-              @endforeach
               <tr>
                 <td colspan="2" rowspan="4" class="valign-middle">
                 @if(!empty($invoice->note))

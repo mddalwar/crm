@@ -49,8 +49,7 @@
 					<td>{{ $collection->prevdue . ' ' . currency() }}</td>
 					<td>{{ $collection->created_at->format('F j, Y') }}</td>
 					<td>
-						<a href="{{ route('invoices.show', $collection->id) }}" class="btn btn-primary p-1">View</a>
-						
+						<a href="{{ route('collections.show', $collection->id) }}" class="btn btn-primary p-1">View</a>						
 					</td>
 				</tr>
 	        @endforeach       

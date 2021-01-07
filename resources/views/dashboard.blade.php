@@ -23,7 +23,7 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_invest(date('m')) }}</span></h2>
+                  <h2 class="tx-inverse"><span>{{ monthly_invest() }}</span></h2>
                   <h5 class="tx-inverse ">Invest</h5>
                 </div>
               </div>
@@ -41,7 +41,7 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_discount(date('m')) }}</span></h2>
+                  <h2 class="tx-inverse"><span>{{ monthly_discount() }}</span></h2>
                   <h5 class="tx-inverse ">Discount</h5>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_due(date('m')) }}</span></h2>
+                  <h2 class="tx-inverse"><span>{{ monthly_due() }}</span></h2>
                   <h5 class="tx-inverse ">Dues</h5>
                 </div>
               </div>
@@ -59,8 +59,17 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_expense(date('m')) }}</span></h2>
+                  <h2 class="tx-inverse"><span>{{ monthly_expense() }}</span></h2>
                   <h5 class="tx-inverse ">Expense</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <div class="shortcut-icon mb-3">
+                <div>
+                  <i class="icon ion-arrow-down-a"></i>
+                  <h2 class="tx-inverse"><span>{{ monthly_collection() }}</span></h2>
+                  <h5 class="tx-inverse ">Collection</h5>
                 </div>
               </div>
             </div>            
@@ -113,6 +122,15 @@
                   <i class="icon ion-arrow-down-a"></i>
                   <h2 class="tx-inverse"><span>{{ total_expense() }}</span></h2>
                   <h5 class="tx-inverse ">Expense</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+              <div class="shortcut-icon mb-3">
+                <div>
+                  <i class="icon ion-arrow-down-a"></i>
+                  <h2 class="tx-inverse"><span>{{ total_collection() }}</span></h2>
+                  <h5 class="tx-inverse ">Collection</h5>
                 </div>
               </div>
             </div>            

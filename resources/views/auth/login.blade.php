@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Login | CRM by Md Dalwar</title>
+    <title>Login | Customer Relation Managment by Md Dalwar</title>
 
     <!-- Vendor css -->
     <link href="{{ asset('public/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -20,23 +20,10 @@
     <div class="signpanel-wrapper">
       <div class="signbox">
         <div class="signbox-header">
-            @php
-                $logotext_query = DB::table('settings')->where('setting_key', 'logotext')->get();
-                $logotext = $logotext_query[0]->setting_value;
+            <h2>{{ logotext() }}</h2>
 
-                $address_query = DB::table('settings')->where('setting_key', 'address')->get();
-                $address = $address_query[0]->setting_value;
-            @endphp
-
-            
-            @if(!empty($logotext))
-            <h2>{{ $logotext }}</h2>
-            @else
-                <h2>Logo</h2>
-            @endif
-
-            @if(!empty($address))
-                <p class="mg-b-0">{{ $address }}</p>
+            @if(address())
+                <p class="mg-b-0">{{ address() }}</p>
             @else
                 <p class="mg-b-0">Customer Relation Software</p>
             @endif

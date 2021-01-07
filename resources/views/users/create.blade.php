@@ -28,49 +28,39 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('user_created'))
-      		<div class="alert alert-success">{{ Session::get('user_created') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('users.store') }}" method="POST">
 	        	@csrf	        	
 				<div class="row mg-b-25">
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">First Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="firstname" placeholder="Enter firstname">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Last Name: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="lastname" placeholder="Enter lastname">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-4">
+					<div class="col-lg-12">
 						<div class="form-group">
 							<label class="form-control-label">Email: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="email" placeholder="Enter email">
 						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-4">
-						<div class="form-group mg-b-10-force">
-							<label class="form-control-label">Designation: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="designation">
-								<option label="User Designation"></option>
-								<option value="Manager">Manager</option>
-								<option value="Admin">Admin</option>
-								<option value="Cashier">Cashier</option>
-							</select>
-						</div>
-					</div><!-- col-4 -->					
-					<div class="col-lg-4">
+					</div><!-- col-12 -->
+									
+					<div class="col-lg-6">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Password: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="password" name="password"  placeholder="Enter Password">
 						</div>
 					</div><!-- col-8 -->
-					<div class="col-lg-4">
+					<div class="col-lg-6">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Confirm Password: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="password" name="password_confirmation"  placeholder="Confirm Password">
