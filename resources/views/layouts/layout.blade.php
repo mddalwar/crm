@@ -182,7 +182,7 @@
                 </a>
               </div><!-- col-4 -->
               <div class="col-4">
-                <a href="" class="dropdown-menu-link">
+                <a href="{{ route('settings') }}" class="dropdown-menu-link">
                   <div>
                     <i class="icon ion-ios-gear-outline"></i>
                     <span>Settings</span>
@@ -212,9 +212,8 @@
             <hr>
             <ul class="dropdown-profile-nav">
               <li><a href="{{ route('users.edit', auth()->user()->id) }}"><i class="icon ion-ios-person"></i> Edit Profile</a></li>
-              <li><a href=""><i class="icon ion-ios-gear"></i> Settings</a></li>
+              <li><a href="{{ route('settings') }}"><i class="icon ion-ios-gear"></i> Settings</a></li>
               <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
-              <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>
               <li>
                 <form action="{{ route('logout') }}" method="POST">
                   @csrf

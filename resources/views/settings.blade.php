@@ -32,7 +32,7 @@
       		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
-	        <form action="" method="POST">
+	        <form action="{{ route('settings.update') }}" method="POST">
 	        	@csrf 	
 				<div class="row mg-b-25">
 					<div class="col-lg-4">
