@@ -111,13 +111,21 @@ class InvoiceController extends Controller
             Customer::where('id', $customer)->update(['due' => $total_due]);
         }      
 
-        $invoice = Invoice::create($invoiceData);
 
         $products = $request->product;
         $quantity = $request->quantity;
         $price = $request->price;
         $total = $request->total;
 
+        for ($i=0; $i < count($products); $i++) { 
+            $checkProduct = Product::find($products[$i]);
+
+            if($checkProduct->stock < $quantity[$i]){
+                return redirect()->back()->with('faild', product_name($checkProduct->id) . ' stock amount exceed');
+            }
+        }
+
+        $invoice = Invoice::create($invoiceData);
         for ($product = 0; $product < count($products); $product++) {
             if ($products[$product] != '') {
                 $invProduct = [
@@ -129,6 +137,8 @@ class InvoiceController extends Controller
                     'status'        => 'Active',
                 ];
                 $loopProduct = Product::find($products[$product]);
+                $profit =  $price[$product] - $loopProduct->purchaseprice;
+                $invProduct['profit'] = $profit;
                 $currentQnty = $loopProduct->stock;
                 $presentStock = $loopProduct->stock  - $quantity[$product];
                 Product::where('id', $products[$product])->update(['stock' => $presentStock]);

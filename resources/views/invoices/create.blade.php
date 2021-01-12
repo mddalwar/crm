@@ -33,6 +33,10 @@
       	@if(Session::has('success'))
       		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
+
+      	@if(Session::has('faild'))
+      		<div class="alert alert-danger">{{ Session::get('faild') }}</div>
+      	@endif
         <div class="form-layout">
 	        <form action="{{ route('invoices.store') }}" method="POST">
 	        	@csrf

@@ -41,8 +41,8 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ monthly_discount() }}</span></h2>
-                  <h5 class="tx-inverse ">Discount</h5>
+                  <h2 class="tx-inverse"><span>{{ monthly_profit() }}</span></h2>
+                  <h5 class="tx-inverse ">Profit</h5>
                 </div>
               </div>
             </div>
@@ -111,8 +111,8 @@
               <div class="shortcut-icon mb-3">
                 <div>
                   <i class="icon ion-arrow-down-a"></i>
-                  <h2 class="tx-inverse"><span>{{ total_discount() }}</span></h2>
-                  <h5 class="tx-inverse ">Discount</h5>
+                  <h2 class="tx-inverse"><span>{{ total_profit() }}</span></h2>
+                  <h5 class="tx-inverse ">Profit</h5>
                 </div>
               </div>
             </div>

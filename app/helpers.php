@@ -306,6 +306,25 @@ if(!function_exists('monthly_collection')){
 	}
 }
 
+if(!function_exists('monthly_profit')){
+	function monthly_profit($month = NULL, $year = NULL){
+
+		if($month == NULL){
+			$month = date('m');
+		}
+
+		if($year == NULL){
+			$year = date('Y');
+		}
+
+		$profit = DB::table("invproducts")
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->sum('invproducts.profit');
+        return $profit;
+	}
+}
+
 if(!function_exists('total_sell')){
 	function total_sell(){
 		$sell = DB::table("invoices")
@@ -351,5 +370,13 @@ if(!function_exists('total_invests')){
 		$invests = DB::table("invests")
             ->sum('invests.amount');
         return $invests;
+	}
+}
+
+if(!function_exists('total_profit')){
+	function total_profit(){
+		$profit = DB::table("invproducts")
+            ->sum('invproducts.profit');
+        return $profit;
 	}
 }

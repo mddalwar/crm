@@ -19,6 +19,7 @@ class InvoiceProducts extends Migration
             $table->integer('product');
             $table->string('quantity');
             $table->string('price');
+            $table->string('profit');
             $table->string('total');
             $table->string('status');
             $table->timestamps();

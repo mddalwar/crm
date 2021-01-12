@@ -14,6 +14,7 @@ class Invproduct extends Model
         'product',
         'quantity',
         'price',
+        'profit',
         'total',
         'status',
     ];
