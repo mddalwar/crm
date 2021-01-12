@@ -126,7 +126,7 @@
 
         <hr class="mg-b-60">
 
-        <a href="" class="btn btn-primary btn-block" onclick="window.print();">Print Now</a>
+        <a href="{{ route('invoicedownload', $invoice->id) }}" class="btn btn-primary btn-block">Download Now</a>
 
       </div><!-- card-body -->
     </div><!-- card -->
