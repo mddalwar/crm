@@ -13,7 +13,7 @@
 
 <div class="sh-pagebody">
   <div class="row row-sm">
-    <div class="col-lg-8">     
+    <div class="col-lg-8">
 
       <div class="card bd-primary">
         <div class="card-header bg-primary tx-white">Current Month Summery</div>

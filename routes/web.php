@@ -27,7 +27,7 @@ Route::group(
 	[
 		'prefix'		=> 'admin',
 		'middleware'	=> ['auth']
-	], 
+	],
 	function(){
 		// Settings Route
 		Route::get('/settings', [App\Http\Controllers\SettingController::class, 'settings'])->name('settings');

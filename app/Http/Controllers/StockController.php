@@ -92,7 +92,6 @@ class StockController extends Controller
 
         return redirect()->back()->with('success', 'Stock successfully added');
 
-
     }
 
     /**

@@ -138,7 +138,7 @@
       <div class="sh-headpanel-left">
 
         <!-- START: HIDDEN IN MOBILE -->
-        <a href="{{ route('addstock') }}" class="sh-icon-link">
+        <a href="{{ route('stocks.create') }}" class="sh-icon-link">
           <div>
             <i class="icon ion-ios-folder-outline"></i>
             <span>Add Stock</span>

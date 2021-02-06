@@ -36,7 +36,7 @@
         <div class="form-layout">
 	        <form action="{{ route('stocks.store') }}" method="POST">
 	        	@csrf
-
+	        	
 				<div class="row mg-b-25">
 					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
