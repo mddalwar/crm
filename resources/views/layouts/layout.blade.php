@@ -112,6 +112,20 @@
             <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">New Invest</a></li>
           </ul>
         </li><!-- nav-item -->
+        <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-person-stalker"></i>
+            <span>Reports</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('invests.index') }}" class="nav-link">Current Day</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">Previous Day</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">Current Month</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">Previous Month</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">Current Year</a></li>
+            <li class="nav-item"><a href="{{ route('invests.create') }}" class="nav-link">Previous Year</a></li>
+          </ul>
+        </li><!-- nav-item -->
         
         <li class="nav-item">
           <a href="" class="nav-link with-sub">

@@ -33,9 +33,8 @@ Route::group(
 		Route::get('/settings', [App\Http\Controllers\SettingController::class, 'settings'])->name('settings');
 		Route::post('/settings', [App\Http\Controllers\SettingController::class, 'setting_change'])->name('settings.update');
 
-		// Stock Add Route
-		Route::get('/addstock', [App\Http\Controllers\ProductController::class, 'addstock'])->name('addstock');
-		Route::post('/addstock', [App\Http\Controllers\ProductController::class, 'stockstore'])->name('addstock.store');
+		// Report Route
+		Route::get('/reports/currentday', [App\Http\Controllers\SettingController::class, 'currentday'])->name('currentDayReport');
 
 		// Due Route
 		Route::get('/dues', [App\Http\Controllers\SettingController::class, 'dues'])->name('dues');

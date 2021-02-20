@@ -48,7 +48,7 @@
             <td>{{ $due->due }}</td>
             <td>{{ $due->created_at }}</td>
           </tr>
-          @endforeach  
+          @endforeach
           </tbody>
         </table>
       </div><!-- table-wrapper -->
