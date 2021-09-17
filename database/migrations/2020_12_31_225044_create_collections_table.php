@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class InvestTable extends Migration
+class CreateCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class InvestTable extends Migration
      */
     public function up()
     {
-        Schema::create('invests', function (Blueprint $table) {
+        Schema::create('collections', function (Blueprint $table) {
             $table->id();
-            $table->string('investby');
+            $table->integer('customer');
             $table->string('amount');
+            $table->string('prevdue')->nullable();
             $table->string('note')->nullable();
-            $table->integer('added_by');
-            $table->integer('updated_by')->nullable();
+            $table->integer('collect_by');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class InvestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invests');
+        Schema::dropIfExists('collections');
     }
 }

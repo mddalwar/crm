@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.dashboard')
 
 @section('title', 'Single Invoice')
 

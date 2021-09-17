@@ -1622,10 +1622,6 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   height: calc(2.3125rem + 2px);
 }
 
-.form-group {
-  margin-bottom: 1rem;
-}
-
 .form-text {
   display: block;
   margin-top: 0.25rem;
@@ -9031,8 +9027,9 @@ p {
 .ckbox {
   font-weight: normal;
   position: relative;
-  display: block;
+  display: inline-block;
   line-height: 18px;
+  font-weight: bold;
 }
 .ckbox span {
   padding-left: 6px;

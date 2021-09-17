@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CollectionTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CollectionTable extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
-            $table->id();
-            $table->integer('customer');
-            $table->string('amount');
-            $table->string('prevdue')->nullable();
-            $table->string('note')->nullable();
-            $table->integer('collect_by');
+        Schema::create('settings', function (Blueprint $table) {
+            $table->string('setting_key')->unique()->primary();
+            $table->string('setting_value')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CollectionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists('settings');
     }
 }

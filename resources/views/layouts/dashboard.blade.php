@@ -140,6 +140,18 @@
         </li><!-- nav-item -->
         
         <li class="nav-item">
+          <a href="" class="nav-link with-sub">
+            <i class="icon ion-person"></i>
+            <span>Roles</span>
+          </a>
+          <ul class="nav-sub">
+            <li class="nav-item"><a href="{{ route('roles.index') }}" class="nav-link">Roles</a></li>
+            
+            <li class="nav-item"><a href="{{ route('roles.create') }}" class="nav-link">Add Role</a></li>
+          </ul>
+        </li><!-- nav-item -->
+        
+        <li class="nav-item">
           <a href="{{ route('settings') }}" class="nav-link">
             <i class="icon ion-gear-b"></i>
             <span>Settings</span>

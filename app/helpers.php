@@ -97,7 +97,12 @@ if(!function_exists('copyright')){
 if(!function_exists('address')){
 	function address(){
 		$address = DB::table('settings')->where('setting_key', 'address')->first();
-		return $address->setting_value;
+		if($address){
+			return $address->setting_value;
+		}else{
+			return 'Address Here';
+		}
+		
 	}
 }
 
@@ -185,14 +190,14 @@ if(!function_exists('customer_due')){
 
 if(!function_exists('invoice_product_count')){
 	function invoice_product_count($id){
-		$products = DB::table('invproducts')->where('invoice', $id)->count();
+		$products = DB::table('invoice_products')->where('invoice', $id)->count();
 		return $products;
 	}
 }
 
 if(!function_exists('invoice_products')){
 	function invoice_products($id){
-		$products = DB::table('invproducts')->where('invoice', $id)->get();
+		$products = DB::table('invoice_products')->where('invoice', $id)->get();
 		return $products;
 	}
 }
@@ -317,10 +322,10 @@ if(!function_exists('monthly_profit')){
 			$year = date('Y');
 		}
 
-		$profit = DB::table("invproducts")
+		$profit = DB::table("invoice_products")
             ->whereMonth('created_at', $month)
             ->whereYear('created_at', $year)
-            ->sum('invproducts.profit');
+            ->sum('invoice_products.profit');
         return $profit;
 	}
 }
@@ -375,8 +380,8 @@ if(!function_exists('total_invests')){
 
 if(!function_exists('total_profit')){
 	function total_profit(){
-		$profit = DB::table("invproducts")
-            ->sum('invproducts.profit');
+		$profit = DB::table("invoice_products")
+            ->sum('invoice_products.profit');
         return $profit;
 	}
 }

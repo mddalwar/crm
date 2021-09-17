@@ -49,6 +49,7 @@ Route::group(
 		Route::get('/product/export', [App\Http\Controllers\ProductController::class, 'export'])->name('productExport');
 
 		// Resource Routes
+		Route::resource('roles', 'App\Http\Controllers\RoleController');
 		Route::resource('users', 'App\Http\Controllers\UserController');
 		Route::resource('customers', 'App\Http\Controllers\CustomerController');
 		Route::resource('products', 'App\Http\Controllers\ProductController');

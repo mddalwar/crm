@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SettingTable extends Migration
+class CreateInvestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class SettingTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->string('setting_key')->unique()->primary();
-            $table->string('setting_value')->nullable();
+        Schema::create('invests', function (Blueprint $table) {
+            $table->id();
+            $table->string('investby');
+            $table->string('amount');
+            $table->string('note')->nullable();
+            $table->integer('added_by');
+            $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class SettingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('invests');
     }
 }

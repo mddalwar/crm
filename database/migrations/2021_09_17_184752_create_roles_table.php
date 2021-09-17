@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class InvoiceProducts extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class InvoiceProducts extends Migration
      */
     public function up()
     {
-        Schema::create('invproducts', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice');
-            $table->integer('product');
-            $table->string('quantity');
-            $table->string('price');
-            $table->string('profit');
-            $table->string('total');
+            $table->string('name')->unique();
+            $table->longText('permissions');
+            $table->integer('added_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('delete_by')->nullable();
             $table->string('status');
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ class InvoiceProducts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invproducts');
+        Schema::dropIfExists('roles');
     }
 }
