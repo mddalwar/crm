@@ -44,15 +44,15 @@
 	        @foreach($stocks as $stock)
 				<tr>
 					<td>{{ $stock->id }}</td>
-					<td>{{ product_name($stock->product) }}</td>
-					<td>{{ $stock->stock . ' ' . product_unit($stock->product) }}</td>
+					<td>{{ product_name($stock->product_id) }}</td>
+					<td>{{ $stock->stock . ' ' . product_unit($stock->product_id) }}</td>
 					<td>{{ $stock->price . ' ' . currency() }}</td>
 					<td>{{ $stock->created_at->format('F j, Y') }}</td>
 					<td>
 						<a href="{{ route('stocks.show', $stock->id) }}" class="btn btn-primary p-1">View</a>						
 					</td>
 				</tr>
-	        @endforeach       
+	        @endforeach
 	        </tbody>
 	      </table>
 	    </div><!-- table-wrapper -->

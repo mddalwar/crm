@@ -15,4 +15,12 @@ class Category extends Model
         'updated_by',
         'status',
     ];
+
+    public function products(){
+        return $this->hasMany( Product::class );
+    }
+
+    public function created_by(){
+        return $this->belongsTo( User::class );
+    }
 }

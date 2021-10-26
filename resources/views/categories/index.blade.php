@@ -45,8 +45,8 @@
 	          <tr>
 	            <td>{{ $category->id }}</td>
 	            <td>{{ $category->name }}</td>
-	            <td>{{ total_product_in_category($category->id) . ' Nos' }}</td>
-	            <td>{{ user_name($category->added_by) }}</td>
+	            <td>{{ count($category->products) . ' Nos' }}</td>
+	            <td>{{ $category->added_by }}</td>
 	            <td>{{ $category->created_at->format('F j, Y')}}</td>
 	            <td>
 	            	<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-secondary p-1">Edit</a>

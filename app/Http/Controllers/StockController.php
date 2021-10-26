@@ -45,19 +45,19 @@ class StockController extends Controller
         $cu = Auth::user();
 
         $validate_data = [
-            'product'       => isset($data['product']) ? $data['product'] : NULL,
+            'product_id'    => isset($data['product_id']) ? $data['product_id'] : NULL,
             'stock'         => isset($data['stock']) ? $data['stock'] : NULL,
             'price'         => isset($data['price']) ? $data['price'] : NULL,
             'note'          => isset($data['note']) ? $data['note'] : NULL,
         ];
         $validate_rule = [
-            'product'       => 'required',
+            'product_id'    => 'required',
             'stock'         => 'required|numeric|min:0',
             'price'         => 'required|numeric|min:0',
             'note'          => 'nullable',
         ];
         $validate_msg = [
-            'product.required'    => 'You have to select a product',
+            'product_id.required'    => 'You have to select a product',
             'stock.required'      => 'Stock amount is required',
             'stock.numeric'       => 'Stock amount should be numeric value',
             'stock.min'           => 'Negetive value is not allowed for the stock',
@@ -68,26 +68,26 @@ class StockController extends Controller
 
         Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
 
-        $product = Product::find($validate_data['product']);
+        $product = Product::find($validate_data['product_id']);
 
-        $prevtotal      = $product->stock * $product->purchaseprice;
+        $prevtotal      = $product->quantity * $product->purchaseprice;
         $presenttotal   = $validate_data['stock'] * $validate_data['price'];
-        $totalstock     = $product->stock + $validate_data['stock'];
+        $totalstock     = $product->quantity + $validate_data['stock'];
 
         $total          = $prevtotal + $presenttotal;
         $avarageprice   = $total / $totalstock;
 
         $final_data = [
-            'product'       => $validate_data['product'],
+            'product_id'    => $validate_data['product_id'],
             'stock'         => $validate_data['stock'],
-            'prevstock'     => $product->stock,
+            'prevstock'     => $product->quantity,
             'price'         => $validate_data['price'],
             'avarageprice'  => $avarageprice,
             'note'          => isset($validate_data['note']),
             'added_by'      => $cu->id,
         ];
 
-        Product::where('id', $validate_data['product'])->update(['purchaseprice' => $avarageprice, 'stock' => $totalstock]);
+        Product::where('id', $validate_data['product_id'])->update(['purchaseprice' => $avarageprice, 'quantity' => $totalstock]);
         Stock::create($final_data);
 
         return redirect()->back()->with('success', 'Stock successfully added');

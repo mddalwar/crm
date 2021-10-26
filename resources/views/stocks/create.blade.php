@@ -41,7 +41,7 @@
 					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
 							<label class="form-control-label">Product: <span class="tx-danger">*</span></label>
-							<select class="form-control select2" data-placeholder="Select a product" name="product">
+							<select class="form-control select2" data-placeholder="Select a product" name="product_id">
 								<option label="Choose one"></option>
 								@foreach(products() as $product)
 									<option value="{{ $product->id }}">{{ $product->name }}</option>
