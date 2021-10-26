@@ -44,7 +44,7 @@
 	        @foreach($categories as $category)
 	          <tr>
 	            <td>{{ $category->id }}</td>
-	            <td>{{ $category->categoryname }}</td>
+	            <td>{{ $category->name }}</td>
 	            <td>{{ total_product_in_category($category->id) . ' Nos' }}</td>
 	            <td>{{ user_name($category->added_by) }}</td>
 	            <td>{{ $category->created_at->format('F j, Y')}}</td>

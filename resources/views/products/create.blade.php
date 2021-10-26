@@ -41,13 +41,13 @@
 					<div class="col-lg-9">
 						<div class="form-group">
 							<label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="productname" placeholder="Product Name" value="{{ old('productname') }}">
+							<input class="form-control" type="text" name="name" placeholder="Product Name" value="{{ old('name') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-3">
 						<div class="form-group">
-							<label class="form-control-label">Primary Stock: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="stock" placeholder="Primary Stock" value="{{ old('stock') }}">
+							<label class="form-control-label">Quantity: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="quantity" placeholder="Quantity" value="{{ old('quantity') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-4">
@@ -70,10 +70,10 @@
 					<div class="col-lg-4">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Category: <span class="tx-danger">*</span></label>
-							<select class="form-control custom-select" name="category">
+							<select class="form-control custom-select" name="category_id">
 								<option label="Product Category"></option>
 								@foreach(categories() as $category)
-								<option value="{{ $category->id }}">{{ $category->categoryname }}</option>
+								<option value="{{ $category->id }}">{{ $category->name }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -81,7 +81,7 @@
 					<div class="col-lg-12">
 						<div class="form-group mg-b-10-force">
 							<label class="form-control-label">Product Description:</label>
-							<textarea name="description" class="form-control" placeholder="Product Description">{{ old('description') }}</textarea>
+							<textarea name="note" class="form-control" placeholder="Product Description">{{ old('note') }}</textarea>
 						</div>
 					</div><!-- col-4 -->
 				</div><!-- row -->	          

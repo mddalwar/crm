@@ -15,11 +15,11 @@ class CreateInvestsTable extends Migration
     {
         Schema::create('invests', function (Blueprint $table) {
             $table->id();
-            $table->string('investby');
+            $table->string('investor_name');
             $table->string('amount');
             $table->string('note')->nullable();
-            $table->integer('added_by');
-            $table->integer('updated_by')->nullable();
+            $table->foreignId('added_by');
+            $table->foreignId('updated_by')->nullable();
             $table->timestamps();
         });
     }

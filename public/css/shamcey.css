@@ -56585,3 +56585,6 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 .productremove, .addproduct {
   cursor: pointer;
 }
+.form-group {
+  margin-bottom: 1rem;
+}

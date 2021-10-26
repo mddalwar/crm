@@ -38,7 +38,7 @@
     					<div class="col-lg-12">
     						<div class="form-group">
     							<label class="form-control-label">Category Name: <span class="tx-danger">*</span></label>
-    							<input class="form-control" type="text" name="categoryname" placeholder="Category Name" value="{{ $category->categoryname }}">
+    							<input class="form-control" type="text" name="name" placeholder="Category Name" value="{{ $category->name }}">
     						</div>
     					</div><!-- col-4 -->
     				</div><!-- row -->	          

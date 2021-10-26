@@ -43,20 +43,20 @@ class CategoryController extends Controller
         $cu = Auth::user();
 
         $validate_data = [
-            'categoryname'      => $data['categoryname'],
+            'name'      => $data['name'],
         ];
 
         $validate_role = [
-            'categoryname'      => 'required|unique:categories',
+            'name'      => 'required|unique:categories',
         ];
         $validate_msg = [
-            'categoryname.required'     => 'Category name is required',
-            'categoryname.unique'       => 'Category already added',
+            'name.required'     => 'Category name is required',
+            'name.unique'       => 'Category already added',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
         $store_data = [
-            'categoryname'      => $validate_data['categoryname'],
+            'name'              => $validate_data['name'],
             'added_by'          => $cu->id,
             'status'            => 'Active',
         ];
@@ -102,20 +102,20 @@ class CategoryController extends Controller
         $cu = Auth::user();
 
         $validate_data = [
-            'categoryname'      => $data['categoryname'],
+            'name'      => $data['name'],
         ];
 
         $validate_role = [
-            'categoryname'      => 'required|unique:categories,categoryname,'. $id,
+            'name'      => 'required|unique:categories,name,'. $id,
         ];
         $validate_msg = [
-            'categoryname.required'     => 'Category name is required',
-            'categoryname.unique'       => 'Category already added',
+            'name.required'     => 'Category name is required',
+            'name.unique'       => 'Category already added',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
         $store_data = [
-            'categoryname'      => $validate_data['categoryname'],
+            'name'              => $validate_data['name'],
             'updated_by'        => $cu->id,
             'status'            => 'Active',
         ];

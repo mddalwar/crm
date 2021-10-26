@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');        
+        return view('products.create');
         
     }
 
@@ -47,31 +47,32 @@ class ProductController extends Controller
         $all_data = $request->all();
 
         $validate_data = [
-            'productname'     => $all_data['productname'],
-            'stock'           => $all_data['stock'],
-            'unit'            => $all_data['unit'],
-            'purchaseprice'   => $all_data['purchaseprice'],
-            'category'        => $all_data['category'],
-            'added_by'        => $cu->id,
-            'description'     => $all_data['description']
+            'name'          => $all_data['name'],
+            'quantity'      => $all_data['quantity'],
+            'unit'          => $all_data['unit'],
+            'purchaseprice' => $all_data['purchaseprice'],
+            'category_id'   => $all_data['category_id'],
+            'added_by'      => $cu->id,
+            'note'          => $all_data['note'],
+            'status'        => 'Active'
         ];
 
         $validate_role = [
-            'productname'     => 'required|unique:products',
-            'stock'           => 'required|numeric|min:0',
-            'unit'            => 'required',
-            'purchaseprice'   => 'required|numeric|min:0',
-            'category'        => 'required',
-            'description'     => 'nullable'
+            'name'          => 'required|unique:products',
+            'quantity'      => 'required|numeric|min:1',
+            'unit'          => 'required',
+            'purchaseprice' => 'required|numeric|min:1',
+            'category_id'   => 'required',
+            'note'          => 'nullable'
         ];
         $validate_msg =[
             'productname.required'      => 'Product name is required',
             'productname.unique'        => 'Product already added',
-            'stock.required'            => 'Primary stock amount is required',
-            'stock.numeric'             => 'Primary stock must be an numeric value',
-            'stock.min'                 => 'Primary stock must be an positive value',
+            'quantity.required'         => 'Quantity amount is required',
+            'quantity.numeric'          => 'Quantity must be an numeric value',
+            'quantity.min'              => 'Quantity must be an positive value',
             'unit.required'             => 'Unit selection is required',
-            'category.required'         => 'Category selection is required',
+            'category_id.required'      => 'Category selection is required',
             'purchaseprice.required'    => 'Purchase price is required',
             'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
             'purchaseprice.min'         => 'Purchase price must be an positive value',
@@ -81,7 +82,7 @@ class ProductController extends Controller
 
         Product::create($validate_data);
 
-        return redirect()->back()->with('success', 'Product has been added successfully');
+        return redirect()->back()->with('success', 'Product has been added');
     }
 
     /**
@@ -120,39 +121,41 @@ class ProductController extends Controller
         $all_data = $request->all();
 
         $validate_data = [
-            'productname'     => $all_data['productname'],
-            'stock'           => $all_data['stock'],
-            'unit'            => $all_data['unit'],
-            'purchaseprice'   => $all_data['purchaseprice'],
-            'category'        => $all_data['category'],
-            'updated_by'      => $cu->id,
-            'description'     => $all_data['description']
+            'name'          => $all_data['name'],
+            'quantity'      => $all_data['quantity'],
+            'unit'          => $all_data['unit'],
+            'purchaseprice' => $all_data['purchaseprice'],
+            'category_id'   => $all_data['category_id'],
+            'updated_by'    => $cu->id,
+            'note'          => $all_data['note']
         ];
 
         $validate_role = [
-            'productname'     => 'required|unique:products,productname,'. $id,
-            'stock'           => 'required|numeric',
+            'name'            => 'required|unique:products,name,'. $id,
+            'quantity'        => 'required|numeric|min:1',
             'unit'            => 'required',
-            'purchaseprice'   => 'required|numeric',
-            'category'        => 'required',
-            'description'     => 'nullable'
+            'purchaseprice'   => 'required|numeric|min:1',
+            'category_id'     => 'required',
+            'note'            => 'nullable'
         ];
         $validate_msg =[
-            'productname.required'      => 'Product name is required',
-            'productname.unique'        => 'Product already added',
-            'stock.required'            => 'Primary stock amount is required',
-            'stock.numeric'             => 'Primary stock must be an numeric value',
+            'name.required'             => 'Product name is required',
+            'name.unique'               => 'Product already added',
+            'quantity.required'         => 'Quantity amount is required',
+            'quantity.numeric'          => 'Quantity must be an numeric value',
+            'quantity.min'              => 'Quantity must be an positive value',
             'unit.required'             => 'Unit selection is required',
-            'category.required'         => 'Category selection is required',
+            'category_id.required'      => 'Category selection is required',
             'purchaseprice.required'    => 'Purchase price is required',
             'purchaseprice.numeric'     => 'Purchase price must be an numeric value',
+            'purchaseprice.min'         => 'Quantity must be an positive value',
         ];
 
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
 
         Product::where('id', $id)->update($validate_data);
 
-        return redirect()->back()->with('success', 'Product has been updated successfully');
+        return redirect()->back()->with('success', 'Product has been updated');
     }
 
     /**

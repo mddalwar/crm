@@ -15,11 +15,11 @@ class CreateCollectionsTable extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer');
+            $table->foreignId('customer_id');
             $table->string('amount');
             $table->string('prevdue')->nullable();
             $table->string('note')->nullable();
-            $table->integer('collect_by');
+            $table->foreignId('collect_by');
             $table->timestamps();
         });
     }

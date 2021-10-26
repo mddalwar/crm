@@ -12,6 +12,7 @@ if(!function_exists('units')){
 			'Box',
 			'Kilogram',
 			'Gram',
+			'Kg',
 			'Feet',
 			'Litter',
 		];
@@ -26,16 +27,10 @@ if(!function_exists('categories')){
 	}
 }
 
-if(!function_exists('category')){
-	function category($id){
-		$category = DB::table('categories')->where('id', $id)->first();
-		return $category->categoryname;
-	}
-}
 
 if(!function_exists('total_product_in_category')){
 	function total_product_in_category($id){
-		$total_product = DB::table('products')->where('category', $id)->count();
+		$total_product = DB::table('products')->where('category_id', $id)->count();
 		return $total_product;
 	}
 }
@@ -116,7 +111,7 @@ if(!function_exists('products')){
 if(!function_exists('product_name')){
 	function product_name($id){
 		$product = DB::table('products')->where('id', $id)->first();
-		return $product->productname;
+		return $product->name;
 	}
 }
 

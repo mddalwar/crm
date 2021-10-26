@@ -17,9 +17,9 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->longText('permissions');
-            $table->integer('added_by');
-            $table->integer('updated_by')->nullable();
-            $table->integer('delete_by')->nullable();
+            $table->foreignId('added_by');
+            $table->foreignId('updated_by')->nullable();
+            $table->foreignId('delete_by')->nullable();
             $table->string('status');
             $table->timestamps();
         });
