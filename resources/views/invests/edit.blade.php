@@ -13,14 +13,14 @@
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
       <a class="breadcrumb-item" href="{{ route('invests.index') }}">All Invests</a>
-      <span class="breadcrumb-item active">New Invest</span>
+      <span class="breadcrumb-item active">Update Investment</span>
     </nav>
   </div><!-- sh-breadcrumb -->
 
   <div class="sh-pagebody">
 
     <div class="card bd-primary mg-t-20">
-      <div class="card-header bg-primary tx-white">New Invest</div>
+      <div class="card-header bg-primary tx-white">Update Investment</div>
       <div class="card-body pd-sm-30">
       	@if(isset($errors))
       		@foreach($errors->all() as $error)
@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('invest_edited'))
-      		<div class="alert alert-success">{{ Session::get('invest_edited') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('invests.update', $invest->id) }}" method="POST">
@@ -38,8 +38,8 @@
 				<div class="row mg-b-25">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">Invest By: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="investby" placeholder="Invest By" value="{{ $invest->investby }}">
+							<label class="form-control-label">Investor Name: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="investor_name" placeholder="Investor Name" value="{{ $invest->investor_name }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">

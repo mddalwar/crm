@@ -18,7 +18,7 @@ class InvestController extends Controller
      */
     public function index()
     {
-        $invests = Invest::all();
+        $invests = Invest::with('created_by')->get();
         return view('invests.index', compact('invests'));
     }
 
@@ -44,28 +44,28 @@ class InvestController extends Controller
         $cu = Auth::user();
 
         $validate_data = [
-            'investby'      => $data['investby'],
+            'investor_name' => $data['investor_name'],
             'amount'        => $data['amount'],
             'note'          => isset($data['note']) ? $data['note'] : NULL,
             'added_by'      => $cu->id,
         ];
 
         $validate_rule = [
-            'investby'      => 'required',
-            'amount'        => 'required|numeric',
+            'investor_name' => 'required',
+            'amount'        => 'required|numeric|min:1',
             'note'          => 'nullable',
-            'added_by'      => 'required',
         ];
         $error_message = [
-            'investby.required'      => 'Who is invested this amount !',
+            'investor_name.required' => 'Investor name is required !',
             'amount.required'        => 'Investment amount is required !',
             'amount.numeric'         => 'Investment amount should be numeric value !',
+            'amount.min'             => 'Investment amount should be more than zero !',
         ];
         Validator::make($validate_data, $validate_rule, $error_message)->validate();
 
         Invest::create($validate_data);
 
-        return redirect()->back()->with('success', 'Invest added with the total Investment !');
+        return redirect()->back()->with('success', 'Investment added successfully !');
     }
 
     /**
@@ -101,32 +101,30 @@ class InvestController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        $cu = Auth::user();
 
         $validate_data = [
-            'investby'      => $data['investby'],
-            'amount'        => $data['amount']
+            'investor_name' => $data['investor_name'],
+            'amount'        => $data['amount'],
+            'note'          => isset($data['note']) ? $data['note'] : null, 
+            'updated_by'    => $cu->id
         ];
 
         $validate_rule = [
-            'investby'      => 'required',
-            'amount'        => 'required'
+            'investor_name' => 'required',
+            'amount'        => 'required|numeric|min:1',
+            'note'          => 'nullable|string'
         ];
-        $error_message = [
-            'investby.required'      => 'Who is invested this amount !',
+        $validate_msg = [
+            'investor_name.required' => 'Investor name is required !',
             'amount.required'        => 'Investment amount is required !'
         ];
-        Validator::make($validate_data, $validate_rule, $error_message)->validate();
 
-        $note = [
-            'note'      => $data['note']
-        ];
+        Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
 
-        $final_data = array_merge($validate_data, $note);
+        Invest::where('id', $id)->update($validate_data);
 
-        $invest = Invest::find($id);
-        $invest->update($final_data);
-
-        return redirect()->back()->with('invest_edited', 'Invest modified with the total investment !');
+        return redirect()->back()->with('success', 'Investment updated successfully !');
     }
 
     /**

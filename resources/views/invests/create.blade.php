@@ -38,19 +38,19 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Investor Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="investby" placeholder="Investor Name">
+							<input class="form-control" type="text" name="investor_name" placeholder="Investor Name" value="{{ old('investor_name') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Amount: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="number" name="amount" placeholder="Amount">
+							<input class="form-control" type="number" name="amount" placeholder="Amount" value="{{ old('amount') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-12">
 						<div class="form-group">
 							<label for="note">Note</label>
-							<textarea name="note" id="note" class="form-control" placeholder="Write something about invest"></textarea>
+							<textarea name="note" id="note" class="form-control" placeholder="Write something about invest">{{ old('note') }}</textarea>
 						</div>
 					</div>
 				</div><!-- row -->	          

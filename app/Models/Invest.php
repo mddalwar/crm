@@ -10,10 +10,14 @@ class Invest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'investby',
+        'investor_name',
         'amount',
         'note',
         'added_by',
         'updated_by',
     ];
+
+    public function created_by(){
+        return $this->belongsTo(User::class, 'added_by');
+    }
 }

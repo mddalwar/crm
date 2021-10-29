@@ -44,9 +44,9 @@
 	        @foreach($invests as $invest)
 	          <tr>
 	            <td>{{ $invest->id }}</td>
-	            <td>{{ $invest->investby }}</td>
-	            <td>{{ $invest->amount . ' ' . currency() }}</td>
-	            <td>{{ user_name($invest->added_by) }}</td>
+	            <td>{{ $invest->investor_name }}</td>
+	            <td>{{ $invest->amount . ' ' . settings()->currency }}</td>
+	            <td>{{ $invest->created_by->firstname . ' ' . $invest->created_by->lastname }}</td>
 	            <td>{{ $invest->created_at->format('d-m-Y') }}</td>
 	            <td>
 	            	<a href="{{ route('invests.edit', $invest->id) }}" class="btn btn-secondary p-1">Edit</a>
