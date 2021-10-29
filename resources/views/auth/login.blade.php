@@ -20,13 +20,18 @@
     <div class="signpanel-wrapper">
       <div class="signbox">
         <div class="signbox-header">
-            <h2>{{ logotext() }}</h2>
+            <h2>
+                @if(!is_null(settings()->logotext))
+                    {{ settings()->logotext }}
+                @endif
+            </h2>
 
-            @if(address())
-                <p class="mg-b-0">{{ address() }}</p>
-            @else
-                <p class="mg-b-0">Customer Relation Software</p>
-            @endif
+            
+            <p class="mg-b-0">
+                @if(!is_null(settings()->logotext))
+                    {{ settings()->address }}
+                @endif
+            </p>
           
         </div><!-- signbox-header -->
         <form action="{{ route('login') }}" method="POST">

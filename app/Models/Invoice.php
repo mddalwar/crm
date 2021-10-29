@@ -10,7 +10,7 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer',
+        'customer_id',
         'discount',
         'paid',
         'due',
@@ -18,4 +18,12 @@ class Invoice extends Model
         'total',
         'note',
     ];
+
+    public function customer(){
+        return $this->belongsTo( Customer::class );
+    }
+
+    public function products(){
+        return $this->hasMany( Invproduct::class );
+    }
 }

@@ -34,8 +34,8 @@
       		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
 
-      	@if(Session::has('faild'))
-      		<div class="alert alert-danger">{{ Session::get('faild') }}</div>
+      	@if(Session::has('error'))
+      		<div class="alert alert-danger">{{ Session::get('error') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('invoices.store') }}" method="POST">
@@ -45,7 +45,7 @@
 					<div class="col-lg-6 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
 							<label class="form-control-label">Existing Customer: <span class="tx-danger x-customer">*</span></label>
-							<select class="form-control select2" data-placeholder="Select existing customer" name="customer">
+							<select class="form-control select2" data-placeholder="Select existing customer" name="customer_id">
 								<option label="Choose one"></option>
 								@foreach($customers as $customer)
 									<option value="{{ $customer->id }}">{{ $customer->name . ', ' . $customer->address }}</option>
@@ -56,8 +56,8 @@
 					<div class="col-lg-6">
 						<div class="form-group mg-t-40">
 							<label class="ckbox">
-			                  <input type="checkbox" name="newCustomer"><span>New Customer</span>
-			                </label>
+								<input type="checkbox" name="newCustomer"><span>New Customer</span>
+							</label>
 						</div>
 					</div>
 					<div class="new-customer d-none col-lg-12">					

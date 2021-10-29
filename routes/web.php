@@ -19,6 +19,7 @@ Auth::routes([
 	'register'		=> false
 ]);
 
+Route::get('/checkmethods', [App\Http\Controllers\HomeController::class, 'checkmethods']);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 

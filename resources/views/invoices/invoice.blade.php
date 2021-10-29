@@ -29,11 +29,11 @@
           <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Invoice</h1>
           <div class="mg-t-25 mg-md-t-0">
 
-            <h6 class="tx-primary">{{ shopname() }}</h6>
-            <p class="lh-7">{{ address() }}<br>
-            Mobile: 0{{ phone() }}<br>
-            @if(!empty(email()))
-            Email: {{ email() }}</p>
+            <h6 class="tx-primary">{{ settings()->shopname }}</h6>
+            <p class="lh-7">{{ settings()->address }}<br>
+            Mobile: 0{{ settings()->phone }}<br>
+            @if(!empty(settings()->email))
+            Email: {{ settings()->email }}</p>
             @endif
           </div>
         </div><!-- d-flex -->
@@ -41,13 +41,13 @@
         <div class="row mg-t-20">
           <div class="col-md">
             <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To</label>
-            <h6 class="tx-inverse">{{ customer_name($invoice->customer) }}</h6>
-            <p class="m-0">{{ customer_address($invoice->customer) }}</p>
-            @if(!empty(customer_email($invoice->customer)))
-          	 <p class="m-0"><strong>Email: </strong>{{ customer_email($invoice->customer) }}</p>
+            <h6 class="tx-inverse">{{ $invoice->customer->name }}</h6>
+            <p class="m-0">{{ $invoice->customer->address }}</p>
+            @if(!empty($invoice->customer->email))
+          	 <p class="m-0"><strong>Email: </strong>{{ $invoice->customer->email }}</p>
             @endif
-            @if(!empty(customer_phone($invoice->customer))) 
-          	 <p class="m-0"><strong>Phone: </strong>{{ customer_phone($invoice->customer) }}</p>
+            @if(!empty($invoice->customer->phone)) 
+          	 <p class="m-0"><strong>Phone: </strong>{{ $invoice->customer->phone }}</p>
             @endif
           </div><!-- col -->
           <div class="col-md">
@@ -58,7 +58,7 @@
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Customer Due</span>
-              <span>{{ customer_due($invoice->customer) }}</span>
+              <span>{{ $invoice->customer->due }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
               <span>Create Date:</span>
@@ -82,12 +82,12 @@
               </tr>
             </thead>
             <tbody>
-              @foreach(invoice_products($invoice->id) as $product)
+              @foreach($invoice->products as $product)
               <tr>
-                <td>{{ product_name($product->product) }}</td>
-                <td class="tx-center">{{ $product->quantity . ' ' . product_unit($product->product)}}</td>
-                <td class="tx-right">{{ $product->price . ' ' . currency() }}</td>
-                <td class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
+                <td>{{ $product->product->name }}</td>
+                <td class="tx-center">{{ $product->quantity . ' ' . $product->product->unit }}</td>
+                <td class="tx-right">{{ $product->price . ' ' . settings()->currency }}</td>
+                <td class="tx-right">{{ $invoice->total . ' ' . settings()->currency }}</td>
               </tr>
               @endforeach
               <tr>
@@ -100,23 +100,21 @@
                 @endif
                 </td>
                 <td class="tx-right">Discount</td>
-                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . currency() }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . settings()->currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Payable</td>
-                <td colspan="2"  class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
+                <td colspan="2"  class="tx-right">{{ $invoice->total . ' ' . settings()->currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right">Total Paid</td>
-                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . currency() }}</td>
+                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . settings()->currency }}</td>
               </tr>
               <tr>
                 <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
                 <td colspan="2" class="tx-right">
                   <h4 class="tx-primary tx-bold tx-lato">
-                    
-                    {{ $invoice->due . ' ' . currency() }}
-                    
+                    {{ $invoice->due . ' ' . settings()->currency }}
                   </h4>
                 </td>
               </tr>

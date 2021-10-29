@@ -86,7 +86,7 @@ if(!function_exists('customers')){
 if(!function_exists('customer_name')){
 	function customer_name($id){
 		$customer = DB::table('customers')->where('id', $id)->first();
-		return $customer->customername;
+		return $customer->name;
 	}
 }
 

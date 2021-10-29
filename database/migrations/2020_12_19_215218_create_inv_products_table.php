@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvoiceProductsTable extends Migration
+class CreateInvProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateInvoiceProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_products', function (Blueprint $table) {
+        Schema::create('invproducts', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice');
+            $table->integer('invoice_id');
             $table->foreignId('product_id');
             $table->string('quantity');
             $table->string('price');

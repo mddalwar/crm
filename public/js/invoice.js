@@ -120,9 +120,7 @@ Invoice.prototype = {
      *
      * @returns {number}
      */
-    newRow: function () {
-
-       
+    newRow: function () {       
 
         jQuery(".item-row:last").after('<tr class="item-row"><td class="item-name products"><div class="delete-btn"><select class="form-control custom-select" id="product" name="product[]"></select><a class=' + $.opt.delete.substring(1) + ' href="javascript:;" title="Remove row">X</a></div></td><td><input class="form-control price" placeholder="Price" type="text" name="price[]"> </td><td><input class="form-control qty" placeholder="Quantity" type="text" name="quantity[]"></td><td><input type="text" class="total form-control" name="total[]" readonly="readonly"></td></tr>');
 		
@@ -139,7 +137,7 @@ Invoice.prototype = {
                 var productHtml = '<option label="Choose one"></option>';
 
                 while(products[count]){
-                    productHtml += '<option value="'+ products[count].id +'">'+ products[count].productname +'</option>';
+                    productHtml += '<option value="'+ products[count].id +'">'+ products[count].name +'</option>';
                     
                     count++;
                 }

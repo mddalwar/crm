@@ -50,19 +50,19 @@ class InvoiceController extends Controller
         if(isset($data['newCustomer'])){
             // New Customer Addition
             $newCustomer = [
-                'customername'      => $data['customername'],
+                'name'              => $data['name'],
                 'email'             => isset($data['email']) ? $data['email'] : NULL,
                 'phone'             => $data['phone'],
                 'address'           => $data['address'],
             ];
             $customerRule = [
-                'customername'      => 'required',
+                'name'              => 'required',
                 'email'             => 'nullable|unique:customers|email',
                 'phone'             => 'required|unique:customers|numeric',
                 'address'           => 'required',
             ];
             $customerMsg  = [
-                'customername.required' => 'Customer name is required',
+                'name.required'         => 'Customer name is required',
                 'email.unique'          => 'Customer email already exists',
                 'phone.required'        => 'Customer phone is required',
                 'phone.unique'          => 'Customer email already exists',
@@ -74,13 +74,13 @@ class InvoiceController extends Controller
 
         }else{
             // Existing Customer
-            $customer = isset($data['customer']) ? $data['customer'] : NULL;
+            $customer = isset($data['customer_id']) ? $data['customer_id'] : NULL;
         }
 
         $due = $data['grandTotal'] - $data['paid'];
 
         $invoiceData = [
-            'customer'      => $customer,
+            'customer_id'   => $customer,
             'discount'      => isset($data['discount']) ? $data['discount'] : NULL,
             'paid'          => isset($data['paid']) ? $data['paid'] : NULL,
             'due'           => isset($due) ? $due : NULL,
@@ -89,11 +89,11 @@ class InvoiceController extends Controller
             'note'          => $data['note'],
         ];
         $invoiceRule = [
-            'customer'      => 'required',
+            'customer_id'   => 'required',
             'subtotal'      => 'required'
         ];
         $invoiceMsg   = [
-            'customer.required' => 'You have choose a customer or create new',
+            'customer_id.required' => 'You have choose a customer or create new',
         ];
 
         Validator::make($invoiceData, $invoiceRule, $invoiceMsg)->validate();
@@ -111,7 +111,6 @@ class InvoiceController extends Controller
             Customer::where('id', $customer)->update(['due' => $total_due]);
         }      
 
-
         $products = $request->product;
         $quantity = $request->quantity;
         $price = $request->price;
@@ -120,8 +119,8 @@ class InvoiceController extends Controller
         for ($i=0; $i < count($products); $i++) { 
             $checkProduct = Product::find($products[$i]);
 
-            if($checkProduct->stock < $quantity[$i]){
-                return redirect()->back()->with('faild', product_name($checkProduct->id) . ' stock amount exceed');
+            if($checkProduct->quantity < $quantity[$i]){
+                return redirect()->back()->with('error', product_name($checkProduct->id) . ' stock amount exceed');
             }
         }
 
@@ -129,8 +128,8 @@ class InvoiceController extends Controller
         for ($product = 0; $product < count($products); $product++) {
             if ($products[$product] != '') {
                 $invProduct = [
-                    'invoice'       => $invoice->id,
-                    'product'       => $products[$product],
+                    'invoice_id'    => $invoice->id,
+                    'product_id'    => $products[$product],
                     'quantity'      => $quantity[$product],
                     'price'         => $price[$product],
                     'total'         => $total[$product],
@@ -139,9 +138,9 @@ class InvoiceController extends Controller
                 $loopProduct = Product::find($products[$product]);
                 $profit =  $price[$product] - $loopProduct->purchaseprice;
                 $invProduct['profit'] = $profit;
-                $currentQnty = $loopProduct->stock;
-                $presentStock = $loopProduct->stock  - $quantity[$product];
-                Product::where('id', $products[$product])->update(['stock' => $presentStock]);
+                $currentQnty = $loopProduct->quantity;
+                $presentStock = $loopProduct->quantity - $quantity[$product];
+                Product::where('id', $products[$product])->update(['quantity' => $presentStock]);
                 Invproduct::create($invProduct);
             }
         }

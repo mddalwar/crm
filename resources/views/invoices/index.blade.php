@@ -43,11 +43,11 @@
 	        <tbody>
 	        @foreach($invoices as $invoice)
 				<tr>
-					<td>{{ 'INV' . $invoice->id }}</td>
-					<td>{{ customer_name($invoice->customer) }}</td>
-					<td>{{ invoice_product_count($invoice->id) . ' Products'}}</td>
+					<td>{{ 'INV-' . $invoice->id }}</td>
+					<td>{{ $invoice->customer->name }}</td>
+					<td>{{ count($invoice->products) . ' Products'}}</td>
 					<td>{{ $invoice->created_at->format('F j, Y') }}</td>
-					<td>{{ $invoice->total . ' ' . currency() }}</td>
+					<td>{{ $invoice->total . ' ' . settings()->currency }}</td>
 					<td>
 						<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
 						
