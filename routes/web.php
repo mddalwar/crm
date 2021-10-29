@@ -19,8 +19,6 @@ Auth::routes([
 	'register'		=> false
 ]);
 
-Route::get('/checkmethods', [App\Http\Controllers\HomeController::class, 'checkmethods']);
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 
@@ -41,7 +39,7 @@ Route::group(
 		Route::get('/dues', [App\Http\Controllers\SettingController::class, 'dues'])->name('dues');
 
 		// Pdf Download Routes
-		Route::get('/invoicedownload/{id}', [App\Http\Controllers\PdfController::class, 'invoicedownload'])->name('invoicedownload');
+		Route::get('/download/invoice/{id}', [App\Http\Controllers\PdfController::class, 'invoicedownload'])->name('invoicedownload');
 
 		// Pdf Download Routes
 		Route::get('/ajaxproducts', [App\Http\Controllers\ProductController::class, 'ajaxproducts'])->name('ajaxproducts');
