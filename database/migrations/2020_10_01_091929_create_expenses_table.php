@@ -17,7 +17,7 @@ class CreateExpensesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('amount');
-            $table->string('expenseby');
+            $table->string('consumer');
             $table->string('reference')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();

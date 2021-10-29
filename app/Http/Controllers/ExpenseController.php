@@ -41,25 +41,33 @@ class ExpenseController extends Controller
     {
         $all_data = $request->all();
 
-        $data = [
-            'expensetitle'      => $all_data['expensetitle'],
+        $validate_data = [
+            'title'             => $all_data['title'],
             'amount'            => $all_data['amount'],
-            'expenseby'         => $all_data['expenseby'],
+            'consumer'          => $all_data['consumer'],
             'reference'         => $all_data['reference'],
             'note'              => $all_data['note'],
         ];
 
-        $validation = [
-            'expensetitle'      => 'required',
+        $validate_rule = [
+            'title'             => 'required',
             'amount'            => 'required|min:1|numeric',
-            'expenseby'         => 'required',
-            'reference'         => 'nullable',
-            'note'              => 'nullable',
+            'consumer'          => 'required',
+            'reference'         => 'nullable|string',
+            'note'              => 'nullable|string',
         ];
 
-        $request->validate($validation, $data);
+        $validate_msg = [
+            'title.required'    => 'Title is required',
+            'amount.required'   => 'Amount is required',
+            'consumer.required' => 'Consumer name is required',
+            'reference.string'  => 'Reference should be text',
+            'note.string'       => 'Note should be text',
+        ];
 
-        Expense::create($data);
+        Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
+
+        Expense::create($validate_data);
 
         return redirect()->back()->with('success', 'Expense has been added !');
     }
@@ -99,25 +107,33 @@ class ExpenseController extends Controller
     {
         $all_data = $request->all();
 
-        $data = [
-            'expensetitle'      => $all_data['expensetitle'],
+        $validate_data = [
+            'title'             => $all_data['title'],
             'amount'            => $all_data['amount'],
-            'expenseby'         => $all_data['expenseby'],
+            'consumer'          => $all_data['consumer'],
             'reference'         => $all_data['reference'],
             'note'              => $all_data['note'],
         ];
 
-        $validation = [
-            'expensetitle'      => 'required',
+        $validate_rule = [
+            'title'             => 'required',
             'amount'            => 'required|min:1|numeric',
-            'expenseby'         => 'required',
-            'reference'         => 'nullable',
-            'note'              => 'nullable',
+            'consumer'          => 'required',
+            'reference'         => 'nullable|string',
+            'note'              => 'nullable|string',
         ];
 
-        $request->validate($validation, $data);
+        $validate_msg = [
+            'title.required'    => 'Title is required',
+            'amount.required'   => 'Amount is required',
+            'consumer.required' => 'Consumer name is required',
+            'reference.string'  => 'Reference should be text',
+            'note.string'       => 'Note should be text',
+        ];
 
-        Expense::where('id', $id)->update($data);
+        Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
+
+        Expense::where('id', $id)->update($validate_data);
 
         return redirect()->back()->with('success', 'Expense has been updated !');
     }

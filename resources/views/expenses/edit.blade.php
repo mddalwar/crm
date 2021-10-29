@@ -39,7 +39,7 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Expense Title: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expensetitle" placeholder="Expense Title" value="{{ $expense->expensetitle }}">
+							<input class="form-control" type="text" name="title" placeholder="Expense Title" value="{{ $expense->title }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
@@ -51,7 +51,7 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Expense By: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expenseby" placeholder="Expense By" value="{{ $expense->expenseby }}">
+							<input class="form-control" type="text" name="consumer" placeholder="Expense By" value="{{ $expense->consumer }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">

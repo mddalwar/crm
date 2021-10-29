@@ -38,7 +38,7 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label class="form-control-label">Expense Title: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expensetitle" placeholder="Expense Title">
+							<input class="form-control" type="text" name="title" placeholder="Expense Title">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
@@ -49,8 +49,8 @@
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">Expense By: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="expenseby" placeholder="Expense By">
+							<label class="form-control-label">Consumer Name: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="consumer" placeholder="Consumer Name">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">

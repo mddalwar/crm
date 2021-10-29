@@ -35,10 +35,9 @@
 	            <th class="wd-10p">ID</th>
 	            <th class="wd-20p">Expense Title</th>
 	            <th class="wd-10p">Expense Amount</th>
-	            <th class="wd-15p">Expense By</th>
+	            <th class="wd-15p">Consumer Name</th>
 	            <th class="wd-10p">Reference</th>
 	            <th class="wd-15p">Expense Date</th>
-	            <th class="wd-20p">Expense Note</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -46,9 +45,9 @@
 	        @foreach($expenses as $expense)
 	          <tr>
 	            <td>{{ $expense->id }}</td>
-	            <td>{{ $expense->expensetitle }}</td>
-	            <td>{{ $expense->amount . ' ' . currency() }}</td>
-	            <td>{{ $expense->expenseby }}</td>
+	            <td>{{ $expense->title }}</td>
+	            <td>{{ $expense->amount . ' ' . settings()->currency }}</td>
+	            <td>{{ $expense->consumer }}</td>
 	            <td>
 	            	@if($expense->reference != NULL)
 	            		{{ $expense->reference }}
@@ -57,14 +56,6 @@
 	            	@endif
 	            </td>
 	            <td>{{ $expense->created_at->format('d-m-Y') }}</td>
-
-	            <td>
-	            	@if($expense->note != NULL)
-	            		{{ $expense->note }}
-	            	@else
-	            		{{ 'No Notes' }}
-	            	@endif
-	            </td>
 
 	            <td>
 	            	<a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-secondary p-1">Edit</a>
