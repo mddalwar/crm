@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use App\Models\Setting;
 
 class SettingController extends Controller
 {
     
     public function settings()
-    {      
+    {
         return view('settings');
     }
 
@@ -45,12 +47,20 @@ class SettingController extends Controller
         ];
         Validator::make($setting_data, $validate, $message)->validate();
         
-        $shopname_update = DB::table('settings')->where('setting_key', 'shopname')->update(['setting_value' => $all_data['shopname']]);
-        $phone_update = DB::table('settings')->where('setting_key', 'phone')->update(['setting_value' => $all_data['phone']]);
-        $logotext_update = DB::table('settings')->where('setting_key', 'logotext')->update(['setting_value' => $all_data['logotext']]);
-        $email_update = DB::table('settings')->where('setting_key', 'email')->update(['setting_value' => $all_data['email']]);
-        $copyright_update = DB::table('settings')->where('setting_key', 'copyright')->update(['setting_value' => $all_data['copyright']]);
-        $address_update = DB::table('settings')->where('setting_key', 'address')->update(['setting_value' => $all_data['address']]);
+        $settings = [
+            'shopname'  => $setting_data['shopname'],
+            'phone'     => $setting_data['phone'],
+            'email'     => $setting_data['email'],
+            'logotext'  => $setting_data['logotext'],
+            'copyright' => $setting_data['copyright'],
+            'address'   => $setting_data['address']
+        ];
+
+        Setting::where('setting_key', 'shop_info')->update([
+            'setting_value' => json_encode($settings)
+        ]);
+
+        Cache::forget('shop_info');
 
         return redirect()->back()->with('success', 'Settings has been updated !');
     }

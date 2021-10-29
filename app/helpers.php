@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Setting;
 
 if(!function_exists('units')){
 	function units(){
@@ -19,6 +20,18 @@ if(!function_exists('units')){
 		return $units;
 	}
 }
+
+
+
+if(!function_exists('settings')){
+	function settings(){
+		$settings = Cache::remember('shop_info', now()->addMinutes(), function(){
+            return json_decode(Setting::where('setting_key', 'shop_info')->first()->setting_value);
+        });
+        return $settings;
+	}
+}
+
 
 if(!function_exists('categories')){
 	function categories(){
@@ -39,65 +52,6 @@ if(!function_exists('user_name')){
 	function user_name($id){
 		$username = DB::table('users')->where('id', $id)->first();
 		return $username->firstname . ' ' . $username->lastname;
-	}
-}
-
-if(!function_exists('shopname')){
-	function shopname(){
-		$shopname = DB::table('settings')->where('setting_key', 'shopname')->first();
-		return $shopname->setting_value;
-	}
-}
-
-if(!function_exists('phone')){
-	function phone(){
-		$phone = DB::table('settings')->where('setting_key', 'phone')->first();
-		return $phone->setting_value;
-	}
-}
-
-if(!function_exists('logotext')){
-	function logotext(){
-		$logotext = DB::table('settings')->where('setting_key', 'logotext')->first();
-		if($logotext){
-			return $logotext->setting_value;
-		}else{
-			return 'CRM Demo';
-		}
-		
-	}
-}
-
-if(!function_exists('currency')){
-	function currency(){
-		$currency = DB::table('settings')->where('setting_key', 'currency')->first();
-		return $currency->setting_value;
-	}
-}
-
-if(!function_exists('email')){
-	function email(){
-		$email = DB::table('settings')->where('setting_key', 'email')->first();
-		return $email->setting_value;
-	}
-}
-
-if(!function_exists('copyright')){
-	function copyright(){
-		$copyright = DB::table('settings')->where('setting_key', 'copyright')->first();
-		return $copyright->setting_value;
-	}
-}
-
-if(!function_exists('address')){
-	function address(){
-		$address = DB::table('settings')->where('setting_key', 'address')->first();
-		if($address){
-			return $address->setting_value;
-		}else{
-			return 'Address Here';
-		}
-		
 	}
 }
 

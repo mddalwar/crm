@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Setting;
 
 class SettingSeeder extends Seeder
 {
@@ -14,39 +14,19 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('settings')->insert([
-            [
-                'setting_key' 	 => 'shopname',
-                'setting_value'  => 'Demo Shop',
-            ],
+        $settings = [
+            'shopname'  => 'Demo Shop',
+            'phone'     => '12345678',
+            'email'     => 'admin@gmail.com',
+            'logotext'  => 'Demo',
+            'copyright' => 'Copyright © 2020. All Rights Reserved.',
+            'address'   => 'Swedish Area, Kaptai, Rangamati.',
+            'currency'  => 'Taka'
+        ];
 
-            [
-                'setting_key'       => 'phone',
-                'setting_value'     => '123456789',
-            ],
-
-            [
-                'setting_key'       => 'email',
-                'setting_value'     => 'settings@gmail.com',
-            ],
-            
-            [
-                'setting_key'       => 'logotext',
-                'setting_value'     => 'Demo',
-            ],
-            [
-                'setting_key'       => 'copyright',
-                'setting_value'     => 'Copyright © 2020. All Rights Reserved.',
-            ],
-            [
-                'setting_key'       => 'address',
-                'setting_value'     => 'Swedish Area, Kaptai, Rangamati.',
-            ],
-            [
-                'setting_key'       => 'currency',
-                'setting_value'     => 'Taka',
-            ],
-            
+        Setting::create([
+            'setting_key'   => 'shop_info',
+            'setting_value' => json_encode($settings)
         ]);
     }
 }

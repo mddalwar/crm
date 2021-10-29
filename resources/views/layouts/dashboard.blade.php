@@ -16,7 +16,7 @@
 
     <div class="sh-logopanel">
       <a href="{{ route('dashboard') }}" class="sh-logo-text">      
-        <h2>{{ logotext() }}</h2>
+        <h2>{{ settings()->logotext }}</h2>
       </a>
       <a id="navicon" href="" class="sh-navicon d-none d-xl-block"><i class="icon ion-navicon"></i></a>
       <a id="naviconMobile" href="" class="sh-navicon d-xl-none"><i class="icon ion-navicon"></i></a>
@@ -253,13 +253,9 @@
     </div><!-- sh-headpanel -->
     <div class="sh-mainpanel">
         @yield('content')
-        <div class="sh-footer">
+        <div class="sh-footer">         
           
-          @if(!empty(copyright()))
-            <div>{{ copyright() }}</div>
-          @else
-            <div>Copyright © 2020. All Rights Reserved.</div>
-          @endif
+          <div>{{ settings()->copyright }}</div>          
             
           <div class="mg-t-10 mg-md-t-0">Developed by: <a href="http://wpcoderpro.com">Md Dalwar</a></div>
         </div><!-- sh-footer -->

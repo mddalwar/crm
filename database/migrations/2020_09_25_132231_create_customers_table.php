@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('address');
             $table->string('due')->nullable();
             $table->foreignId('added_by');
+            $table->string('status');
             $table->timestamps();
         });
     }

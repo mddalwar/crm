@@ -46,7 +46,8 @@ class CustomerController extends Controller
             'email'         => isset($all_data['email']) ? $all_data['email'] : null,
             'phone'         => $all_data['phone'],
             'address'       => $all_data['address'],
-            'added_by'      => $cu->id
+            'added_by'      => $cu->id,
+            'status'        => 'Active'
         ];
 
         $validate_rule = [

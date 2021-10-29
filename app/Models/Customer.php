@@ -15,7 +15,8 @@ class Customer extends Model
         'phone',
         'address',
         'due',
-        'added_by'
+        'added_by',
+        'status'
     ];
 
     public function created_by(){
