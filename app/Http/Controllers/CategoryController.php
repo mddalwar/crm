@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('products', 'added_by')->get();
+        $categories = Category::with('products', 'created_by')->get();
         return view('categories.index', compact('categories'));
     }
 

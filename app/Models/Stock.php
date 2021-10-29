@@ -14,8 +14,15 @@ class Stock extends Model
         'stock',
         'prevstock',
         'price',
-        'avarageprice',
         'note',
         'added_by',
     ];
+
+    public function product(){
+        return $this->belongsTo( Product::class );
+    }
+
+    public function created_by(){
+        return $this->belongsTo( User::class, 'added_by');
+    }
 }

@@ -12,7 +12,7 @@
 @section('content')
   <div class="sh-breadcrumb">
     <nav class="breadcrumb">
-      <a class="breadcrumb-item" href="{{ route('products.index') }}">Categories</a>
+      <a class="breadcrumb-item" href="{{ route('categories.index') }}">Categories</a>
       <span class="breadcrumb-item active">Update Category</span>
     </nav>
   </div><!-- sh-breadcrumb -->

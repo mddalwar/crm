@@ -32,11 +32,12 @@
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-10p">ID</th>
+	            <th class="wd-5p">ID</th>
 	            <th class="wd-20p">Customer Name</th>
 	            <th class="wd-15p">Mobile</th>
 	            <th class="wd-15p">Due</th>
-	            <th class="wd-15p">Add date</th>
+	            <th class="wd-15p">Add Date</th>
+	            <th class="wd-15p">Added By</th>
 	            <th class="wd-15p">Action</th>
 	          </tr>
 	        </thead>
@@ -44,7 +45,7 @@
 	        @foreach($customers as $customer)
 	          <tr>
 	            <td>{{ $customer->id }}</td>
-	            <td>{{ $customer->customername }}</td>
+	            <td>{{ $customer->name }}</td>
 	            <td>{{ $customer->phone }}</td>
 	            <td>
 	            	@if(!empty($customer->due))
@@ -54,6 +55,7 @@
 	            	@endif
 	            </td>
 	            <td>{{ $customer->created_at->format('d-m-Y') }}</td>
+	            <td>{{ $customer->created_by->firstname }}</td>
 	            <td>
 	            	<a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-secondary p-1">Edit</a>
 	            	<form action="{{ route('customers.destroy', $customer->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Do you really want to delete?');">

@@ -28,8 +28,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('customer_created'))
-      		<div class="alert alert-success">{{ Session::get('customer_created') }}</div>
+      	@if(Session::has('success'))
+      		<div class="alert alert-success">{{ Session::get('success') }}</div>
       	@endif
         <div class="form-layout">
 	        <form action="{{ route('customers.store') }}" method="POST">
@@ -37,14 +37,8 @@
 				<div class="row mg-b-25">
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label class="form-control-label">First Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="firstname" placeholder="Enter firstname" value="{{ old('firstname') }}">
-						</div>
-					</div><!-- col-4 -->
-					<div class="col-lg-6">
-						<div class="form-group">
-							<label class="form-control-label">Last Name: <span class="tx-danger">*</span></label>
-							<input class="form-control" type="text" name="lastname" placeholder="Enter lastname" value="{{ old('lastname') }}">
+							<label class="form-control-label">Customer Name: <span class="tx-danger">*</span></label>
+							<input class="form-control" type="text" name="name" placeholder="Customer Name" value="{{ old('name') }}">
 						</div>
 					</div><!-- col-4 -->
 					<div class="col-lg-6">
@@ -53,7 +47,7 @@
 							<input class="form-control" type="email" name="email" placeholder="Enter email" value="{{ old('email') }}">
 						</div>
 					</div><!-- col-4 -->
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<div class="form-group">
 							<label class="form-control-label">Mobile Number: <span class="tx-danger">*</span></label>
 							<input class="form-control" type="text" name="phone" placeholder="Enter phone number" value="{{ old('phone') }}">

@@ -30,7 +30,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         $customers = Customer::all();
 
         return view('invoices.create', compact('products', 'customers'));

@@ -179,7 +179,7 @@ class ProductController extends Controller
 
     public function ajaxproducts()
     {   
-        $products = DB::table('products')->select('id', 'productname')->get();
+        $products = DB::table('products')->select('id', 'name')->get();
         return json_encode($products);
     }
 

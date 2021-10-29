@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -14,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::with('created_by')->get();
         return view('customers.index', compact('customers'));
     }
 
@@ -37,35 +39,37 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $all_data = $request->all();
-        $customer_data = [
-            'firstname'     => $all_data['firstname'],
-            'lastname'      => $all_data['lastname'],
-            'email'         => $all_data['email'],
+        $cu = Auth::user();
+
+        $validate_data = [
+            'name'          => $all_data['name'],
+            'email'         => isset($all_data['email']) ? $all_data['email'] : null,
             'phone'         => $all_data['phone'],
-            'address'       => $all_data['address']
+            'address'       => $all_data['address'],
+            'added_by'      => $cu->id
         ];
 
-        $validate = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
+        $validate_rule = [
+            'name'          => 'required',
             'email'         => 'nullable|email:filter|unique:customers',
             'phone'         => 'required|unique:customers|min:10|regex:/(01)[0-9]/',
             'address'       => 'required'
         ];
-        
-        $request->validate($validate, $customer_data);
 
-        $customer = new Customer();
-        $customer->firstname = $all_data['firstname'];
-        $customer->lastname = $all_data['lastname'];
-        if(!empty($all_data['email'])){
-            $customer->email = $all_data['email'];
-        }        
-        $customer->phone = $all_data['phone'];
-        $customer->address = $all_data['address'];
-        $customer->due = 0;
-        $customer->save();
-        return redirect()->back()->with('customer_created', 'Customer has been added !');
+        $validate_msg = [
+            'name.required'     => 'Customer name is required',
+            'email.unique'      => 'Email already exists',
+            'phone.required'    => 'Phone number is required',
+            'phone.reged'       => 'Phone number is invalid',
+            'phone.unique'      => 'Phone number already exists',
+            'address.required'  => 'Address is required'
+        ];
+
+        Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
+
+        Customer::create( $validate_data );
+
+        return redirect()->back()->with('success', 'Customer has been added !');
     }
 
     /**
@@ -102,26 +106,41 @@ class CustomerController extends Controller
     {
         $all_data = $request->all();
         $customer_data = [
-            'firstname'     => $all_data['firstname'],
-            'lastname'      => $all_data['lastname'],
-            'email'         => $all_data['email'],
+            'name'          => $all_data['name'],
+            'email'         => isset($all_data['email']) ? $all_data['email'] : null,
             'phone'         => $all_data['phone'],
-            'address'       => $all_data['address']
+            'address'       => $all_data['address'],
         ];
 
-        $validate = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
+        $validate_data = [
+            'name'          => 'required',
+            'name'          => 'required',
             'email'         => 'nullable|unique:customers,email,'. $id,
             'phone'         => 'required|min:10|regex:/(1)[0-9]{9}/|unique:customers,phone, ' . $id,
             'address'       => 'required'
         ];
 
-        $request->validate($validate, $customer_data);
+        $validate_rule = [
+            'name'          => 'required',
+            'email'         => 'nullable|email:filter|unique:customers',
+            'phone'         => 'required|unique:customers|min:10|regex:/(01)[0-9]/',
+            'address'       => 'required'
+        ];
 
-        $customer = Customer::find($id);
-        $customer->update($customer_data);
-        return redirect()->back()->with('customer_updated', 'Customer has been updated !');
+        $validate_msg = [
+            'name.required'     => 'Customer name is required',
+            'email.unique'      => 'Email already exists',
+            'phone.required'    => 'Phone number is required',
+            'phone.reged'       => 'Phone number is invalid',
+            'phone.unique'      => 'Phone number already exists',
+            'address.required'  => 'Address is required'
+        ];
+
+        Validator::make($validate_data, $validate_rule, $validate_msg)->validate();
+
+        Customer::where('id', $id )->update($validate_data);
+        
+        return redirect()->back()->with('success', 'Customer has been updated !');
     }
 
     /**

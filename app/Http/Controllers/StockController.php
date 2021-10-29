@@ -19,7 +19,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::with('product', 'created_by')->get();
         return view('stocks.index', compact('stocks'));
     }
 
@@ -52,8 +52,8 @@ class StockController extends Controller
         ];
         $validate_rule = [
             'product_id'    => 'required',
-            'stock'         => 'required|numeric|min:0',
-            'price'         => 'required|numeric|min:0',
+            'stock'         => 'required|numeric|min:1',
+            'price'         => 'required|numeric|min:1',
             'note'          => 'nullable',
         ];
         $validate_msg = [
@@ -71,23 +71,18 @@ class StockController extends Controller
         $product = Product::find($validate_data['product_id']);
 
         $prevtotal      = $product->quantity * $product->purchaseprice;
-        $presenttotal   = $validate_data['stock'] * $validate_data['price'];
         $totalstock     = $product->quantity + $validate_data['stock'];
-
-        $total          = $prevtotal + $presenttotal;
-        $avarageprice   = $total / $totalstock;
 
         $final_data = [
             'product_id'    => $validate_data['product_id'],
             'stock'         => $validate_data['stock'],
             'prevstock'     => $product->quantity,
             'price'         => $validate_data['price'],
-            'avarageprice'  => $avarageprice,
             'note'          => isset($validate_data['note']),
             'added_by'      => $cu->id,
         ];
 
-        Product::where('id', $validate_data['product_id'])->update(['purchaseprice' => $avarageprice, 'quantity' => $totalstock]);
+        Product::where('id', $validate_data['product_id'])->update(['purchaseprice' => $validate_data['price'], 'quantity' => $totalstock]);
         Stock::create($final_data);
 
         return redirect()->back()->with('success', 'Stock successfully added');

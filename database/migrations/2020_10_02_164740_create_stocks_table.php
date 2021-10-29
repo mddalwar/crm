@@ -19,7 +19,6 @@ class CreateStocksTable extends Migration
             $table->string('stock');
             $table->string('prevstock');
             $table->string('price');
-            $table->string('avarageprice');
             $table->string('note')->nullable();
             $table->foreignId('added_by');
             $table->timestamps();

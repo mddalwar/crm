@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('phone')->unique();
             $table->string('address');
             $table->string('due')->nullable();
+            $table->foreignId('added_by');
             $table->timestamps();
         });
     }

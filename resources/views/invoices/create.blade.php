@@ -48,7 +48,7 @@
 							<select class="form-control select2" data-placeholder="Select existing customer" name="customer">
 								<option label="Choose one"></option>
 								@foreach($customers as $customer)
-									<option value="{{ $customer->id }}">{{ $customer->customername . ', ' . $customer->address }}</option>
+									<option value="{{ $customer->id }}">{{ $customer->name . ', ' . $customer->address }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -100,7 +100,7 @@
 							</thead>
 							<tbody>
 								<tr class="item-row">
-									<td><select class="form-control custom-select" id="product" name="product[]"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->stock }}">{{ $product->productname }}</option>@endforeach</select></td>
+									<td><select class="form-control custom-select" id="product" name="product[]"><option label="Choose one"></option> @foreach($products as $product) <option value="{{ $product->id }}" price="{{ $product->sellprice }}" stock="{{ $product->quantity }}">{{ $product->name }}</option>@endforeach</select></td>
 									<td><input class="form-control price" placeholder="Price" type="text" name="price[]"></td>
 									<td><input class="form-control qty" placeholder="Quantity" type="text" name="quantity[]"></td>
 									<td><input type="text" name="total[]" class="total form-control" readonly="readonly"></td>

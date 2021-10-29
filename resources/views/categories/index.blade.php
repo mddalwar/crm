@@ -32,7 +32,7 @@
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-10p">ID</th>
+	            <th class="wd-5p">ID</th>
 	            <th class="wd-15p">Category Name</th>
 	            <th class="wd-15p">Total Product</th>
 	            <th class="wd-20p">Created By</th>
@@ -46,7 +46,7 @@
 	            <td>{{ $category->id }}</td>
 	            <td>{{ $category->name }}</td>
 	            <td>{{ count($category->products) . ' Nos' }}</td>
-	            <td>{{ $category->added_by }}</td>
+	            <td>{{ $category->created_by->firstname . ' ' . $category->created_by->lastname }}</td>
 	            <td>{{ $category->created_at->format('F j, Y')}}</td>
 	            <td>
 	            	<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-secondary p-1">Edit</a>

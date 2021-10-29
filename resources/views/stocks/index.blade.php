@@ -32,11 +32,12 @@
 	      <table id="datatable1" class="table display responsive nowrap">
 	        <thead>
 	          <tr>
-	            <th class="wd-10p">ID</th>
+	            <th class="wd-5p">ID</th>
 	            <th class="wd-20p">Product Name</th>
 	            <th class="wd-15p">Added Stock</th>
 	            <th class="wd-15p">Stock Price</th>
 	            <th class="wd-15p">Add Date</th>
+	            <th class="wd-15p">Added By</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -44,10 +45,11 @@
 	        @foreach($stocks as $stock)
 				<tr>
 					<td>{{ $stock->id }}</td>
-					<td>{{ product_name($stock->product_id) }}</td>
-					<td>{{ $stock->stock . ' ' . product_unit($stock->product_id) }}</td>
+					<td>{{ $stock->product->name }}</td>
+					<td>{{ $stock->stock . ' ' . $stock->product->unit }}</td>
 					<td>{{ $stock->price . ' ' . currency() }}</td>
 					<td>{{ $stock->created_at->format('F j, Y') }}</td>
+					<td>{{ $stock->created_by->firstname }}</td>
 					<td>
 						<a href="{{ route('stocks.show', $stock->id) }}" class="btn btn-primary p-1">View</a>						
 					</td>
