@@ -45,7 +45,7 @@
 	          <tr>
 	            <td>{{ $user->firstname }}</td>
 	            <td>{{ $user->lastname }}</td>
-	            <td>{{ $user->designation }}</td>
+	            <td>{{ $user->role }}</td>
 	            <td>{{ $user->created_at->format('F j, Y') }}</td>
 	            <td>{{ $user->email }}</td>
 	            <td>
