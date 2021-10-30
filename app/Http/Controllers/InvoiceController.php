@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Invproduct;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -19,7 +20,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::with('customer', 'created_by', 'products')->get();
         return view('invoices.index', compact('invoices'));
     }
 
@@ -45,6 +46,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $cu = Auth::user();
 
         // Customer Selection or addition
         if(isset($data['newCustomer'])){
@@ -87,6 +89,7 @@ class InvoiceController extends Controller
             'subtotal'      => $data['subtotal'],
             'total'         => $data['grandTotal'],
             'note'          => $data['note'],
+            'added_by'      => $cu->id
         ];
         $invoiceRule = [
             'customer_id'   => 'required',

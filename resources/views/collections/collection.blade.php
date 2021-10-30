@@ -29,44 +29,40 @@
           <h1 class="mg-b-0 tx-uppercase tx-gray-400 tx-mont tx-bold">Collection</h1>
           <div class="mg-t-25 mg-md-t-0">
 
-            <h6 class="tx-primary">{{ shopname() }}</h6>
-            <p class="lh-7">{{ address() }}<br>
-            Mobile: 0{{ phone() }}<br>
-            @if(!empty(email()))
-            Email: {{ email() }}</p>
+            <h6 class="tx-primary">{{ settings()->shopname }}</h6>
+            <p class="lh-7">{{ settings()->address }}<br>
+            Mobile: 0{{ settings()->phone }}<br>
+            @if( !empty(settings()->email) )
+            Email: {{ settings()->email }}</p>
             @endif
           </div>
         </div><!-- d-flex -->
 
         <div class="row mg-t-20">
           <div class="col-md">
-            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To</label>
-            <h6 class="tx-inverse">{{ customer_name($collection->customer) }}</h6>
-            <p class="m-0">{{ customer_address($collection->customer) }}</p>
-            @if(!empty(customer_email($collection->customer)))
-          	 <p class="m-0"><strong>Email: </strong>{{ customer_email($collection->customer) }}</p>
+            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Customer Info:</label>
+            <h6 class="tx-inverse">{{ $collection->customer->name }}</h6>
+            <p class="m-0">{{ $collection->customer->address }}</p>
+            @if(!empty($collection->customer->email))
+          	 <p class="m-0"><strong>Email: </strong>{{ $collection->customer->email }}</p>
             @endif
-            @if(!empty(customer_phone($collection->customer))) 
-          	 <p class="m-0"><strong>Phone: </strong>{{ customer_phone($collection->customer) }}</p>
+            @if(!empty($collection->customer->phone))
+          	 <p class="m-0"><strong>Phone: </strong>{{ $collection->customer->phone }}</p>
             @endif
           </div><!-- col -->
           <div class="col-md">
-            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Invoice Information</label>
+            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Collection Information:</label>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Invoice No</span>
-              <span>INV000{{ $collection->id }}</span>
+              <span>Collection No:</span>
+              <span>COL-{{ $collection->id }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Customer Due</span>
-              <span>{{ customer_due($collection->customer) }}</span>
-            </p>
-            <p class="d-flex justify-content-between mg-b-5">
-              <span>Create Date:</span>
+              <span>Collect Date:</span>
               <span>{{ $collection->created_at->format('F j, Y h:i:s A') }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Updated Date:</span>
-              <span>{{ $collection->updated_at->format('F j, Y h:i:s A') }}</span>
+              <span>Collected By:</span>
+              <span>{{ $collection->created_by->firstname . ' ' . $collection->created_by->lastname }}</span>
             </p>
           </div><!-- col -->
         </div><!-- row -->
@@ -75,56 +71,33 @@
           <table class="table">
             <thead>
               <tr>
-                <th class="wd-40p">Product Name</th>
-                <th class="tx-center wd-20p">Quantity</th>
-                <th class="tx-right wd-20p">Unit Price</th>
-                <th class="tx-right wd-20p">Total Price</th>
+                <th class="wd-40p">Title</th>
+                <th class="tx-center wd-20p">Collect Amount</th>
+                <th class="tx-center wd-20p">Present Due</th>
+                <th class="tx-center wd-20p">Collect By</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{ 'Due Amount Collection' }}</td>
-                <td class="tx-center">{{ '1 Unit'}}</td>
-                <td class="tx-right">{{ $collection->amount . ' ' . currency() }}</td>
-                <td class="tx-right">{{ $collection->amount . ' ' . currency() }}</td>
-              </tr>
-              <tr>
-                <td colspan="2" rowspan="4" class="valign-middle">
-                @if(!empty($invoice->note))
-                  <div class="mg-r-20">
-                    <label class="tx-uppercase tx-13 tx-bold mg-b-10">Notes</label>
-                    <p class="tx-13">{{ $invoice->note }} </p>
-                  </div>
-                @endif
+                <td>
+                  @if(!empty($collection->note))
+                    {{ $collection->note }}
+                  @else
+                    {{ 'Due Amount Collection' }}
+                  @endif
                 </td>
-                <td class="tx-right">Discount</td>
-                <td colspan="2" class="tx-right">{{ $invoice->discount . ' ' . currency() }}</td>
+                <td class="tx-center">{{ $collection->amount . ' ' . settings()->currency }}</td>
+                <td class="tx-center">{{ $collection->customer->due . ' ' . settings()->currency }}</td>
+                <td class="tx-center">{{ $collection->created_by->firstname . ' ' . $collection->created_by->lastname }}</td>                
               </tr>
-              <tr>
-                <td class="tx-right">Total Payable</td>
-                <td colspan="2"  class="tx-right">{{ $invoice->total . ' ' . currency() }}</td>
-              </tr>
-              <tr>
-                <td class="tx-right">Total Paid</td>
-                <td colspan="2" class="tx-right">{{ $invoice->paid . ' ' . currency() }}</td>
-              </tr>
-              <tr>
-                <td class="tx-right tx-uppercase tx-bold tx-inverse">Total Due</td>
-                <td colspan="2" class="tx-right">
-                  <h4 class="tx-primary tx-bold tx-lato">
-                    
-                    {{ $invoice->due . ' ' . currency() }}
-                    
-                  </h4>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div><!-- table-responsive -->
 
         <hr class="mg-b-60">
 
-        <a href="" class="btn btn-primary btn-block" onclick="window.print();">Print Now</a>
+        <a href="{{ route('collectiondownload', $collection->id) }}" class="btn btn-primary btn-block">Download</a>
 
       </div><!-- card-body -->
     </div><!-- card -->

@@ -32,7 +32,7 @@ class SettingController extends Controller
 
         $validate = [
             'shopname'      => 'required',
-            'phone'         => 'required|integer|min:9',
+            'phone'         => 'required|numeric|min:9',
             'email'         => 'nullable|email',
             'logotext'      => 'required',
             'copyright'     => 'required',
@@ -53,7 +53,8 @@ class SettingController extends Controller
             'email'     => $setting_data['email'],
             'logotext'  => $setting_data['logotext'],
             'copyright' => $setting_data['copyright'],
-            'address'   => $setting_data['address']
+            'address'   => $setting_data['address'],
+            'currency'  => 'Taka'
         ];
 
         Setting::where('setting_key', 'shop_info')->update([

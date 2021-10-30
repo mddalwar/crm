@@ -39,7 +39,8 @@ Route::group(
 		Route::get('/dues', [App\Http\Controllers\SettingController::class, 'dues'])->name('dues');
 
 		// Pdf Download Routes
-		Route::get('/download/invoice/{id}', [App\Http\Controllers\PdfController::class, 'invoicedownload'])->name('invoicedownload');
+		Route::get('/download/invoice/{id}', [App\Http\Controllers\PdfController::class, 'invoice'])->name('invoicedownload');
+		Route::get('/download/collection/{id}', [App\Http\Controllers\PdfController::class, 'collection'])->name('collectiondownload');
 
 		// Pdf Download Routes
 		Route::get('/ajaxproducts', [App\Http\Controllers\ProductController::class, 'ajaxproducts'])->name('ajaxproducts');

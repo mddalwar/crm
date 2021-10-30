@@ -37,6 +37,7 @@
 	            <th class="wd-15p">Purchased</th>
 	            <th class="wd-15p">Create date</th>
 	            <th class="wd-15p">Total Bill</th>
+	            <th class="wd-15p">Created By</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -48,6 +49,7 @@
 					<td>{{ count($invoice->products) . ' Products'}}</td>
 					<td>{{ $invoice->created_at->format('F j, Y') }}</td>
 					<td>{{ $invoice->total . ' ' . settings()->currency }}</td>
+					<td>{{ $invoice->created_by->firstname . ' ' . $invoice->created_by->lastname }}</td>
 					<td>
 						<a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-primary p-1">View</a>
 						

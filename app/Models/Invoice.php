@@ -17,6 +17,7 @@ class Invoice extends Model
         'subtotal',
         'total',
         'note',
+        'added_by'
     ];
 
     public function customer(){
@@ -25,5 +26,9 @@ class Invoice extends Model
 
     public function products(){
         return $this->hasMany( Invproduct::class );
+    }
+
+    public function created_by(){
+        return $this->belongsTo( User::class, 'added_by' );
     }
 }

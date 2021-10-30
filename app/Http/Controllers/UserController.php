@@ -47,18 +47,18 @@ class UserController extends Controller
             'firstname'     => $all_data['firstname'],
             'lastname'      => $all_data['lastname'],
             'email'         => $all_data['email'],
-            'designation'   => 'Super Admin', //$all_data['designation'],
+            'designation'   => 'Admin',
             'password'      => $all_data['password'],
             'password_confirmation' => $all_data['password_confirmation'],
         ];
 
         $validate_role = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|email|unique:users',
-            'designation'   => 'required',
-            'password'      => 'required|confirmed|min:6',
-            'password_confirmation'      => 'required',
+            'firstname'                 => 'required',
+            'lastname'                  => 'required',
+            'email'                     => 'required|email|unique:users',
+            'designation'               => 'required',
+            'password'                  => 'required|confirmed|min:6',
+            'password_confirmation'     => 'required',
         ];
 
         $validate_msg = [
@@ -100,6 +100,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+
+        if(is_null($user)){
+            abort(404);
+        }
         return view('users.edit', compact('user'));
         
     }
@@ -114,22 +118,29 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $all_data = $request->all();
-        $user_data = [
+
+        $validate_data = [
             'firstname'     => $all_data['firstname'],
             'lastname'      => $all_data['lastname'],
             'email'         => $all_data['email'],
-            'designation'   => 'Super Admin', //$all_data['designation']
         ];
 
-        $validate = [
-            'firstname'     => 'required',
-            'lastname'      => 'required',
-            'email'         => 'required|unique:users,email,'. $id,
+        $validate_role = [
+            'firstname'                 => 'required',
+            'lastname'                  => 'required',
+            'email'                     => 'required|email|unique:users,email,'. $id,
         ];
-        $request->validate($validate, $user_data);
 
-        $user = User::find($id);
-        $user->update($user_data);
+        $validate_msg = [
+            'firstname.required'        => 'First Name is required',
+            'lastname.required'         => 'Last Name is required',
+            'email.required'            => 'Email is required',
+            'email.unique'              => 'User already exists',
+        ];
+
+        Validator::make($validate_data, $validate_role, $validate_msg)->validate();
+
+        User::where('id', $id)->update($validate_data);
         return redirect()->back()->with('success', 'User has been updated !');
         
     }

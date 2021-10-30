@@ -22,6 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->string('subtotal');
             $table->string('total');
             $table->string('note')->nullable();
+            $table->foreignId('added_by');
             $table->timestamps();
         });
     }

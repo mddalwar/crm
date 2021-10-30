@@ -19,7 +19,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        $collections = Collection::all();
+        $collections = Collection::with('created_by')->get();
         return view('collections.index', compact('collections'));
     }
 
@@ -45,39 +45,40 @@ class CollectionController extends Controller
         $cu = Auth::user();
 
         $validate_data = [
-            'customer'      => $data['customer'],
+            'customer_id'   => $data['customer_id'],
             'amount'        => $data['amount'],
             'note'          => $data['note'],
+            'collect_by'    => $cu->id
         ];
 
         $validate_role = [
-            'customer'      => 'required',
+            'customer_id'   => 'required',
             'amount'        => 'required|numeric|min:0',
             'note'          => 'nullable',
         ];
         $validate_msg = [
-            'customer.required'     => 'You have to select a customer',
+            'customer_id.required'  => 'You have to select a customer',
             'amount.required'       => 'Amount is required field',
             'amount.numeric'        => 'Amount should be numeric value',
             'amount.min'            => 'Amount should be positive value',
         ];
         Validator::make($validate_data, $validate_role, $validate_msg)->validate();
 
-        $customer = Customer::find($data['customer']);
+        $customer = Customer::find($data['customer_id']);
 
         if(empty($customer->due)){
-            return redirect()->back()->with('faild', 'Customer have not any due');
+            return redirect()->back()->with('error', 'Customer have not any due');
         }
 
         if($customer->due < $validate_data['amount'] ){
-            return redirect()->back()->with('faild', 'Customer due amount exceed');
+            return redirect()->back()->with('error', 'Customer due amount exceed');
         }
 
         if(!empty($customer->due)){
             $update_due = $customer->due - $validate_data['amount'];
             Customer::where('id', $customer->id)->update(['due' => $update_due]);
         }else{
-            return redirect()->back()->with('faild', 'Customer have not any due');
+            return redirect()->back()->with('error', 'Customer have not any due');
         }
 
         $validate_data['prevdue']       = $customer->due;

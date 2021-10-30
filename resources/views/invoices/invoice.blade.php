@@ -40,7 +40,7 @@
 
         <div class="row mg-t-20">
           <div class="col-md">
-            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To</label>
+            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Billed To:</label>
             <h6 class="tx-inverse">{{ $invoice->customer->name }}</h6>
             <p class="m-0">{{ $invoice->customer->address }}</p>
             @if(!empty($invoice->customer->email))
@@ -51,13 +51,13 @@
             @endif
           </div><!-- col -->
           <div class="col-md">
-            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Invoice Information</label>
+            <label class="tx-uppercase tx-13 tx-bold mg-b-20">Invoice Information:</label>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Invoice No</span>
-              <span>INV000{{ $invoice->id }}</span>
+              <span>Invoice No:</span>
+              <span>INV-{{ $invoice->id }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Customer Due</span>
+              <span>Customer Due:</span>
               <span>{{ $invoice->customer->due }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
@@ -65,8 +65,8 @@
               <span>{{ $invoice->created_at->format('F j, Y h:i:s A') }}</span>
             </p>
             <p class="d-flex justify-content-between mg-b-5">
-              <span>Updated Date:</span>
-              <span>{{ $invoice->updated_at->format('F j, Y h:i:s A') }}</span>
+              <span>Created By:</span>
+              <span>{{ $invoice->created_by->firstname . ' ' . $invoice->created_by->lastname }}</span>
             </p>
           </div><!-- col -->
         </div><!-- row -->

@@ -49,7 +49,7 @@
 	            <td>{{ $customer->phone }}</td>
 	            <td>
 	            	@if(!empty($customer->due))
-	            	{{ $customer->due . ' ' . currency() }}
+	            	{{ $customer->due . ' ' . settings()->currency }}
 	            	@else
 	            		{{'No Due'}}
 	            	@endif

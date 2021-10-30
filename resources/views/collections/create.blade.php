@@ -30,8 +30,8 @@
       		@endforeach
       	@endif
 
-      	@if(Session::has('faild'))
-      		<div class="alert alert-danger">{{ Session::get('faild') }}</div>
+      	@if(Session::has('error'))
+      		<div class="alert alert-danger">{{ Session::get('error') }}</div>
       	@endif
 
       	@if(Session::has('success'))
@@ -45,10 +45,10 @@
 					<div class="col-lg-8 mg-t-20 mg-lg-t-0">
 						<div class="form-group">
 							<label class="form-control-label">Customer: <span class="tx-danger x-customer">*</span></label>
-							<select class="form-control select2" data-placeholder="Select customer" name="customer">
-								<option label="Choose one"></option>
+							<select class="form-control select2" data-placeholder="Select a customer" name="customer_id">
+								<option label="Choose a customer"></option>
 								@foreach(customers() as $customer)
-									<option value="{{ $customer->id }}">{{ $customer->customername . ', ' . $customer->address }}</option>
+									<option value="{{ $customer->id }}">{{ $customer->name . ', ' . $customer->address }}</option>
 								@endforeach
 							</select>
 						</div>

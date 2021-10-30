@@ -37,6 +37,7 @@
 	            <th class="wd-15p">Collection</th>
 	            <th class="wd-15p">Prev. Due</th>
 	            <th class="wd-15p">Collect Date</th>
+	            <th class="wd-15p">Collected By</th>
 	            <th class="wd-20p">Action</th>
 	          </tr>
 	        </thead>
@@ -44,10 +45,11 @@
 	        @foreach($collections as $collection)
 				<tr>
 					<td>{{ $collection->id }}</td>
-					<td>{{ customer_name($collection->customer) }}</td>
-					<td>{{ $collection->amount . ' ' . currency()}}</td>
-					<td>{{ $collection->prevdue . ' ' . currency() }}</td>
+					<td>{{ $collection->customer->name }}</td>
+					<td>{{ $collection->amount . ' ' . settings()->currency }}</td>
+					<td>{{ $collection->prevdue . ' ' . settings()->currency  }}</td>
 					<td>{{ $collection->created_at->format('F j, Y') }}</td>
+					<td>{{ $collection->created_by->firstname }}</td>
 					<td>
 						<a href="{{ route('collections.show', $collection->id) }}" class="btn btn-primary p-1">View</a>						
 					</td>
