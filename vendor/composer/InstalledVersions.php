@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'f23960a9dd1c52ac57cb65fddb35f853124f5fcc',
+    'reference' => 'f0ae3adda24e0bb69e211ec9370ada632a052d9d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -52,6 +52,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '283a40c901101e66de7061bd359252c013dcc43c',
+    ),
+    'carlos-meneses/laravel-mpdf' => 
+    array (
+      'pretty_version' => '2.1.5',
+      'version' => '2.1.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '810008e1a4b82fb6c8c74cdf32fd130195756027',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -120,15 +129,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '563d0cdde5d862235ffe24a158497f4d490191b5',
-    ),
-    'elibyy/tcpdf-laravel' => 
-    array (
-      'pretty_version' => '8.0.0',
-      'version' => '8.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '2ec283c7b157cd31c91abe42fa1c9d801d9df6cf',
     ),
     'facade/flare-client-php' => 
     array (
@@ -487,7 +487,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'f23960a9dd1c52ac57cb65fddb35f853124f5fcc',
+      'reference' => 'f0ae3adda24e0bb69e211ec9370ada632a052d9d',
     ),
     'laravel/tinker' => 
     array (
@@ -587,6 +587,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'f9eee5cec93dfb313a38b6b288741e84e53f02d5',
+    ),
+    'mpdf/mpdf' => 
+    array (
+      'pretty_version' => 'v8.0.13',
+      'version' => '8.0.13.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '42f145615cfe830fd432474da1d2e1f927efe402',
     ),
     'mtdowling/cron-expression' => 
     array (
@@ -1083,6 +1092,15 @@ private static $installed = array (
       ),
       'reference' => '626586115d0ed31cb71483be55beb759b5af5a3c',
     ),
+    'setasign/fpdi' => 
+    array (
+      'pretty_version' => 'v2.3.6',
+      'version' => '2.3.6.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6231e315f73e4f62d72b73f3d6d78ff0eed93c31',
+    ),
     'swiftmailer/swiftmailer' => 
     array (
       'pretty_version' => 'v6.2.3',
@@ -1348,15 +1366,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'b43a3905262bcf97b2510f0621f859ca4f5287be',
-    ),
-    'tecnickcom/tcpdf' => 
-    array (
-      'pretty_version' => '6.3.5',
-      'version' => '6.3.5.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '19a535eaa7fb1c1cac499109deeb1a7a201b4549',
     ),
     'theseer/tokenizer' => 
     array (

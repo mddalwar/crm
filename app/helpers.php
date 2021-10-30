@@ -271,10 +271,10 @@ if(!function_exists('monthly_profit')){
 			$year = date('Y');
 		}
 
-		$profit = DB::table("invoice_products")
+		$profit = DB::table("invproducts")
             ->whereMonth('created_at', $month)
             ->whereYear('created_at', $year)
-            ->sum('invoice_products.profit');
+            ->sum('invproducts.profit');
         return $profit;
 	}
 }
@@ -329,8 +329,8 @@ if(!function_exists('total_invests')){
 
 if(!function_exists('total_profit')){
 	function total_profit(){
-		$profit = DB::table("invoice_products")
-            ->sum('invoice_products.profit');
+		$profit = DB::table("invproducts")
+            ->sum('invproducts.profit');
         return $profit;
 	}
 }
