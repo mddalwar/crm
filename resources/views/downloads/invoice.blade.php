@@ -49,7 +49,7 @@
               </p>
               <p class="d-flex tx-inverse justify-content-between mg-b-5">
                 <span>Customer Due: </span>
-                <span>{{ $invoice->customer->due }}</span>
+                <span>{{ $invoice->customer->due . ' ' .settings()->currency }}</span>
               </p>
               <p class="d-flex tx-inverse justify-content-between mg-b-5">
                 <span>Create Date:</span>

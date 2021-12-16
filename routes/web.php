@@ -42,7 +42,7 @@ Route::group(
 		Route::get('/download/invoice/{id}', [App\Http\Controllers\PdfController::class, 'invoice'])->name('invoicedownload');
 		Route::get('/download/collection/{id}', [App\Http\Controllers\PdfController::class, 'collection'])->name('collectiondownload');
 
-		// Pdf Download Routes
+		// Ajax Products
 		Route::get('/ajaxproducts', [App\Http\Controllers\ProductController::class, 'ajaxproducts'])->name('ajaxproducts');
 
 		// Pdf Download Routes
